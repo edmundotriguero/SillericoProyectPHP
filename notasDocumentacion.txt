@@ -1,0 +1,4 @@
+En ventas 
+1 producto vendido de forma normal 
+2 producto vendido con el primer adelanto 
+3 producto vendido a nuevos saldos 
