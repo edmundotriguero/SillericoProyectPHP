@@ -17,6 +17,7 @@ use sillericos\Producto;
 use sillericos\Http\Requests\VentasFormRequest;
 use sillericos\Http\Requests\SaldosFormRequest;
 use sillericos\Ventas;
+use sillericos\Saldo;
 
 use Illuminate\Support\Facades\Redirect;
 
@@ -204,6 +205,7 @@ class VentasController extends Controller
         return Redirect::to('ventas/ventas');
 
     }
+    //parte desde empieza la parte de saldos 
 
     public function indexSaldos(Request $request){
         if($request){
@@ -256,48 +258,46 @@ class VentasController extends Controller
         ->orderBy('s.fecha','asc')
         ->get();
 
-        return view("ventas.createSaldo",["venta"=>$venta,"saldos"=>$saldos]);
+        return view("ventas.createSaldo",["venta"=>$venta,"saldos"=>$saldos,"idventa"=>$idventa]);
     }
    
     
     public function storeSaldos(SaldosFormRequest $request) {
-        /* try {
+         //try {
              DB::beginTransaction();
  
-             $bandera = $request->get('bandera');
+             
 
-             $idproducto = $request->get('idproducto');
-             $cliente = $request->get('cliente');
-             $fechaVenta = $request->get('fechaVenta');
+             $idventa = $request->get('idventa');
+             $precio = $request->get('precio');
+             $fecha = $request->get('fecha');
              $idtipoDoc = $request->get('idtipoDoc');
              $numDoc = $request->get('numDoc');
-             $precio = $request->get('precio');
+             
             
              $cont = 0;
  
-             while ($cont < count($idproducto)) {
-                 $ventas = new Ventas();
-                 $ventas->idproducto = $idproducto[$cont];
-                 $ventas->cliente = $cliente[$cont];
-                 $ventas->fechaVenta = $fechaVenta[$cont];
-                 $ventas->tipoDoc = $idtipoDoc[$cont];
-                 $ventas->numDoc = $numDoc[$cont];
-                 $ventas->costoVenta = $precio[$cont];
-                 $ventas->ingreso = $precio[$cont];
+             while ($cont < count($precio)) {
+                 $saldo = new Saldo();
+                 $saldo->idventa = $idventa;
+                 $saldo->fecha = $fecha[$cont];
+                 $saldo->tipoDoc = $idtipoDoc[$cont];
+                 $saldo->numDoc = $numDoc[$cont];
+                 $saldo->ingreso = $precio[$cont];
                 
-                 $ventas->estado = '1';
-                  $ventas->save();
+                 $saldo->estado = '1';
+                 $saldo->save();
  
-                 DB::update('update productos set estado = 2 where idproducto = ?', [$idproducto[$cont]]);
+                 //DB::update('update productos set estado = 2 where idproducto = ?', [$idproducto[$cont]]);
                  
  
                  $cont = $cont + 1;
              }
              DB::commit();
-      //   } catch (\Exception $e) {
-      //       DB::rollback();
-       //  }*/
-         return Redirect::to('ventas/ventas');
+         /*} catch (\Exception $e) {
+            DB::rollback();
+         }*/
+         return Redirect::to('ventas/indexSaldo');
      }
 
 }

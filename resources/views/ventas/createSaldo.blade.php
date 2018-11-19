@@ -34,8 +34,9 @@
 								<th>ingreso</th>
 
 							</thead>
+							@foreach ($saldos as $sal)
 							<tfoot>
-								@foreach ($saldos as $sal)
+								
 
 								<th>{{ $sal->id}}</th>
 								<th>{{ $sal->fecha}}</th>
@@ -44,8 +45,9 @@
 								<th>{{ $sal->estado}}</th>
 								<th>{{ $sal->ingreso}}</th>
 								
-								@endforeach
+								
 							</tfoot>
+							@endforeach
 							<tbody>
 
 							</tbody>
@@ -82,27 +84,19 @@
 
 		</div>
 	</div>
-
 	<div class="col-lg-5 col-sm-5 col-md-5 col-xs-6">
 		<div class="form-group">
 			<label for="snumDoc">Numero Doc</label>
 			<input type="number" name="snumDoc" id="snumDoc" class="form-control" autocomplete="true"></input>
 		</div>
 	</div>
-
-	
-
 	<div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
 		<div class="form-group">
 			<label for="sprecio">Precio</label>
 			<input type="number" name="sprecio" id="sprecio" class="form-control" autocomplete="true"></input>
 		</div>
 	</div>
-
-
-
-
-	
+<input type="hidden" name="idventa" id="idventa" class="form-control" value="{{$idventa}}"></input>
 </div>
 <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
 	<div class="form-group text-center ">
@@ -126,15 +120,12 @@
 								<th>Fecha </th>
 								<th>Documento</th>
 								<th>Ingreso</th>
-
 							</thead>
 							<tfoot>
 								<th>TOTAL</th>
 								<th></th>
 								<th></th>
 								<th></th>
-								
-								
 								<th>
 									<h4 id="total">Bs/. 0.00</h4>
 								</th>
@@ -171,26 +162,15 @@
 
     function agregar(){
 		/*  inicio variables   */ 
-		
-		
-		
-		
-		
-		
-		
+
 		precio = $("#sprecio").val();
 		idtipoDoc = $("#sidtipoDoc").val();
 		doc = $("#sidtipoDoc option:selected").text();
 		numDoc = $("#snumDoc").val();
 		fecha = $("#sfecha").val();
-		
-		
-		
-		
-		
-		
+
 		saldo = 0;
-		//idproducto != "" && precio != "" && idtipoDoc !=""
+		idventa = $("#idventa").val();
 		
 		
 
@@ -199,29 +179,17 @@
             subtotal[cont]=(precio);
             total=total+subtotal[cont];
 
-           
-
-			
-			bandera = "r";
-			
-
 			var fila='<tr class="selected" id="fila'+cont+'"><td>'+cont+'</td>'+
 			'<td><button type="button" class="btn btn-warning" onclick="eliminar('+cont+');">X</button></td>'+
 			'<td><input type="hidden" name="fecha[]" value="'+fecha+'">'+fecha+'</td>'+
 			'<td><input type="hidden" name="idtipoDoc[]" value="'+idtipoDoc+'"><input type="hidden" name="numDoc[]" value="'+numDoc+'">'+doc+' - '+numDoc+'</td>'+
-			'<td><input type="hidden" name="precio[]" value="'+precio+'">'+precio+'</td><input type="hidden" name="bandera" value="'+bandera+'"></tr>';
+			'<td><input type="hidden" name="precio[]" value="'+precio+'">'+precio+'</td><input type="hidden" name="idventa" value="'+idventa+'"></tr>';
             cont++;
             limpiar();
             $("#total").html("Bs/.  "+total);
             evaluar();
             $('#detalles').append(fila);
-
-
-		  
-
-
-			
-            
+   
         }
         else{
             alert("revice los datos por favor... \n La fecha de Compra  \n tipo de Documento num Documento y el precio son campos obligatorios ");
