@@ -2,3 +2,14 @@ En ventas
 1 producto vendido de forma normal 
 2 producto vendido con el primer adelanto 
 3 producto vendido a nuevos saldos 
+
+triguer para verificar los saldos y ventas 
+
+DELIMITER //
+CREATE TRIGGER tr_updStockVenta AFTER INSERT ON detalle_venta
+FOR EACH ROW BEGIN
+UPDATE articulo SET stock = stock - NEW.cantidad
+WHERE articulo.idarticulo = NEW.idarticulo;
+END
+//
+DELIMITER ;
