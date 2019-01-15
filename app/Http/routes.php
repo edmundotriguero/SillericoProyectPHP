@@ -24,7 +24,7 @@ Route::resource('almacen/categoria','CategoriaController');
 Route::resource('almacen/sucursal','SucursalController');
 Route::resource('almacen/movimiento','MovimientoController');
 
-
+Route::resource('reportes/ventas','ReportesController');
 
 Route::resource('invitado','InvitadoController');
 

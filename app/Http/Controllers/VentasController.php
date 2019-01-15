@@ -218,7 +218,8 @@ class VentasController extends Controller
           //  ->join('productos as p', 'p.idproducto','=', 'v.idproducto')
            
 
-            ->where('s.estado','=','1')
+            ->where('s.estado','!=','0')
+            
             ->where('s.idventa','LIKE','%'.$query.'%')
             //->where('p.idcategoria','LIKE','%'.$idcat.'%')
             //->where('p.idsucursal','LIKE','%'.$idsuc.'%')
@@ -230,11 +231,7 @@ class VentasController extends Controller
         }
     }
 
-    public  function crearSaldo($idventa)
-    {
-
-        
-
+    public  function crearSaldo($idventa){
         $venta=DB::table('ventas as v')
         ->join('productos as p', 'p.idproducto','=', 'v.idproducto')
         ->join('categorias as c', 'p.idcategoria','=', 'c.idcategoria')
@@ -248,7 +245,7 @@ class VentasController extends Controller
       
         ->select('v.id','v.fechaVenta','v.tipoDoc','v.numDoc','v.cliente','c.nombre as categoria','v.costoVenta','v.saldo','v.ingreso')
         ->orderBy('v.fechaVenta','asc')
-        ->get();
+        ->first();
 
         $saldos=DB::table('ventasaldo as s')
         ->join('ventas as v', 's.idventa','=', 'v.id')
@@ -274,9 +271,14 @@ class VentasController extends Controller
              $idtipoDoc = $request->get('idtipoDoc');
              $numDoc = $request->get('numDoc');
              
-            
+            //variables que para actualizar los saldos de ventas
+            $pagado = $request->get('pagado');
+            $porPagar = $request->get('porPagar');
+            $precioVenta = $request->get('precioVenta');
+
              $cont = 0;
- 
+            $aux = 0;
+            $aux2 = 0;
              while ($cont < count($precio)) {
                  $saldo = new Saldo();
                  $saldo->idventa = $idventa;
@@ -287,9 +289,14 @@ class VentasController extends Controller
                 
                  $saldo->estado = '1';
                  $saldo->save();
- 
+                
+                 $aux = $precio[$cont] + $pagado;
+                 $aux2 = $porPagar - $precio[$cont];
                  //DB::update('update productos set estado = 2 where idproducto = ?', [$idproducto[$cont]]);
-                 
+                 DB::update('update ventas set ingreso = ?,saldo = ? where id = ?', [$aux, $aux2, $idventa]);
+                 if($aux >= $precioVenta){
+                    DB::update('update ventasaldo set estado = 2 where idventa = ?', [ $idventa]);
+                 }
  
                  $cont = $cont + 1;
              }

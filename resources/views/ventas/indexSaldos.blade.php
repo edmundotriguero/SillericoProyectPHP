@@ -28,7 +28,14 @@
 						<td>{{ $sa->fecha}}</td>
 						<td>{{ $sa->tipoDoc}}</td>
 						<td>{{ $sa->numDoc}}</td>
-						<td>{{ $sa->estado}}</td>
+						@if($sa->estado == 1)
+						<td>Faltante</td>
+						@elseif($sa->estado == 2)
+						<td>Completado</td>
+						@else 
+						<td>$sa->estado</td>
+						@endif
+						
 					
 						<td>
 							<a href="{{URL::action('VentasController@crearSaldo',$sa->idventa)}}"><button class="btn fa fa-refresh" aria-hidden="true"></button></a>

@@ -2,7 +2,7 @@
 @section ('contenido')
 <div class="row">
 	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" id="error">
-		<h3>registro de saldo</h3>
+		<h3>Registro de Pago </h3>
 		@if(count($errors)>0)
 		<div class="alert alert-danger">
 			<ul>
@@ -14,43 +14,54 @@
 		@endif
 	</div>
 </div>
-
+<h3>Detalles de Pago </h3>
 <div class="row">
 	<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
 		<div class="panel panel-primary">
 			<div class="panel-body">
-
+			@php $sum = 0; @endphp
 				<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
 					<div class="table-responsive">
 						<table id="" class="table table-striped table-bordered table-condensed table-hover ">
-							<thead class="bg-blue-active">
-								
-								<th>id</th>
-								
+							<thead class="bg-blue-active">								
+								<th>id</th>								
 								<th>fecha</th>
 								<th>tipoDoc</th>
 								<th>numDoc</th>
 								<th>estado</th>
 								<th>ingreso</th>
-
-							</thead>
+							</thead>							
 							@foreach ($saldos as $sal)
-							<tfoot>
-								
-
+							<tfoot>								
 								<th>{{ $sal->id}}</th>
 								<th>{{ $sal->fecha}}</th>
 								<th>{{ $sal->tipoDoc}}</th>
 								<th>{{ $sal->numDoc}}</th>
 								<th>{{ $sal->estado}}</th>
-								<th>{{ $sal->ingreso}}</th>
-								
-								
+								<th>{{ $sal->ingreso}}</th>	
+								@php $sum = $sum + $sal->ingreso; @endphp													
 							</tfoot>
-							@endforeach
+							@endforeach														
 							<tbody>
-
+							
 							</tbody>
+						</table>
+
+						<table id="" class="table table-striped table-bordered table-condensed table-hover ">
+							<thead class="bg-blue-active">								
+								
+								<th>Precio de Venta</th>
+								<th>Pagado</th>
+								<th>Por pagar</th>
+							</thead>
+							
+							<tfoot>								
+								
+								<th>{{$venta->costoVenta}}</th>
+								<th>{{$sum}}</th>
+								@php $saldoPorPagar = $venta->costoVenta - $sum ; @endphp
+								<th>{{$saldoPorPagar}}</th>														
+							</tfoot>					
 
 						</table>
 					</div>
@@ -140,7 +151,12 @@
 			</div>
 
 		</div>
+		<input type="hidden" id="porPagar" name="porPagar" value="{{$saldoPorPagar}}">
+		<input type="hidden" id="pagado" name="pagado" value="{{$sum}}">
+		<input type="hidden" id="precioVenta" name="precioVenta" value="{{$venta->costoVenta}}">
+
 		<div class="form-group text-center" id="guardar">
+
 			<input name="_token" value="{{ csrf_token() }}" type="hidden"></input>
 			<button class="btn btn-success" type="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i></button>
 			<button class="btn btn-danger" type="reset"><i class="fa fa-window-close-o" aria-hidden="true"></i></button>
@@ -217,7 +233,7 @@
     }
 
     function evaluar() {
-        if (total > 0) {
+        if (total  !=	 0) {
             $("#guardar").show();
         }
         else {
