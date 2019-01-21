@@ -43,7 +43,7 @@
 					<?php endforeach; ?>
 				</table>
 			</div>
-			<?php echo e($productos->render()); ?>
+			<?php echo e($productos->appends(['searchText' => $searchText,"idcat"=>$idcat,"idsuc"=>$idsuc,"idtal"=>$idtal,"precio"=>$precio])->links()); ?>
 
 		</div>
 	</div>

@@ -49,13 +49,13 @@ class ProductoController extends Controller
                 ->where('p.idcategoria','LIKE','%'.$idcat.'%')
                 ->where('p.idsucursal','LIKE','%'.$idsuc.'%')
                 ->where('p.precio','LIKE','%'.$precio.'%')
-                ->where('p.idtalla','LIKE','%'.$idtal.'%')
+                ->where('p.idtalla','LIKE',$idtal.'%')
 
                 ->select('p.idproducto','p.fechaCod','p.codigo','co.nombre as color','ta.nombre as talla','t.nombre as idtela','p.precio','c.nombre as idcategoria','s.nombre as idsucursal')
                 ->orderBy('p.idproducto','asc')
                 ->paginate(50);
     
-                return view('almacen.producto.index',["productos"=>$productos,"precio"=>$precio,"tallas"=>$tallas,"searchText"=>$query,"sucursales"=>$sucursales,"categorias"=>$categorias]);
+                return view('almacen.producto.index',["productos"=>$productos,"precio"=>$precio,"tallas"=>$tallas,"searchText"=>$query,"sucursales"=>$sucursales,"categorias"=>$categorias,"idcat"=>$idcat,"idsuc"=>$idsuc,"idtal"=>$idtal,"precio"=>$precio]);
             }
        
         

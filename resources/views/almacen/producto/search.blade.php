@@ -8,7 +8,12 @@
 		<select name="idsuc" id="idsuc" class="form-control selectpicker"  data-live-search="true">
 			<option value="">Sucursal</option>
 			@foreach($sucursales as $suc)
-			<option value="{{$suc->idsucursales}}">{{$suc->nombre}}</option>
+			@if ($suc->idsucursales == $idsuc)
+				<option value="{{$suc->idsucursales}}" selected>{{$suc->nombre}}</option>
+			@else
+				<option value="{{$suc->idsucursales}}">{{$suc->nombre}}</option>
+			@endif
+			
 			@endforeach
 		</select>
 
@@ -20,7 +25,12 @@
 		<select name="idcat" id="idcat" class="form-control selectpicker"  data-live-search="true" >
 				<option value="">Categoria</option>
 			@foreach($categorias as $cat)
-			<option value="{{$cat->idcategoria}}">{{$cat->nombre}}</option>
+				@if ($cat->idcategoria == $idcat)
+					<option value="{{$cat->idcategoria}}" selected>{{$cat->nombre}} </option>
+				@else
+					<option value="{{$cat->idcategoria}}">{{$cat->nombre}}</option>
+				@endif
+			
 			@endforeach
 		</select>
 
@@ -32,7 +42,12 @@
 		<select name="idtal" id="idtal" class="form-control selectpicker"  data-live-search="true" >
 				<option value="">Talla</option>
 			@foreach($tallas as $tal)
-			<option value="{{$tal->idtalla}}">{{$tal->nombre}}</option>
+			@if ($tal->idtalla == $idtal)
+				<option value="{{$tal->idtalla}}" selected>{{$tal->nombre}}</option>
+			@else
+				<option value="{{$tal->idtalla}}">{{$tal->nombre}}</option>
+			@endif
+			
 			@endforeach
 		</select>
 
@@ -47,7 +62,7 @@
 </div>
 <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
 	<div class="form-group">
-		<input type="text" class="form-control " name="precio" placeholder="Buscar precio" value=""></input>
+		<input type="text" class="form-control " name="precio" placeholder="Buscar precio" value="{{$precio}}"></input>
 		
 	
 	</div>
@@ -61,14 +76,7 @@
 	
 	</div>
 </div>
-
-
 </div>
-
-
-
-
-
 {{ Form::close() }}
 
 

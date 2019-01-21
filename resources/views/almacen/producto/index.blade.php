@@ -44,7 +44,7 @@
 					@endforeach
 				</table>
 			</div>
-			{{$productos->render()}}
+			{{$productos->appends(['searchText' => $searchText,"idcat"=>$idcat,"idsuc"=>$idsuc,"idtal"=>$idtal,"precio"=>$precio])->links()}}
 		</div>
 	</div>
 @endsection

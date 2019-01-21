@@ -9,7 +9,12 @@
 		<select name="idsuc" id="idsuc" class="form-control selectpicker"  data-live-search="true">
 			<option value="">Sucursal</option>
 			<?php foreach($sucursales as $suc): ?>
-			<option value="<?php echo e($suc->idsucursales); ?>"><?php echo e($suc->nombre); ?></option>
+			<?php if($suc->idsucursales == $idsuc): ?>
+				<option value="<?php echo e($suc->idsucursales); ?>" selected><?php echo e($suc->nombre); ?></option>
+			<?php else: ?>
+				<option value="<?php echo e($suc->idsucursales); ?>"><?php echo e($suc->nombre); ?></option>
+			<?php endif; ?>
+			
 			<?php endforeach; ?>
 		</select>
 
@@ -21,7 +26,12 @@
 		<select name="idcat" id="idcat" class="form-control selectpicker"  data-live-search="true" >
 				<option value="">Categoria</option>
 			<?php foreach($categorias as $cat): ?>
-			<option value="<?php echo e($cat->idcategoria); ?>"><?php echo e($cat->nombre); ?></option>
+				<?php if($cat->idcategoria == $idcat): ?>
+					<option value="<?php echo e($cat->idcategoria); ?>" selected><?php echo e($cat->nombre); ?> </option>
+				<?php else: ?>
+					<option value="<?php echo e($cat->idcategoria); ?>"><?php echo e($cat->nombre); ?></option>
+				<?php endif; ?>
+			
 			<?php endforeach; ?>
 		</select>
 
@@ -33,7 +43,12 @@
 		<select name="idtal" id="idtal" class="form-control selectpicker"  data-live-search="true" >
 				<option value="">Talla</option>
 			<?php foreach($tallas as $tal): ?>
-			<option value="<?php echo e($tal->idtalla); ?>"><?php echo e($tal->nombre); ?></option>
+			<?php if($tal->idtalla == $idtal): ?>
+				<option value="<?php echo e($tal->idtalla); ?>" selected><?php echo e($tal->nombre); ?></option>
+			<?php else: ?>
+				<option value="<?php echo e($tal->idtalla); ?>"><?php echo e($tal->nombre); ?></option>
+			<?php endif; ?>
+			
 			<?php endforeach; ?>
 		</select>
 
@@ -48,7 +63,7 @@
 </div>
 <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
 	<div class="form-group">
-		<input type="text" class="form-control " name="precio" placeholder="Buscar precio" value=""></input>
+		<input type="text" class="form-control " name="precio" placeholder="Buscar precio" value="<?php echo e($precio); ?>"></input>
 		
 	
 	</div>
@@ -62,14 +77,7 @@
 	
 	</div>
 </div>
-
-
 </div>
-
-
-
-
-
 <?php echo e(Form::close()); ?>
 
 
