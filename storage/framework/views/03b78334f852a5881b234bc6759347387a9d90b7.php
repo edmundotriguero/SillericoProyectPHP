@@ -45,8 +45,10 @@
 			<?php foreach($tallas as $tal): ?>
 			<?php if($tal->idtalla == $idtal): ?>
 				<option value="<?php echo e($tal->idtalla); ?>" selected><?php echo e($tal->nombre); ?></option>
+				
 			<?php else: ?>
 				<option value="<?php echo e($tal->idtalla); ?>"><?php echo e($tal->nombre); ?></option>
+				
 			<?php endif; ?>
 			
 			<?php endforeach; ?>
@@ -68,6 +70,7 @@
 	
 	</div>
 </div>
+<input type="hidden" id="nombreTalla" name="nombreTalla" value=""/>
 <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
 	<div class="form-group text-center">
 		
@@ -80,6 +83,31 @@
 </div>
 <?php echo e(Form::close()); ?>
 
+
+
+
+<?php $__env->startPush('scripts'); ?>
+<script>
+
+
+  
+window.onload=function() {
+			 
+			categoria = $("#idtal option:selected").text();
+			console.log(categoria );
+			$("#nombreTalla").val(categoria);
+
+		}
+
+		$("#idtal").change(function(){
+            categoria = $("#idtal option:selected").text();
+			$("#nombreTalla").val(categoria);
+	});
+    
+
+</script>
+
+<?php $__env->stopPush(); ?>
 
 
 

@@ -44,8 +44,10 @@
 			@foreach($tallas as $tal)
 			@if ($tal->idtalla == $idtal)
 				<option value="{{$tal->idtalla}}" selected>{{$tal->nombre}}</option>
+				
 			@else
 				<option value="{{$tal->idtalla}}">{{$tal->nombre}}</option>
+				
 			@endif
 			
 			@endforeach
@@ -67,6 +69,7 @@
 	
 	</div>
 </div>
+<input type="hidden" id="nombreTalla" name="nombreTalla" value=""/>
 <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
 	<div class="form-group text-center">
 		
@@ -78,6 +81,31 @@
 </div>
 </div>
 {{ Form::close() }}
+
+
+
+@push ('scripts')
+<script>
+
+
+  
+window.onload=function() {
+			 
+			categoria = $("#idtal option:selected").text();
+			
+			$("#nombreTalla").val(categoria);
+
+		}
+
+		$("#idtal").change(function(){
+            categoria = $("#idtal option:selected").text();
+			$("#nombreTalla").val(categoria);
+	});
+    
+
+</script>
+
+@endpush
 
 
 
