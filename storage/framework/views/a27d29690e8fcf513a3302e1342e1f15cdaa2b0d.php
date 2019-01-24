@@ -1,7 +1,7 @@
 <?php $__env->startSection('contenido'); ?>
 	<div class="row">
 		<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-			<h3>Listado de Categorias <a href="categoria/create"><button class="btn fa fa-plus-square"></button></a> </h3> 
+			<h3>Listado de Categorías <a href="categoria/create"><button class="btn fa fa-plus-square"></button></a> </h3> 
 			<?php echo $__env->make('almacen.categoria.search', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 		</div>
 	</div>

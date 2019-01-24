@@ -94,7 +94,7 @@
 window.onload=function() {
 			 
 			categoria = $("#idtal option:selected").text();
-			console.log(categoria );
+			
 			$("#nombreTalla").val(categoria);
 
 		}
