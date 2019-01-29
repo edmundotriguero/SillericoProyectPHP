@@ -1,7 +1,7 @@
 <?php $__env->startSection('contenido'); ?>
 	<div class="row">
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-			<h3>Movimientos <a href="movimiento/create"><button class="btn fa fa-plus-square"></button></a> </h3> 
+			<h3>Registro de movimientos <a href="movimiento/create"><button class="btn fa fa-plus-square"></button></a> </h3> 
 			
 		</div>
 		<?php echo $__env->make('almacen.movimiento.search', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
@@ -16,6 +16,7 @@
 						<th>Codigo</th>
 						<th>Sucursal Origen</th>
 						<th>Sucursal Destino</th>
+						<th>Fecha</th>
 						<th>Opciones</th>
 					</thead>
 				<?php foreach($movimientos as $mov): ?>
@@ -37,7 +38,7 @@
 						<?php endforeach; ?>
 
 						
-						
+						<td><?php echo e(date("d/m/Y", strtotime($mov->fecha))); ?></td>
 						<td>
 							<a href="" data-target="#modal-delete-<?php echo e($mov->idmovimiento); ?>" data-toggle="modal" ><button class="btn fa fa-trash" aria-hidden="true"></button></a>
 						</td>

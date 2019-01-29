@@ -93,15 +93,23 @@
   
 window.onload=function() {
 			 
-			categoria = $("#idtal option:selected").text();
-			
-			$("#nombreTalla").val(categoria);
+		talla = $("#idtal option:selected").text();
+		if(talla == 'Talla'){
+			talla = '';
+		}
+		console.log(talla);
+		$("#nombreTalla").val(talla);
 
 		}
 
 		$("#idtal").change(function(){
-            categoria = $("#idtal option:selected").text();
-			$("#nombreTalla").val(categoria);
+
+            talla = $("#idtal option:selected").text();
+			if(talla == 'Talla'){
+			talla = '';
+		}
+			console.log(talla);
+			$("#nombreTalla").val(talla);
 	});
     
 

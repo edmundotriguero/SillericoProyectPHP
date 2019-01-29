@@ -24,8 +24,16 @@
 						<td><?php echo e($sa->id); ?></td>
 						<td><?php echo e($sa->idventa); ?></td>
 						<td><?php echo e($sa->ingreso); ?></td>
-						<td><?php echo e($sa->fecha); ?></td>
-						<td><?php echo e($sa->tipoDoc); ?></td>
+						<td><?php echo e(date('d/m/Y', strtotime($sa->fecha))); ?></td>
+						<?php if($sa->tipoDoc == 0): ?>
+						<td>Factura</td>
+						<?php elseif($sa->tipoDoc == 1): ?>
+						<td>Recibo</td>
+						<?php else: ?> 
+						<td>Sin Doc.</td>
+						<?php endif; ?>
+						
+						
 						<td><?php echo e($sa->numDoc); ?></td>
 						<?php if($sa->estado == 1): ?>
 						<td>Faltante</td>

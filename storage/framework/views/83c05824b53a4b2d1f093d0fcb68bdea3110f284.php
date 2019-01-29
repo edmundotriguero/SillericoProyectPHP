@@ -26,16 +26,23 @@
 					<?php foreach($ventas as $ven): ?>
 					<tr>
 						<td><?php echo e($ven->id); ?></td>
-						<td><?php echo e($ven->fechaVenta); ?></td>
-						<td><?php echo e($ven->tipoDoc); ?></td>
+						<td><?php echo e(date('d/m/Y', strtotime($ven->fechaVenta))); ?></td>
+						<?php if($ven->tipoDoc == 0): ?>
+							<td>Factura</td>
+						<?php elseif( $ven->tipoDoc == 1): ?>
+							<td>Recibo</td>
+						<?php else: ?> 
+							<td>Sin Doc.</td>
+						<?php endif; ?>
+						
 						<td><?php echo e($ven->numDoc); ?></td>
 						<td><?php echo e($ven->cliente); ?></td>
-						<td><?php echo e($ven->categoria); ?></td>
+						<td><?php echo e($ven->codigo .' - '.$ven->categoria); ?></td>
 						<td><?php echo e($ven->costoVenta); ?></td>
 						<td><?php echo e($ven->saldo); ?></td>
 						<td><?php echo e($ven->ingreso); ?></td>
 						<td>
-							<a href="<?php echo e(URL::action('VentasController@edit',$ven->id)); ?>"><button class="btn fa fa-refresh" aria-hidden="true"></button></a>
+							<?php /*<a href="<?php echo e(URL::action('VentasController@edit',$ven->id)); ?>"><button class="btn fa fa-refresh" aria-hidden="true"></button></a>*/ ?>
 							<a href="" data-target="#modal-delete-<?php echo e($ven->id); ?>" data-toggle="modal" ><button class="btn fa fa-trash" aria-hidden="true"></button></a>
 						</td>
 					</tr>

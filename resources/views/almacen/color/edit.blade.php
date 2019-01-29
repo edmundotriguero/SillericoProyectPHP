@@ -18,12 +18,13 @@
             <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 			<div class="form-group">
 				<label for="nombre">Nombre</label>
-				<input type="text" name="nombre" class="form-control" value="{{$color->nombre}}" placeholder="Nombre..."></input>
+				<input type="text" name="nombre" class="form-control" value="{{$color->nombre}}" placeholder="Nombre"></input>
             </div>
         
-			<div class="form-group">
+			<div class="form-group text-center">
 				<button class="btn btn-primary" type="submit">Guardar</button>
-				<button class="btn btn-danger" type="submit">Cancelar</button>
+				<button class="btn btn-danger" type="reset">Cancelar</button>
+				<a href="{{action('ColorController@index')}}"><div class="btn btn-info" >Volver</div></a>
 			</div>
 
 

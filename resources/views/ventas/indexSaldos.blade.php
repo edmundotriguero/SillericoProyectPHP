@@ -25,8 +25,16 @@
 						<td>{{ $sa->id}}</td>
 						<td>{{ $sa->idventa}}</td>
 						<td>{{ $sa->ingreso}}</td>
-						<td>{{ $sa->fecha}}</td>
-						<td>{{ $sa->tipoDoc}}</td>
+						<td>{{ date('d/m/Y', strtotime($sa->fecha)) }}</td>
+						@if($sa->tipoDoc == 0)
+						<td>Factura</td>
+						@elseif($sa->tipoDoc == 1)
+						<td>Recibo</td>
+						@else 
+						<td>Sin Doc.</td>
+						@endif
+						
+						
 						<td>{{ $sa->numDoc}}</td>
 						@if($sa->estado == 1)
 						<td>Faltante</td>

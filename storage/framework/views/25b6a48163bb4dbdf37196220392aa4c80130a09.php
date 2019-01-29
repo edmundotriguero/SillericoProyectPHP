@@ -20,7 +20,7 @@
 			<?php echo e(Form::token()); ?>
 
 			<div class="row">
-				<div class="col-lg-9 col-sm-9 col-md-9 col-xs-11">
+				<div class="col-lg-6 col-sm-6 col-md-6 col-xs-11">
 					<div class="form-group">
 						<label for="sidproducto">Producto</label>
 						<select name="sidproducto" id="sidproducto" class="form-control selectpicker"  data-live-search="true">
@@ -43,6 +43,13 @@
 							<?php endforeach; ?>
 						</select>
 			
+					</div>
+				</div>
+
+				<div class="col-lg-3 col-sm-3 col-md-3 col-xs-6">
+					<div class="form-group">
+						<label for="sfecha">Fecha</label>
+						<input type="date" name="sfecha" id="sfecha" class="form-control" ></input>
 					</div>
 				</div>
 
@@ -72,7 +79,7 @@
                     <th>Producto</th>
 					<th>Sucursal Origen</th>
 					<th>Sucursal Destino</th>
-                    
+                    <th>Fecha</th>
 					
                     </thead>
                     <tfoot>
@@ -114,6 +121,7 @@
 		producto = $("#sidproducto option:selected").text();
 		idSucDestino = $("#sidsucursal").val();
 		sucursal = $("#sidsucursal option:selected").text();
+		fecha =  $("#sfecha").val();
 		aux = producto.split("-");
 
 		idSucOrigen = aux[3];
@@ -122,7 +130,7 @@
         if (idproducto != ""  ) {
 			           
 			
-            var fila='<tr class="selected" id="fila'+cont+'"><td>'+cont+'</td><td><button type="button" class="btn btn-warning" onclick="eliminar('+cont+');">X</button></td><td><input type="hidden" name="idproducto[]" value="'+idproducto+'">'+aux[0]+' - '+aux[1]+'</td><td><input type="hidden" name="idSucOrigen[]" value="'+idSucOrigen+'">'+aux[2]+'</td><td><input type="hidden" name="idSucDestino[]" value="'+idSucDestino+'">'+sucursal+'</td></tr>';
+            var fila='<tr class="selected" id="fila'+cont+'"><td>'+cont+'</td><td><button type="button" class="btn btn-warning" onclick="eliminar('+cont+');">X</button></td><td><input type="hidden" name="idproducto[]" value="'+idproducto+'">'+aux[0]+' - '+aux[1]+'</td><td><input type="hidden" name="idSucOrigen[]" value="'+idSucOrigen+'">'+aux[2]+'</td><td><input type="hidden" name="idSucDestino[]" value="'+idSucDestino+'">'+sucursal+'</td><td><input type="hidden" name="fecha[]" value="'+fecha+'">'+fecha+'</td></tr>';
             cont++;
             limpiar();
             

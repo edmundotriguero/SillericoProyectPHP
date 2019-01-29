@@ -27,16 +27,23 @@
 					@foreach ($ventas as $ven)
 					<tr>
 						<td>{{ $ven->id}}</td>
-						<td>{{ $ven->fechaVenta}}</td>
-						<td>{{ $ven->tipoDoc}}</td>
+						<td>{{ date('d/m/Y', strtotime($ven->fechaVenta)) }}</td>
+						@if ($ven->tipoDoc == 0)
+							<td>Factura</td>
+						@elseif( $ven->tipoDoc == 1)
+							<td>Recibo</td>
+						@else 
+							<td>Sin Doc.</td>
+						@endif
+						
 						<td>{{ $ven->numDoc}}</td>
 						<td>{{ $ven->cliente}}</td>
-						<td>{{ $ven->categoria}}</td>
+						<td>{{ $ven->codigo .' - '.$ven->categoria}}</td>
 						<td>{{ $ven->costoVenta}}</td>
 						<td>{{ $ven->saldo}}</td>
 						<td>{{ $ven->ingreso}}</td>
 						<td>
-							<a href="{{URL::action('VentasController@edit',$ven->id)}}"><button class="btn fa fa-refresh" aria-hidden="true"></button></a>
+							{{--<a href="{{URL::action('VentasController@edit',$ven->id)}}"><button class="btn fa fa-refresh" aria-hidden="true"></button></a>--}}
 							<a href="" data-target="#modal-delete-{{$ven->id}}" data-toggle="modal" ><button class="btn fa fa-trash" aria-hidden="true"></button></a>
 						</td>
 					</tr>

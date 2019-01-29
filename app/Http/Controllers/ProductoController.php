@@ -65,11 +65,11 @@ class ProductoController extends Controller
 
     }
     public function create(){
-        $categorias=DB::table('categorias')->get();
-        $sucursales=DB::table('sucursales')->get();
-        $color=DB::table('color')->get();
-        $talla=DB::table('tallas')->get();
-        $telas=DB::table('telas')->get();
+        $categorias=DB::table('categorias')->where('condicion','LIKE','1')->get();
+        $sucursales=DB::table('sucursales')->where('condicion','LIKE','1')->get();
+        $color=DB::table('color')->where('estado','LIKE','1')->get();
+        $talla=DB::table('tallas')->where('estado','LIKE','1')->get();
+        $telas=DB::table('telas')->where('condicion','LIKE','1')->get();
         
 
         return view("almacen.producto.create",["categorias"=>$categorias,"sucursales"=>$sucursales,"telas"=>$telas,"talla"=>$talla,"color"=>$color]);

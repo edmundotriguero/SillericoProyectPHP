@@ -1,4 +1,9 @@
 <?php $__env->startSection('contenido'); ?>
+	<div class="row text-center">
+		<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" id="error">
+		<a href="<?php echo e(action('VentasController@index')); ?>"><div class="btn btn-info" ><i class="fa fa-reply-all" aria-hidden="true"> Volver</i></div></a>
+		</div>
+	</div>
 	<div class="row">
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" id="error">
 			<h3>Nuevos registros de ventas</h3>

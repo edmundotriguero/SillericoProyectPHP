@@ -53,11 +53,11 @@ class VentasController extends Controller
                // ->join('sucursales as s','p.idsucursal','=','s.idsucursales')
                // ->join('color as co', 'p.idcolor','=','co.idcolor')
                // ->join('tallas as ta','p.idtalla','=','ta.idtalla')
-                ->where('v.estado','!=','3')
+                ->where('v.estado','LIKE','1')
                 ->where('v.numDoc','LIKE','%'.$query.'%')
                 //->where('p.idcategoria','LIKE','%'.$idcat.'%')
                 //->where('p.idsucursal','LIKE','%'.$idsuc.'%')
-                ->select('v.id','v.fechaVenta','v.tipoDoc','v.numDoc','v.cliente','c.nombre as categoria','v.costoVenta','v.saldo','v.ingreso')
+                ->select('v.id','v.fechaVenta','v.tipoDoc','v.numDoc','v.cliente','c.nombre as categoria','v.costoVenta','v.saldo','v.ingreso','p.codigo')
                 ->orderBy('v.fechaVenta','asc')
                 ->paginate(50);
     
@@ -143,7 +143,7 @@ class VentasController extends Controller
                 $ventas->ingreso = $precio[$cont];
                 $ventas->saldo = $saldo[$cont];
                
-                $ventas->estado = '2';
+                $ventas->estado = '1';
                 $ventas->save();
 
                 DB::update('update productos set estado = 2 where idproducto = ?', [$idproducto[$cont]]);
@@ -198,9 +198,9 @@ class VentasController extends Controller
 
     public function destroy($id){
        // $var = base64_decode($id);
-        $producto = Producto::findOrFail($id);
-        $producto->estado='0';
-        $producto->update();
+        $ventas = Ventas::findOrFail($id);
+        $ventas->estado='0';
+        $ventas->update();
 
         return Redirect::to('ventas/ventas');
 
@@ -220,7 +220,7 @@ class VentasController extends Controller
 
             ->where('s.estado','!=','0')
             
-            ->where('s.idventa','LIKE','%'.$query.'%')
+            ->where('s.numDoc','LIKE','%'.$query.'%')
             //->where('p.idcategoria','LIKE','%'.$idcat.'%')
             //->where('p.idsucursal','LIKE','%'.$idsuc.'%')
             ->select('s.id','s.idventa','s.ingreso','s.fecha','s.tipoDoc','numDoc','s.estado')

@@ -1,4 +1,4 @@
-{!!Form::open(array('url'=>'ventas','method'=>'GET','autocomplete'=>'on','role'=>'search')) !!}
+{!!Form::open(array('url'=>'ventas/indexSaldo','method'=>'GET','autocomplete'=>'on','role'=>'search')) !!}
 
 <div class="row">
 
@@ -28,7 +28,7 @@
 </div>--}}
 <div class="col-xs-12 col-sm-8 col-md-4 col-lg-4">
 		<div class="input-group">
-			<input type="text" class="form-control " name="searchText" placeholder="Buscar codigo" value=""></input>
+			<input type="text" class="form-control " name="searchText" placeholder="Buscar documento" value=""></input>
 			<span class="input-group-btn">
 				<button type="submit" class="btn btn-flat"><i class="fa fa-search"></i></button>		
 			</span>

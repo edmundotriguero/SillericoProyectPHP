@@ -45,7 +45,7 @@ class MovimientoController extends Controller
                // ->where('p.precio','LIKE','%'.$precio.'%')
                 //->where('p.idtalla','LIKE','%'.$idtal.'%')
 
-                ->select('m.idmovimiento','c.nombre as categoria','p.codigo','m.idSucOrigen','m.idSucDestino')
+                ->select('m.idmovimiento','c.nombre as categoria','p.codigo','m.idSucOrigen','m.idSucDestino', 'm.fecha')
                 ->orderBy('m.idmovimiento','desc')
                 ->paginate(50);
     
@@ -75,6 +75,7 @@ class MovimientoController extends Controller
             $idproducto = $request->get('idproducto');
             $idsucursalOrigen = $request->get('idSucOrigen');
             $idsucursalDestino = $request->get('idSucDestino');
+            $fecha = $request->get('fecha');
            
            //para habilitar fecha de combio de lugar
             //$fecha = $request->get('fecha');
@@ -86,7 +87,7 @@ class MovimientoController extends Controller
                 $movimiento->idproducto = $idproducto[$cont];
                 $movimiento->idSucOrigen = $idsucursalOrigen[$cont];
                 $movimiento->idSucDestino = $idsucursalDestino[$cont];
-               
+                $movimiento->fecha = $fecha[$cont];
                 $movimiento->save();
 
                 DB::update('update productos set idsucursal = ? where idproducto = ?', [$idsucursalDestino[$cont],$idproducto[$cont]]);
