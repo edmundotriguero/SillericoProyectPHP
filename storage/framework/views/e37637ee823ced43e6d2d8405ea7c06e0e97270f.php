@@ -32,12 +32,19 @@
 					<?php foreach($ventas as $ven): ?>
 					<tr>
 						<td><?php echo e($ven->id); ?></td>
-						<td><?php echo e($ven->fechaVenta); ?></td>
-						<td><?php echo e($ven->tipoDoc); ?></td>
+						<td><?php echo e(date('d/m/Y', strtotime($ven->fechaVenta))); ?></td>
+						
+						<?php if($ven->tipoDoc == 0): ?>
+							<td>Factura</td>
+						<?php elseif($ven->tipoDoc == 1): ?>
+							<td>Recibo</td>
+						<?php else: ?>
+							<td>Sin Doc.</td>
+						<?php endif; ?>
 						<td><?php echo e($ven->numDoc); ?></td>
 
 						<td><?php echo e($ven->cliente); ?></td>
-						<td><?php echo e($ven->categoria." ". $ven->sucursal); ?></td>
+						<td><?php echo e($ven->codigo." - ".$ven->categoria." ". $ven->sucursal); ?></td>
 						<td><?php echo e($ven->costoVenta); ?></td>
 						<td><?php echo e($ven->saldo); ?></td>
 						<td><?php echo e($ven->ingreso); ?></td>

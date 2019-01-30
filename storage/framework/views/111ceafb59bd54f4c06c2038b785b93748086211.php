@@ -1,6 +1,11 @@
  
 <?php $__env->startSection('contenido'); ?>
 <div class="row">
+	<div class="row text-center">
+		<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" id="error">
+		<a href="<?php echo e(action('VentasController@indexSaldos')); ?>"><div class="btn btn-info" ><i class="fa fa-reply-all" aria-hidden="true"> Volver</i></div></a>
+		</div>
+	</div>
 	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" id="error">
 		<h3>Registro de Pago </h3>
 		<?php if(count($errors)>0): ?>
@@ -28,16 +33,23 @@
 								<th>fecha</th>
 								<th>tipoDoc</th>
 								<th>numDoc</th>
-								<th>estado</th>
+								<?php /*<th>estado</th>*/ ?>
 								<th>ingreso</th>
 							</thead>							
 							<?php foreach($saldos as $sal): ?>
 							<tfoot>								
 								<th><?php echo e($sal->id); ?></th>
-								<th><?php echo e($sal->fecha); ?></th>
-								<th><?php echo e($sal->tipoDoc); ?></th>
+								<th><?php echo e(date('d/m/Y', strtotime($sal->fecha))); ?></th>
+								<?php if($sal->tipoDoc == 0 ): ?>
+									<th>Factura</th>
+								<?php elseif($sal->tipoDoc == 1): ?>
+									<th>Recibo</th>
+								<?php else: ?>
+									<th>Sin Doc </th>
+								<?php endif; ?>
+								
 								<th><?php echo e($sal->numDoc); ?></th>
-								<th><?php echo e($sal->estado); ?></th>
+								<?php /*<th><?php echo e($sal->estado); ?></th>*/ ?>
 								<th><?php echo e($sal->ingreso); ?></th>	
 								<?php  $sum = $sum + $sal->ingreso;  ?>													
 							</tfoot>

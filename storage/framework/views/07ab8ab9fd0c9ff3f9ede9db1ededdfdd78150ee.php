@@ -1,4 +1,10 @@
 <?php $__env->startSection('contenido'); ?>
+	<div class="row text-center">
+		<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" id="error">
+		<a href="<?php echo e(action('VentasController@index')); ?>"><div class="btn btn-info" ><i class="fa fa-reply-all" aria-hidden="true"> Volver a Ventas</i></div></a>
+		</div>
+	</div>
+
 	<div class="row">
 		<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
 			<h3>Listado de Saldos  </h3> 

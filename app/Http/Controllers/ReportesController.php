@@ -40,11 +40,11 @@ class ReportesController extends Controller
                // ->join('color as co', 'p.idcolor','=','co.idcolor')
                // ->join('tallas as ta','p.idtalla','=','ta.idtalla')
                ->whereBetween('v.fechaVenta',[$fechaInicio, $fechaFinal])
-                ->where('v.estado','!=','3')
+                ->where('v.estado','LIKE','1')
                 ->where('v.numDoc','LIKE','%'.$query.'%')
                 ->where('p.idcategoria','LIKE','%'.$idcat.'%')
                 ->where('p.idsucursal','LIKE','%'.$idsuc.'%')
-                ->select('v.id','v.fechaVenta','v.tipoDoc','v.numDoc','v.cliente','c.nombre as categoria','v.costoVenta','v.saldo','v.ingreso','s.nombre as sucursal')
+                ->select('v.id','v.fechaVenta','v.tipoDoc','v.numDoc','v.cliente','c.nombre as categoria','v.costoVenta','v.saldo','v.ingreso','s.nombre as sucursal','p.codigo')
                 ->orderBy('v.fechaVenta','asc')
                 ->paginate(50);
     

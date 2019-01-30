@@ -1,6 +1,11 @@
 @extends ('layouts.admin') 
 @section ('contenido')
 <div class="row">
+	<div class="row text-center">
+		<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" id="error">
+		<a href="{{action('VentasController@indexSaldos')}}"><div class="btn btn-info" ><i class="fa fa-reply-all" aria-hidden="true"> Volver</i></div></a>
+		</div>
+	</div>
 	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" id="error">
 		<h3>Registro de Pago </h3>
 		@if(count($errors)>0)
@@ -28,16 +33,23 @@
 								<th>fecha</th>
 								<th>tipoDoc</th>
 								<th>numDoc</th>
-								<th>estado</th>
+								{{--<th>estado</th>--}}
 								<th>ingreso</th>
 							</thead>							
 							@foreach ($saldos as $sal)
 							<tfoot>								
 								<th>{{ $sal->id}}</th>
-								<th>{{ $sal->fecha}}</th>
-								<th>{{ $sal->tipoDoc}}</th>
+								<th>{{ date('d/m/Y', strtotime($sal->fecha))}}</th>
+								@if ($sal->tipoDoc == 0 )
+									<th>Factura</th>
+								@elseif($sal->tipoDoc == 1)
+									<th>Recibo</th>
+								@else
+									<th>Sin Doc </th>
+								@endif
+								
 								<th>{{ $sal->numDoc}}</th>
-								<th>{{ $sal->estado}}</th>
+								{{--<th>{{ $sal->estado}}</th>--}}
 								<th>{{ $sal->ingreso}}</th>	
 								@php $sum = $sum + $sal->ingreso; @endphp													
 							</tfoot>

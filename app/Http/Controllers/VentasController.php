@@ -206,7 +206,7 @@ class VentasController extends Controller
 
     }
     //parte desde empieza la parte de saldos 
-
+ 
     public function indexSaldos(Request $request){
         if($request){
             $query = trim($request->get('searchText'));

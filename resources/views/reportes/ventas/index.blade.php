@@ -33,12 +33,19 @@
 					@foreach ($ventas as $ven)
 					<tr>
 						<td>{{ $ven->id}}</td>
-						<td>{{ $ven->fechaVenta}}</td>
-						<td>{{ $ven->tipoDoc}}</td>
+						<td>{{date('d/m/Y', strtotime($ven->fechaVenta)) }}</td>
+						
+						@if ($ven->tipoDoc == 0)
+							<td>Factura</td>
+						@elseif($ven->tipoDoc == 1)
+							<td>Recibo</td>
+						@else
+							<td>Sin Doc.</td>
+						@endif
 						<td>{{ $ven->numDoc}}</td>
 
 						<td>{{ $ven->cliente}}</td>
-						<td>{{ $ven->categoria." ". $ven->sucursal}}</td>
+						<td>{{ $ven->codigo." - ".$ven->categoria." ". $ven->sucursal}}</td>
 						<td>{{ $ven->costoVenta}}</td>
 						<td>{{ $ven->saldo}}</td>
 						<td>{{ $ven->ingreso}}</td>
