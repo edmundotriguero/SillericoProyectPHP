@@ -130,6 +130,7 @@ para iniciar el menu contraido // sidebar-collapse
         <li><a href="{{url('almacen/producto')}}"><i class="fa fa-list text-yellow"></i> <span>Productos</span></a></li>
         <li><a href="{{url('ventas/ventas')}}"><i class="fa fa-shopping-cart text-green"></i> <span>Ventas</span></a></li>
         <li><a href="{{url('reportes/ventas')}}"><i class="fa fa fa-bar-chart text-blue"></i> <span>Reportes</span></a></li>
+        <li><a href="{{url('reportes/estadisticas')}}"><i class="fa fa fa-bar-chart text-blue"></i> <span>Estadisticas</span></a></li>
         <li><a href="{{url('invitado')}}"><i class="fa fa-list text-yellow"></i> <span>Busqueda de Productos </span></a></li>
         @else
 

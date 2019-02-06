@@ -50,6 +50,23 @@ class ReportesController extends Controller
     
                 return view('reportes.ventas.index',["ventas"=>$ventas, "sucursales"=>$sucursales, "categorias"=>$categorias]);
             }
+        }
+
+
+            public function indexE(Request $request){
+        
+                if($request){
+    
+                    $query = trim($request->get('searchText'));
+                    $categoria=DB::table('productos as p')
+                    ->join('categorias as c','c.idcategoria','=','p.idcategoria')
+                    ->where('p.estado','=','1')
+                    ->select(DB::raw('count(c.nombre) as total'),'c.nombre')
+                    ->groupBy('c.nombre')
+                    ->get();
+        
+                    return view('reportes.estadisticas.index',['categoria'=>$categoria]);
+                }
     }
    
 }

@@ -36,6 +36,7 @@ Route::get('ventas/indexSaldo','VentasController@indexSaldos');
 Route::get('ventas/crearSaldo/{idventa}','VentasController@crearSaldo');
 Route::post('ventas/storeSaldos','VentasController@storeSaldos');
 
+Route::get('reportes/estadisticas','ReportesController@indexE');
 
 
 Route::auth();
