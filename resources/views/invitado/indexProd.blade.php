@@ -18,7 +18,7 @@
 						<th>Fecha Cod</th>
 						<th>Codigo</th>
 						<th>Talla</th>
-						<th>Tela</th>
+						<th>Tela</th> 
 						<th>Precio</th>
 						<th>Color</th>
 						
@@ -41,7 +41,7 @@
 					@endforeach
 				</table>
 			</div>
-			{{$productos->render()}}
+			{{$productos->appends(['searchText' => $searchText,"idcat"=>$idcat,"idsuc"=>$idsuc,"idtal"=>$idtal,"precio"=>$precio,"nombreTalla"=>$nombreTalla])->links()}}
 		</div>
 	</div>
 @endsection
