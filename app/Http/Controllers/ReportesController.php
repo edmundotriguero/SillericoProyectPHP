@@ -34,7 +34,6 @@ class ReportesController extends Controller
                 $ventas=DB::table('ventas as v')
                 ->join('productos as p', 'p.idproducto','=', 'v.idproducto')
                 ->join('categorias as c', 'p.idcategoria','=', 'c.idcategoria')
-
                 //->join('telas as t','p.idtela','=','t.idtela')
                 ->join('sucursales as s','p.idsucursal','=','s.idsucursales')
                // ->join('color as co', 'p.idcolor','=','co.idcolor')
@@ -64,8 +63,14 @@ class ReportesController extends Controller
                     ->select(DB::raw('count(c.nombre) as total'),'c.nombre')
                     ->groupBy('c.nombre')
                     ->get();
+
+                    $ventas=DB::table('ventas_detalle as vd')
+                                       
+                    ->select(DB::raw('count(sucursal) as total'),'sucursal')
+                    ->groupBy('sucursal')
+                    ->get();
         
-                    return view('reportes.estadisticas.index',['categoria'=>$categoria]);
+                    return view('reportes.estadisticas.index',['categoria'=>$categoria,'ventas'=>$ventas]);
                 }
     }
    

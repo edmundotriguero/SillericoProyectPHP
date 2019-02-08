@@ -226,12 +226,12 @@
     function limpiar() {
 
 		numCodigo = 0;
-		separador = "-";
+		separador = "/";
 		if(codigo.indexOf(separador)!= -1){
 			aux = codigo.split(separador);
 			numCodigo = parseInt(aux[1]);
 			numCodigo = numCodigo + 1;
-			codigoNuevo = aux[0]+'-'+numCodigo;
+			codigoNuevo = aux[0]+'/'+numCodigo;
 		}else{
 			codigo = parseInt(codigo);
 			codigoNuevo=codigo+1;

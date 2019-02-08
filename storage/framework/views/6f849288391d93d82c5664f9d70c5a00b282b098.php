@@ -65,7 +65,7 @@
 						<select name="sidproducto" id="sidproducto" class="form-control selectpicker"  data-live-search="true">
 								<option value="">eligir</option>
 							<?php foreach($productos as $prod): ?>
-							<option value="<?php echo e($prod->idproducto); ?>"><?php echo e($prod->codigo." - ".$prod->categoria." - ".$prod->color); ?></option>
+							<option value="<?php echo e($prod->idproducto); ?>"><?php echo e($prod->codigo." - ".$prod->categoria." - ".$prod->color." - ".$prod->precio); ?></option>
 							<?php endforeach; ?>
 						</select>
 			

@@ -39,7 +39,7 @@
 			<input type="date" class="form-control " name="fechaInicio"  value="<?php echo e(date('Y-m-d', mktime(0,0,0, date('m'), 1, date('Y')))); ?>"></input>
 			
 		
-		</div>
+		</div> 
 	</div>
 	<div class="col-xs-12 col-sm-8 col-md-5 col-lg-5">
 		<div class="form-group">

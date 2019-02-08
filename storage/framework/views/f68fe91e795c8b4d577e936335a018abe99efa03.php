@@ -1,63 +1,86 @@
 <?php $__env->startSection('contenido'); ?>
 	<div class="row">
 		<div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
-			<h3>Reporte de Ventas  </h3> 
+			<h3>Estadisticas  </h3> 
 			<?php echo $__env->make('reportes.estadisticas.search', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 		</div>
 	</div>
 
 <html>
   <head>
-    <!--Load the AJAX API-->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
 
-      // Load the Visualization API and the corechart package.
+      // Load Charts and the corechart package.
       google.charts.load('current', {'packages':['corechart']});
 
-      // Set a callback to run when the Google Visualization API is loaded.
-      google.charts.setOnLoadCallback(drawChart2);
+      // Draw the pie chart for Sarah's pizza when Charts is loaded.
+      google.charts.setOnLoadCallback(drawSarahChart);
 
-      // Callback that creates and populates a data table,
-      // instantiates the pie chart, passes in the data and
-      // draws it.
-      function drawChart2() {
+      // Draw the pie chart for the Anthony's pizza when Charts is loaded.
+      google.charts.setOnLoadCallback(drawAnthonyChart);
 
-        // Create the data table.
+      // Callback that draws the pie chart for Sarah's pizza.
+      function drawSarahChart() {
+
+        // Create the data table for Sarah's pizza.
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'Topping');
         data.addColumn('number', 'Slices');
         data.addRows([
-			<?php foreach($categoria as $cat): ?>
-				 ['<?php echo e($cat->nombre); ?>', <?php echo e($cat->total); ?>],
-			<?php endforeach; ?>
-         
-          
+         <?php foreach($ventas as $cat): ?>
+				 ['<?php echo e($cat->sucursal); ?>', <?php echo e($cat->total); ?>],
+<?php endforeach; ?>
         ]);
 
-        // Set chart options
-        var options = {'title':'Cantidad de productos por categoria',
-                       'width':500,
-                       'height':300};
+        // Set options for Sarah's pie chart.
+        var options = {title:'Sucursal con mas ventas',
+                       width:400,
+                       height:300};
 
-        // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        // Instantiate and draw the chart for Sarah's pizza.
+        var chart = new google.visualization.PieChart(document.getElementById('Sarah_chart_div'));
+        chart.draw(data, options);
+      }
+
+      // Callback that draws the pie chart for Anthony's pizza.
+      function drawAnthonyChart() {
+
+        // Create the data table for Anthony's pizza.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Topping');
+        data.addColumn('number', 'Slices');
+        data.addRows([
+         <?php foreach($categoria as $cat): ?>
+				 ['<?php echo e($cat->nombre); ?>', <?php echo e($cat->total); ?>],
+			  <?php endforeach; ?>
+        ]);
+
+        // Set options for Anthony's pie chart.
+        var options = {title:'Productos con mas aparicion',
+                       width:400,
+                       height:300};
+
+        // Instantiate and draw the chart for Anthony's pizza.
+        var chart = new google.visualization.PieChart(document.getElementById('Anthony_chart_div'));
         chart.draw(data, options);
       }
     </script>
   </head>
-
   <body>
-    <!--Div that will hold the pie chart-->
-    <div id="chart_div"></div>
+    <!--Table and divs that hold the pie charts-->
+    <table class="columns">
+      <tr>
+        <td><div id="Sarah_chart_div" style="border: 1px solid #ccc"></div></td>
+        <td><div id="Anthony_chart_div" style="border: 1px solid #ccc"></div></td>
+      </tr>
+    </table>
   </body>
-</html>	
+</html>
 
-<?php foreach($categoria as $cat): ?>
-				 <?php echo e($cat->nombre); ?>, <?php echo e($cat->total); ?>
 
-<?php endforeach; ?>
 
+	
 
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.admin', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

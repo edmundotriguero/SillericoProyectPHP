@@ -64,7 +64,7 @@
 						<select name="sidproducto" id="sidproducto" class="form-control selectpicker"  data-live-search="true">
 								<option value="">eligir</option>
 							@foreach($productos as $prod)
-							<option value="{{$prod->idproducto}}">{{$prod->codigo." - ".$prod->categoria." - ".$prod->color}}</option>
+							<option value="{{$prod->idproducto}}">{{$prod->codigo." - ".$prod->categoria." - ".$prod->color." - ".$prod->precio}}</option>
 							@endforeach
 						</select>
 			

@@ -73,7 +73,7 @@ class VentasController extends Controller
         $productos = DB::table('productos as p')
         ->join('categorias as c','p.idcategoria','=','c.idcategoria')
         ->join('color as cl','p.idcolor','=','cl.idcolor')
-        ->select('p.idproducto','p.codigo','c.nombre as categoria' ,'cl.nombre as color')
+        ->select('p.idproducto','p.codigo','c.nombre as categoria' ,'cl.nombre as color','p.precio as precio')
         ->where('p.estado','=','1')
         ->orderBy('p.idproducto','asc')
         ->get();
@@ -243,7 +243,7 @@ class VentasController extends Controller
         
         ->where('v.id','LIKE','%'.$idventa.'%')
       
-        ->select('v.id','v.fechaVenta','v.tipoDoc','v.numDoc','v.cliente','c.nombre as categoria','v.costoVenta','v.saldo','v.ingreso')
+        ->select('v.id','v.fechaVenta','v.tipoDoc','v.numDoc','v.cliente','c.nombre as categoria','v.costoVenta','v.saldo','v.ingreso',)
         ->orderBy('v.fechaVenta','asc')
         ->first();
 
