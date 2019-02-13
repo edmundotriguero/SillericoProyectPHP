@@ -16,4 +16,8 @@ DELIMITER ;
 
 para adicionar el campo lote,
 
-ALTER TABLE `productos` ADD `lote` VARCHAR(15) NOT NULL AFTER `estado`;
+ALTER TABLE productos ADD lote VARCHAR(15) NOT NULL AFTER estado;
+
+
+
+CREATE TABLE `sillpkae_sillericos`.`descuentos` ( `id` INT NOT NULL AUTO_INCREMENT , `nombre` VARCHAR(50) NOT NULL , `porcentaje` INT NOT NULL , `lote` VARCHAR(15) NOT NULL , PRIMARY KEY (`id`), UNIQUE (`lote`)) ENGINE = InnoDB;

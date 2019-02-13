@@ -8,7 +8,7 @@
 		
 		<select name="idsuc" id="idsuc" class="form-control selectpicker"  data-live-search="true">
 			<option value="">Sucursal</option>
-			<?php foreach($sucursales as $suc): ?>
+			<?php foreach($sucursal as $suc): ?>
 			<?php if($suc->idsucursales == $idsuc): ?>
 				<option value="<?php echo e($suc->idsucursales); ?>" selected><?php echo e($suc->nombre); ?></option>
 			<?php else: ?>
