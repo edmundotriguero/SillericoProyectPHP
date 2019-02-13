@@ -5,9 +5,9 @@
             <div class="panel panel-success">
                
                     
-                <div class="panel-heading text-center">Inicio de Sesion</div>
+                <div class="panel-heading text-center" href="<?php echo e(url('almacen/producto')); ?>">Inicio de Sesion</div>
                 <div class="form-group ">
-                        <img src="<?php echo e(asset('dist/img/logoOf.jpg')); ?>" class="img-responsive center-block "   alt="User">
+                        <a href="<?php echo e(url('almacen/producto')); ?>"><img src="<?php echo e(asset('dist/img/logoOf.jpg')); ?>" class="img-responsive center-block "   alt="User" ></a>
                 </div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="<?php echo e(url('/login')); ?>">

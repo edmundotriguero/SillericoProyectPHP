@@ -17,7 +17,7 @@
 						<th>Fecha Cod</th>
 						<th>Codigo</th>
 						<th>Talla</th>
-						<th>Tela</th>
+						<th>Tela</th> 
 						<th>Precio</th>
 						<th>Color</th>
 						
@@ -40,7 +40,7 @@
 					<?php endforeach; ?>
 				</table>
 			</div>
-			<?php echo e($productos->render()); ?>
+			<?php echo e($productos->appends(['searchText' => $searchText,"idcat"=>$idcat,"idsuc"=>$idsuc,"idtal"=>$idtal,"precio"=>$precio,"nombreTalla"=>$nombreTalla])->links()); ?>
 
 		</div>
 	</div>

@@ -13,3 +13,7 @@ WHERE articulo.idarticulo = NEW.idarticulo;
 END
 //
 DELIMITER ;
+
+para adicionar el campo lote,
+
+ALTER TABLE `productos` ADD `lote` VARCHAR(15) NOT NULL AFTER `estado`;

@@ -7,7 +7,7 @@
 		
 		<select name="idsuc" id="idsuc" class="form-control selectpicker"  data-live-search="true">
 			<option value="">Sucursal</option>
-			@foreach($sucursales as $suc)
+			@foreach($sucursal as $suc)
 			@if ($suc->idsucursales == $idsuc)
 				<option value="{{$suc->idsucursales}}" selected>{{$suc->nombre}}</option>
 			@else

@@ -1,4 +1,11 @@
 <?php $__env->startSection('contenido'); ?>
+	<div class="row text-center">
+		<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" id="error">
+		<a href="<?php echo e(action('ProductoController@index')); ?>"><div class="btn btn-info" ><i class="fa fa-reply-all" aria-hidden="true"> Volver</i></div></a>
+		</div>
+	</div>
+
+
 	<div class="row">
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" id="error">
 			<h3>Nuevos registros de productos</h3>
@@ -18,6 +25,16 @@
 			<?php echo Form::open(array('url'=>'almacen/producto','method'=>'POST','autocomplete'=>'on')); ?>
 
 			<?php echo e(Form::token()); ?>
+
+			<div class="col-lg-10 col-sm-10 col-md-10 col-xs-10">
+				<div class="col-lg-3 col-sm-3 col-md-3 col-xs-6">
+					<div class="form-group">
+						<label for="slote">Lote</label>
+						<input type="text" name="slote" id="slote" class="form-control" ></input>
+					</div>
+				</div>
+			</div>
+
 
 			<div class="row">
 				<div class="col-lg-3 col-sm-3 col-md-3 col-xs-6">
@@ -171,12 +188,20 @@
         $('#bt_add').click(function () {
             agregar();
         });
+		
     });
     var cont = 1;
     total = 0;
     subtotal = [];
-
+	var xlote;
+	var fecha = new Date();
+	xlote = fecha.getDate()+""+(fecha.getMonth()+1)+""+fecha.getFullYear()+"_"+fecha.getHours()+""+fecha.getMinutes()+""+fecha.getSeconds();
+	console.log(xlote);
+	
+	//console.log("Hora: "+fecha.getHours()+"\nMinuto: "+fecha.getMinutes()+"\nSegundo: "+fecha.getSeconds()+"\nMilisegundo: "+fecha.getMilliseconds());
     $("#guardar").hide();
+	$('#slote').val(xlote);
+
 
     function agregar(){
         idcategoria = $("#sidcategoria").val();
@@ -219,12 +244,12 @@
     function limpiar() {
 
 		numCodigo = 0;
-		separador = "-";
+		separador = "/";
 		if(codigo.indexOf(separador)!= -1){
 			aux = codigo.split(separador);
 			numCodigo = parseInt(aux[1]);
 			numCodigo = numCodigo + 1;
-			codigoNuevo = aux[0]+'-'+numCodigo;
+			codigoNuevo = aux[0]+'/'+numCodigo;
 		}else{
 			codigo = parseInt(codigo);
 			codigoNuevo=codigo+1;

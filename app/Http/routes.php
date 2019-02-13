@@ -38,6 +38,10 @@ Route::post('ventas/storeSaldos','VentasController@storeSaldos');
 
 Route::get('reportes/estadisticas','ReportesController@indexE');
 
+//para asignar descuentos
+
+Route::get('almacen/producto/desc/{idproducto}','ProductoController@desc');
+Route::post('almacen/producto/descStore','ProductoController@descStore');
 
 Route::auth();
 

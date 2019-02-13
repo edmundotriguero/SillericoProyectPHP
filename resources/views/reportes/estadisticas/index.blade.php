@@ -29,9 +29,9 @@
         data.addColumn('string', 'Topping');
         data.addColumn('number', 'Slices');
         data.addRows([
-         @foreach ($ventas as $cat)
-				 ['{{$cat->sucursal}}', {{$cat->total}}],
-@endforeach
+        
+				 ['prueba', 50],
+
         ]);
 
         // Set options for Sarah's pie chart.

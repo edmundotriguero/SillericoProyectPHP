@@ -31,7 +31,8 @@ class ProductoFormRequest extends Request
             'precio'=>'',
             'idcolor'=>'',
             'idcategoria'=>'required',
-            'idsucursal'=>'required'
+            'idsucursal'=>'required',
+            'lote'=>''
             //'estado'=>'',
             //'descripcion'=>'',
 

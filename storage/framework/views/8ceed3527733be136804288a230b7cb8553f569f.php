@@ -125,6 +125,7 @@
 			<div class="form-group">
 				<button class="btn btn-primary" type="submit">Guardar</button>
 				<button class="btn btn-danger" type="submit">Cancelar</button>
+				<a href="<?php echo e(action('ProductoController@index')); ?>"><div class="btn btn-info" >Volver</div></a>
 			</div>
         </div>
 

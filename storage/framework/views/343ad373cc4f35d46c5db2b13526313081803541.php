@@ -20,6 +20,7 @@
 						<th>Tela</th>
 						<th>Precio</th>
 						<th>Color</th>
+						<th>Lote</th>
 						
 						<th>Opciones</th>
 					</thead>
@@ -34,7 +35,16 @@
 						<td><?php echo e($prod->idtela); ?></td>
 						<td><?php echo e($prod->precio); ?></td>
 						<td><?php echo e($prod->color); ?></td>
+						<?php foreach($desc as $d): ?>
+							<?php if($d->lote == $prod->lote ): ?>
+								<td><span class="label label-success"><?php echo e($d->porcentaje."%"); ?></span></td>
+							<?php else: ?>
+							<td><?php echo e($prod->lote); ?></td>
+							<?php endif; ?>
+						<?php endforeach; ?>
+						
 						<td>
+								<a href="<?php echo e(URL::action('ProductoController@desc',$prod->idproducto)); ?>"><button class="btn fa fa-scissors" aria-hidden="true"></button></a>
 							<a href="<?php echo e(URL::action('ProductoController@edit',$prod->idproducto)); ?>"><button class="btn fa fa-refresh" aria-hidden="true"></button></a>
 							<a href="" data-target="#modal-delete-<?php echo e($prod->idproducto); ?>" data-toggle="modal" ><button class="btn fa fa-trash" aria-hidden="true"></button></a>
 						</td>
@@ -43,7 +53,7 @@
 					<?php endforeach; ?>
 				</table>
 			</div>
-			<?php echo e($productos->render()); ?>
+			<?php echo e($productos->appends(['searchText' => $searchText,"idcat"=>$idcat,"idsuc"=>$idsuc,"idtal"=>$idtal,"precio"=>$precio,"nombreTalla"=>$nombreTalla])->links()); ?>
 
 		</div>
 	</div>

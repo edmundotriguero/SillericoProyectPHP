@@ -34,10 +34,11 @@ class ProductoController extends Controller
                 $idtal = trim($request->get('idtal'));
                 $nombreTalla = trim($request->get('nombreTalla'));
 
-                $sucursales=DB::table('sucursales')->get();
+                $sucursal=DB::table('sucursales')->get();
                 $categorias=DB::table('categorias')->get();
                 $tallas = DB::table('tallas')->get();
                 
+                $desc=DB::table('descuentos')->get();
 
                 $productos=DB::table('productos as p')
                 ->join('categorias as c', 'p.idcategoria', '=', 'c.idcategoria')
@@ -53,11 +54,11 @@ class ProductoController extends Controller
                 //->where('p.idtalla','LIKE',$idtal)
                 ->where('ta.nombre','LIKE','%'.$nombreTalla)
 
-                ->select('p.idproducto','p.fechaCod','p.codigo','co.nombre as color','ta.nombre as talla','t.nombre as idtela','p.precio','c.nombre as idcategoria','s.nombre as idsucursal')
+                ->select('p.idproducto','p.fechaCod','p.codigo','co.nombre as color','ta.nombre as talla','t.nombre as idtela','p.precio','c.nombre as idcategoria','s.nombre as idsucursal','p.lote')
                 ->orderBy('p.idproducto','asc')
                 ->paginate(50);
     
-                return view('almacen.producto.index',["productos"=>$productos,"precio"=>$precio,"tallas"=>$tallas,"searchText"=>$query,"sucursales"=>$sucursales,"categorias"=>$categorias,"idcat"=>$idcat,"idsuc"=>$idsuc,"idtal"=>$idtal,"precio"=>$precio,"nombreTalla"=>$nombreTalla]);
+                return view('almacen.producto.index',["desc"=>$desc,"productos"=>$productos,"precio"=>$precio,"tallas"=>$tallas,"searchText"=>$query,"sucursal"=>$sucursal,"categorias"=>$categorias,"idcat"=>$idcat,"idsuc"=>$idsuc,"idtal"=>$idtal,"precio"=>$precio,"nombreTalla"=>$nombreTalla]);
             }
        
         
@@ -88,7 +89,7 @@ class ProductoController extends Controller
             $idtela = $request->get('idtela');
             $precio = $request->get('precio');
             $idcolor = $request->get('idcolor');
-
+            $lote = $request->get('slote');
             $cont = 0;
 
             while ($cont < count($codigo)) {
@@ -102,6 +103,7 @@ class ProductoController extends Controller
                 $producto->precio = $precio[$cont];
                 $producto->idcolor = $idcolor[$cont];
                 $producto->estado = '1';
+                $producto->lote = $lote;
                 $producto->save();
                 $cont = $cont + 1;
             }
@@ -153,4 +155,31 @@ class ProductoController extends Controller
         return Redirect::to('almacen/producto');
 
     }
+    
+    public function desc($id){
+
+        $lote=DB::table('productos')
+        ->select('lote')
+        ->where('idproducto','LIKE',$id)
+        ->first();
+        
+
+        return view("almacen.producto.desc",["lote"=>$lote]);
+    }
+
+    public function descStore(Request $request){
+    try{
+        $xlote = $request->get('lote');
+        $desc = $request->get('desc');
+        
+        DB::insert('insert into descuentos ( lote, porcentaje)values(?,?)', [$xlote,$desc]);
+        DB::commit();
+
+        return Redirect::to('almacen/producto');
+    }catch (\Illuminate\Database\QueryException $e){
+        
+        return redirect()->back()->withErrors("Verfique que no exista el registro o alguna restriccion en la Base de datos");
+    }
+    }
+
 }

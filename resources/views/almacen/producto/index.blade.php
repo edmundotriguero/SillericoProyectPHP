@@ -21,6 +21,7 @@
 						<th>Tela</th>
 						<th>Precio</th>
 						<th>Color</th>
+						<th>Lote</th>
 						
 						<th>Opciones</th>
 					</thead>
@@ -35,7 +36,16 @@
 						<td>{{ $prod->idtela}}</td>
 						<td>{{ $prod->precio}}</td>
 						<td>{{ $prod->color}}</td>
+						@foreach ($desc as $d)
+							@if ($d->lote == $prod->lote )
+								<td><span class="label label-success">{{$d->porcentaje."%"}}</span></td>
+							@else
+							<td>{{ $prod->lote}}</td>
+							@endif
+						@endforeach
+						
 						<td>
+								<a href="{{URL::action('ProductoController@desc',$prod->idproducto)}}"><button class="btn fa fa-scissors" aria-hidden="true"></button></a>
 							<a href="{{URL::action('ProductoController@edit',$prod->idproducto)}}"><button class="btn fa fa-refresh" aria-hidden="true"></button></a>
 							<a href="" data-target="#modal-delete-{{$prod->idproducto}}" data-toggle="modal" ><button class="btn fa fa-trash" aria-hidden="true"></button></a>
 						</td>

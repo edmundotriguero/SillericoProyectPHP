@@ -69,9 +69,9 @@ class ReportesController extends Controller
                     //->select(DB::raw('count(sucursal) as total'),'sucursal')
                     //->groupBy('sucursal')
                    // ->get();
-                    $ventas=DB::select('select count(sucursal) as total, sucursal from ventas_detalle as vd group by sucursal');
+                   // $ventas=DB::select('select count(sucursal) as total, sucursal from ventas_detalle as vd group by sucursal');
         
-                    return view('reportes.estadisticas.index',['categoria'=>$categoria,'ventas'=>$ventas]);
+                    return view('reportes.estadisticas.index',['categoria'=>$categoria]);
                 }
     }
    

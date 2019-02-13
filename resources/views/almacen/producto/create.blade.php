@@ -25,6 +25,16 @@
 
 			{!!Form::open(array('url'=>'almacen/producto','method'=>'POST','autocomplete'=>'on'))!!}
 			{{Form::token()}}
+			<div class="col-lg-10 col-sm-10 col-md-10 col-xs-10">
+				<div class="col-lg-3 col-sm-3 col-md-3 col-xs-6">
+					<div class="form-group">
+						<label for="slote">Lote</label>
+						<input type="text" name="slote" id="slote" class="form-control" ></input>
+					</div>
+				</div>
+			</div>
+
+
 			<div class="row">
 				<div class="col-lg-3 col-sm-3 col-md-3 col-xs-6">
 					<div class="form-group">
@@ -176,12 +186,20 @@
         $('#bt_add').click(function () {
             agregar();
         });
+		
     });
     var cont = 1;
     total = 0;
     subtotal = [];
-
+	var xlote;
+	var fecha = new Date();
+	xlote = fecha.getDate()+""+(fecha.getMonth()+1)+""+fecha.getFullYear()+"_"+fecha.getHours()+""+fecha.getMinutes()+""+fecha.getSeconds();
+	console.log(xlote);
+	
+	//console.log("Hora: "+fecha.getHours()+"\nMinuto: "+fecha.getMinutes()+"\nSegundo: "+fecha.getSeconds()+"\nMilisegundo: "+fecha.getMilliseconds());
     $("#guardar").hide();
+	$('#slote').val(xlote);
+
 
     function agregar(){
         idcategoria = $("#sidcategoria").val();

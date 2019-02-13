@@ -20,6 +20,7 @@ class Producto extends Model
         'idcategoria',
         'idsucursal',
         'estado',
+        'lote',
         'descripcion'
     ];
     protected $guarded = [];
