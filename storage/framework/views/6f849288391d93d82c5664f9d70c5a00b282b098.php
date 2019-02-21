@@ -59,13 +59,13 @@
 					</div>
 				</div>
 
-				<div class="col-lg-8 col-sm-8 col-md-8 col-xs-8">
+				<div class="col-lg-8 col-sm-8 col-md-8 col-xs-8"> 
 					<div class="form-group">
 						<label for="sidproducto">Producto</label>
 						<select name="sidproducto" id="sidproducto" class="form-control selectpicker"  data-live-search="true">
 								<option value="">eligir</option>
 							<?php foreach($productos as $prod): ?>
-							<option value="<?php echo e($prod->idproducto); ?>"><?php echo e($prod->codigo." - ".$prod->categoria." - ".$prod->color." - ".$prod->precio); ?></option>
+							<option  value="<?php echo e($prod->idproducto); ?>"><?php echo e($prod->codigo." - ".$prod->categoria." - ".$prod->color." - ".$prod->precio); ?></option>
 							<?php endforeach; ?>
 						</select>
 			

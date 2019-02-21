@@ -21,8 +21,8 @@
 						<th>Tela</th>
 						<th>Precio</th>
 						<th>Color</th>
-						<th>Lote</th>
 						
+						<th>Desc</th>
 						<th>Opciones</th>
 					</thead>
 					@foreach ($productos as $prod)
@@ -34,13 +34,14 @@
 						<td>{{ $prod->codigo}}</td>
 						<td>{{ $prod->talla}}</td>
 						<td>{{ $prod->idtela}}</td>
+
 						<td>{{ $prod->precio}}</td>
 						<td>{{ $prod->color}}</td>
 						@foreach ($desc as $d)
 							@if ($d->lote == $prod->lote )
-								<td><span class="label label-success">{{$d->porcentaje."%"}}</span></td>
+								<td><span class="label label-success">{{$d->porcentaje."%"}}</span> {{$prod->precio-($prod->precio*($d->porcentaje/100))}}</td>
 							@else
-							<td>{{ $prod->lote}}</td>
+								<td>{{ $prod->lote}}</td>
 							@endif
 						@endforeach
 						

@@ -24,7 +24,6 @@
 			<div class="form-group text-center">
 				<button class="btn btn-success" type="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i></button>
 				<button class="btn btn-danger" type="reset"><i class="fa fa-window-close-o" aria-hidden="true"></i></button>
-				
 				<a href="<?php echo e(action('CategoriaController@index')); ?>"><div class="btn btn-info" ><i class="fa fa-reply-all" aria-hidden="true"></i></div></a>
 			</div>
 

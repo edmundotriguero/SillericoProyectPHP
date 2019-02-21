@@ -20,8 +20,8 @@
 						<th>Tela</th>
 						<th>Precio</th>
 						<th>Color</th>
-						<th>Lote</th>
 						
+						<th>Desc</th>
 						<th>Opciones</th>
 					</thead>
 					<?php foreach($productos as $prod): ?>
@@ -33,13 +33,14 @@
 						<td><?php echo e($prod->codigo); ?></td>
 						<td><?php echo e($prod->talla); ?></td>
 						<td><?php echo e($prod->idtela); ?></td>
+
 						<td><?php echo e($prod->precio); ?></td>
 						<td><?php echo e($prod->color); ?></td>
 						<?php foreach($desc as $d): ?>
 							<?php if($d->lote == $prod->lote ): ?>
-								<td><span class="label label-success"><?php echo e($d->porcentaje."%"); ?></span></td>
+								<td><span class="label label-success"><?php echo e($d->porcentaje."%"); ?></span> <?php echo e($prod->precio-($prod->precio*($d->porcentaje/100))); ?></td>
 							<?php else: ?>
-							<td><?php echo e($prod->lote); ?></td>
+								<td><?php echo e($prod->lote); ?></td>
 							<?php endif; ?>
 						<?php endforeach; ?>
 						

@@ -58,13 +58,13 @@
 					</div>
 				</div>
 
-				<div class="col-lg-8 col-sm-8 col-md-8 col-xs-8">
+				<div class="col-lg-8 col-sm-8 col-md-8 col-xs-8"> 
 					<div class="form-group">
 						<label for="sidproducto">Producto</label>
 						<select name="sidproducto" id="sidproducto" class="form-control selectpicker"  data-live-search="true">
 								<option value="">eligir</option>
 							@foreach($productos as $prod)
-							<option value="{{$prod->idproducto}}">{{$prod->codigo." - ".$prod->categoria." - ".$prod->color." - ".$prod->precio}}</option>
+							<option  value="{{$prod->idproducto}}">{{$prod->codigo." - ".$prod->categoria." - ".$prod->color." - ".$prod->precio}}</option>
 							@endforeach
 						</select>
 			

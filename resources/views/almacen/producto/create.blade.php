@@ -25,110 +25,8 @@
 
 			{!!Form::open(array('url'=>'almacen/producto','method'=>'POST','autocomplete'=>'on'))!!}
 			{{Form::token()}}
-			<div class="col-lg-10 col-sm-10 col-md-10 col-xs-10">
-				<div class="col-lg-3 col-sm-3 col-md-3 col-xs-6">
-					<div class="form-group">
-						<label for="slote">Lote</label>
-						<input type="text" name="slote" id="slote" class="form-control" ></input>
-					</div>
-				</div>
-			</div>
-
 
 			<div class="row">
-				<div class="col-lg-3 col-sm-3 col-md-3 col-xs-6">
-					<div class="form-group">
-						<label for="sidcategoria">Categoria</label>
-						<select name="sidcategoria" id="sidcategoria" class="form-control selectpicker"  data-live-search="true">
-							@foreach($categorias as $cat)
-							<option value="{{$cat->idcategoria}}">{{$cat->nombre}}</option>
-							@endforeach
-						</select>
-			
-					</div>
-				</div>
-
-				<div class="col-lg-3 col-sm-3 col-md-3 col-xs-6">
-					<div class="form-group">
-						<label for="sidsucursal">Sucursal</label>
-						<select name="sidsucursal" id="sidsucursal" class="form-control selectpicker"  data-live-search="true">
-							@foreach($sucursales as $suc)
-							<option value="{{$suc->idsucursales}}">{{$suc->nombre}}</option>
-							@endforeach
-						</select>
-			
-					</div>
-				</div>
-
-				<div class="col-lg-3 col-sm-3 col-md-3 col-xs-6">
-					<div class="form-group">
-						<label for="sfechaCod">Fecha Cod</label>
-						<input type="date" name="sfechaCod" id="sfechaCod" class="form-control" ></input>
-					</div>
-				</div>
-
-			
-				<div class="col-lg-3 col-sm-3 col-md-3 col-xs-6">
-					<div class="form-group">
-						<label for="scodigo">Codigo</label>
-						<input type="text" name="scodigo" id="scodigo"  class="form-control" autocomplete="true" ></input>
-					</div>
-				</div>
-			
-				<div class="col-lg-3 col-sm-3 col-md-3 col-xs-6">
-					<div class="form-group">
-						<label for="sidtalla">Talla</label>
-						<select name="sidtalla" id="sidtalla" class="form-control selectpicker"  data-live-search="true">
-							@foreach($talla as $tal)
-							<option value="{{$tal->idtalla}}">{{$tal->nombre}}</option>
-							@endforeach
-						</select>
-			
-					</div>
-				</div>
-
-				<div class="col-lg-3 col-sm-3 col-md-3 col-xs-6">
-					<div class="form-group">
-						<label for="sidtela">Tela</label>
-						<select name="sidtela" id="sidtela" class="form-control selectpicker"  data-live-search="true">
-							@foreach($telas as $t)
-							<option value="{{$t->idtela}}">{{$t->nombre}}</option>
-							@endforeach
-						</select>
-			
-					</div>
-				</div>
-				<div class="col-lg-3 col-sm-3 col-md-3 col-xs-6">
-					<div class="form-group">
-						<label for="sidcolor">Color</label>
-						<select name="sidcolor" id="sidcolor" class="form-control selectpicker"  data-live-search="true">
-							@foreach($color as $col)
-							<option value="{{$col->idcolor}}">{{$col->nombre}}</option>
-							@endforeach
-						</select>
-			
-					</div>
-				</div>
-
-				<div class="col-lg-3 col-sm-3 col-md-3 col-xs-6">
-					<div class="form-group">
-						<label for="sprecio">Precio</label>
-						<input type="number" name="sprecio" id="sprecio"  class="form-control" autocomplete="true" ></input>
-					</div>
-				</div>
-
-				
-				<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
-					<div class="form-group text-center ">
-							<label for="bt_add"></label>
-						<button type="button" id="bt_add" class="btn btn-primary "><i class="fa fa-plus-square" aria-hidden="true"> Agregar</i></button>
-					</div>
-				</div>
-			</div>		
-		
-
-	
-<div class="row">
 <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12"> 
     <div class="panel panel-primary" >
         <div class="panel-body">
@@ -169,15 +67,120 @@
 				</div>
             </div>
 		</div>
-		
-	</div>
-	<div class="form-group text-center" id="guardar">
+		<div class="form-group text-center" id="guardar">
 			<input name="_token" value="{{ csrf_token() }}" type="hidden"></input>
 			<button class="btn btn-success" type="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i></button>
 			<button class="btn btn-danger" type="reset"><i class="fa fa-window-close-o" aria-hidden="true"></i></button>
 	</div>
+	</div>
+	
 </div>	
+
 </div>
+			<div class="col-lg-10 col-sm-10 col-md-10 col-xs-10">
+				<div class="col-lg-3 col-sm-6 col-md-6 col-xs-6">
+					<div class="form-group">
+						<label for="slote">Lote</label>
+						<input type="text" name="slote" id="slote" class="form-control" onkeypress="return onKeyPressHandler(event);"></input>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="row">
+				<div class="col-lg-3 col-sm-3 col-md-3 col-xs-6">
+					<div class="form-group">
+						<label for="sidcategoria">Categoria</label>
+						<select name="sidcategoria" id="sidcategoria" class="form-control selectpicker"  data-live-search="true">
+							@foreach($categorias as $cat)
+							<option value="{{$cat->idcategoria}}">{{$cat->nombre}}</option>
+							@endforeach
+						</select>
+			
+					</div>
+				</div>
+
+				<div class="col-lg-3 col-sm-3 col-md-3 col-xs-6">
+					<div class="form-group">
+						<label for="sidsucursal">Sucursal</label>
+						<select name="sidsucursal" id="sidsucursal" class="form-control selectpicker"  data-live-search="true">
+							@foreach($sucursales as $suc)
+							<option value="{{$suc->idsucursales}}">{{$suc->nombre}}</option>
+							@endforeach
+						</select>
+			
+					</div>
+				</div>
+
+				<div class="col-lg-3 col-sm-3 col-md-3 col-xs-6">
+					<div class="form-group">
+						<label for="sfechaCod">Fecha Cod</label>
+						<input type="date" name="sfechaCod" id="sfechaCod" class="form-control" onkeypress="return onKeyPressHandler(event);"></input>
+					</div>
+				</div>
+
+				<div class="col-lg-3 col-sm-3 col-md-3 col-xs-6">
+					<div class="form-group">
+						<label for="sidtela">Tela</label>
+						<select name="sidtela" id="sidtela" class="form-control selectpicker"  data-live-search="true">
+							@foreach($telas as $t)
+							<option value="{{$t->idtela}}">{{$t->nombre}}</option>
+							@endforeach
+						</select>
+			
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-3 col-md-3 col-xs-6">
+					<div class="form-group">
+						<label for="sidcolor">Color</label>
+						<select name="sidcolor" id="sidcolor" class="form-control selectpicker"  data-live-search="true">
+							@foreach($color as $col)
+							<option value="{{$col->idcolor}}">{{$col->nombre}}</option>
+							@endforeach
+						</select>
+			
+					</div>
+				</div>
+
+				<div class="col-lg-3 col-sm-3 col-md-3 col-xs-6">
+					<div class="form-group">
+						<label for="sprecio">Precio</label>
+						<input type="number" name="sprecio" id="sprecio"  class="form-control" autocomplete="true" onkeypress="return onKeyPressHandler(event);" ></input>
+					</div>
+				</div>
+
+				<div class="col-lg-3 col-sm-3 col-md-3 col-xs-6">
+					<div class="form-group">
+						<label for="sidtalla">Talla</label>
+						<select name="sidtalla" id="sidtalla" class="form-control selectpicker"  data-live-search="true">
+							@foreach($talla as $tal)
+							<option value="{{$tal->idtalla}}">{{$tal->nombre}}</option>
+							@endforeach
+						</select>
+			
+					</div>
+				</div>
+
+				<div class="col-lg-3 col-sm-3 col-md-3 col-xs-6">
+					<div class="form-group">
+						<label for="scodigo">Codigo</label>
+						<input type="text" name="scodigo" id="scodigo"  class="form-control" autocomplete="true"  onkeypress="return onKeyPressHandler(event);"></input>
+					</div>
+				</div>
+
+				
+				<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+					<div class="form-group text-center ">
+							<label for="bt_add"></label>
+						<button type="button" id="bt_add" class="btn btn-primary "><i class="fa fa-plus-square" aria-hidden="true"> Agregar</i></button>
+					</div>
+				</div>
+			</div>		
+		
+
+	
+
+
 	{!!Form::close()!!}
 
 	@push ('scripts')
@@ -188,6 +191,7 @@
         });
 		
     });
+	
     var cont = 1;
     total = 0;
     subtotal = [];
@@ -200,7 +204,20 @@
     $("#guardar").hide();
 	$('#slote').val(xlote);
 
+	function onKeyPressHandler(event) {
 
+		var codigo = event.which || event.keyCode;
+
+		//console.log("Presionada: " + codigo);
+		if(codigo === 13)
+		{
+			agregar();
+		}
+		
+		return (codigo!=13); 
+
+
+    }
     function agregar(){
         idcategoria = $("#sidcategoria").val();
         categoria = $("#sidcategoria option:selected").text();
