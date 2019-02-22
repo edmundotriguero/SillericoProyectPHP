@@ -210,7 +210,7 @@
 
 		var codigo = event.which || event.keyCode;
 
-		console.log("Presionada: " + codigo);
+		//console.log("Presionada: " + codigo);
 		if(codigo === 13)
 		{
 			agregar();

@@ -76,11 +76,14 @@
 		<span class="input-group-btn">
 			<button type="submit" class="btn btn-flat"><i class="fa fa-search"></i> Buscar</button>		
 		</span>
+
+			
 	
 	</div>
 </div>
 </div>
 {{ Form::close() }}
+			<a href="{{URL::action('ExcelReportController@excel_producto',$idtal.'-'.$idcat.'-'.$idsuc)}}"><button class="btn fa fa-file-excel-o" aria-hidden="true"> Excel</button></a>
 
 
 

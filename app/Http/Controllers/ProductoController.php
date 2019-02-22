@@ -22,6 +22,7 @@ class ProductoController extends Controller
         $this->middleware('auth');
         $this->middleware('isAdmin');
     }
+    
     public function index(Request $request){
         
             if($request){
@@ -57,6 +58,7 @@ class ProductoController extends Controller
                 ->select('p.idproducto','p.fechaCod','p.codigo','co.nombre as color','ta.nombre as talla','t.nombre as idtela','p.precio','c.nombre as idcategoria','s.nombre as idsucursal','p.lote')
                 ->orderBy('p.idproducto','asc')
                 ->paginate(50);
+            
     
                 return view('almacen.producto.index',["desc"=>$desc,"productos"=>$productos,"precio"=>$precio,"tallas"=>$tallas,"searchText"=>$query,"sucursal"=>$sucursal,"categorias"=>$categorias,"idcat"=>$idcat,"idsuc"=>$idsuc,"idtal"=>$idtal,"precio"=>$precio,"nombreTalla"=>$nombreTalla]);
             }
@@ -114,7 +116,7 @@ class ProductoController extends Controller
         return Redirect::to('almacen/producto');
     }
     public function show($id) {
-        return view("almacen.producto.show",["categoria"=>Categoria::findOrFail($id)]);
+       // return view("almacen.producto.show",["categoria"=>Categoria::findOrFail($id)]);
     }
 
     public function edit($id){
@@ -181,5 +183,8 @@ class ProductoController extends Controller
         return redirect()->back()->withErrors("Verfique que no exista el registro o alguna restriccion en la Base de datos");
     }
     }
+
+    
+    
 
 }

@@ -157,6 +157,7 @@ return [
         sillericos\Providers\EventServiceProvider::class,
         sillericos\Providers\RouteServiceProvider::class,
         Collective\Html\HtmlServiceProvider::Class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 
        
 
@@ -207,6 +208,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Form' => Collective\Html\FormFacade::Class,
         'Html' => Collective\Html\HtmlFacade::Class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 
         
 

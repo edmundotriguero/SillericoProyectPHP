@@ -43,6 +43,10 @@ Route::get('reportes/estadisticas','ReportesController@indexE');
 Route::get('almacen/producto/desc/{idproducto}','ProductoController@desc');
 Route::post('almacen/producto/descStore','ProductoController@descStore');
 
+//para generar excel
+
+Route::get('report/excel_productos/{param}','ExcelReportController@excel_producto');
+
 Route::auth();
 
 Route::get('/home', 'HomeController@index');

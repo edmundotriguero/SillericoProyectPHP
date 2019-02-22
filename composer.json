@@ -7,7 +7,9 @@
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
-        "laravelcollective/html": "5.2.*"
+        "laravelcollective/html": "5.2.*",
+        "maatwebsite/excel": "~2.1.0",
+        "phpoffice/phpexcel": "1.8.1"
         
         
     },

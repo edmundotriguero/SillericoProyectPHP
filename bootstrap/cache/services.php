@@ -27,6 +27,7 @@
     23 => 'sillericos\\Providers\\EventServiceProvider',
     24 => 'sillericos\\Providers\\RouteServiceProvider',
     25 => 'Collective\\Html\\HtmlServiceProvider',
+    26 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
   ),
   'eager' => 
   array (
@@ -43,6 +44,7 @@
     10 => 'sillericos\\Providers\\AuthServiceProvider',
     11 => 'sillericos\\Providers\\EventServiceProvider',
     12 => 'sillericos\\Providers\\RouteServiceProvider',
+    13 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
   ),
   'deferred' => 
   array (
