@@ -264,7 +264,7 @@ class VentasController extends Controller
         
         ->where('v.id','LIKE','%'.$idventa.'%')
       
-        ->select('v.id','v.fechaVenta','v.tipoDoc','v.numDoc','v.cliente','c.nombre as categoria','v.costoVenta','v.saldo','v.ingreso',)
+        ->select('v.id','v.fechaVenta','v.tipoDoc','v.numDoc','v.cliente','c.nombre as categoria','v.costoVenta','v.saldo','v.ingreso')
         ->orderBy('v.fechaVenta','asc')
         ->first();
 

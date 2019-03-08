@@ -15,10 +15,33 @@
 		</div>
 		@include('almacen.producto.search')
 	</div>
+	<div class="box box-primary">
+		<div class="box-header with-border">
+		<h3 class="box-title">Productos encontrados: <span class="label label-info" >{{$productos->total()}}</span></h3>
+		  <div class="box-tools pull-right">
+			<!-- Buttons, labels, and many other things can be placed here! -->
+			<!-- Here is a label for example -->
+
+			<a href="{{URL::action('ExcelReportController@excel_producto',$idtal.'-'.$idcat.'-'.$idsuc)}}"><button class="btn fa fa-file-excel-o" aria-hidden="true"> Excel</button></a>
+			{{-- <span class="label label-primary">Label</span> --}}
+		  </div>
+		  <!-- /.box-tools -->
+		</div>
+		<!-- /.box-header -->
+		{{-- <div class="box-body">
+		  The body of the box
+		</div> --}}
+		<!-- /.box-body -->
+		{{-- <div class="box-footer">
+		  The footer of the box
+		</div> --}}
+		<!-- box-footer -->
+	  </div>
+	  <!-- /.box -->
 
 	<div class="row">
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-			{{$productos->appends(['searchText' => $searchText,"idcat"=>$idcat,"idsuc"=>$idsuc,"idtal"=>$idtal,"precio"=>$precio,"nombreTalla"=>$nombreTalla])->links()}}
+			{{$productos->appends(['searchText' => $searchText,"idcat"=>$idcat,"idtel"=>$idtel,"idcol"=>$idcol,"idsuc"=>$idsuc,"idtal"=>$idtal,"precio"=>$precio,"nombreTalla"=>$nombreTalla])->links()}}
 
 			<div class="table-responsive">
 				<table class="table table-striped table-bordered table-condensed table-hover">
@@ -48,16 +71,24 @@
 
 						<td>{{ $prod->precio}}</td>
 						<td>{{ $prod->color}}</td>
+						@php
+							$aux = 0;
+						@endphp
 						@foreach ($desc as $d)
 							@if ($d->lote == $prod->lote )
 								<td><span class="label label-success">{{$d->porcentaje."%"}}</span> {{$prod->precio-($prod->precio*($d->porcentaje/100))}}</td>
-							@else
-								<td>{{ $prod->lote}}</td>
+								@php
+								$aux = 1;
+								@endphp
+							@else	
 							@endif
 						@endforeach
-						
+						@if ($aux == 0)
+							<td>no</td>
+						@endif
 						<td>
-								<a href="{{URL::action('ProductoController@desc',$prod->idproducto)}}"><button class="btn fa fa-scissors" aria-hidden="true"></button></a>
+							<a href="{{URL::action('ProductoController@desc',$prod->idproducto)}}"><button class="btn fa fa-scissors" aria-hidden="true"></button></a>
+							<a href="{{URL::action('ProductoController@show',$prod->idproducto)}}"><button class="btn fa fa-eye" aria-hidden="true"></button></a>
 							<a href="{{URL::action('ProductoController@edit',$prod->idproducto)}}"><button class="btn fa fa-refresh" aria-hidden="true"></button></a>
 							<a href="" data-target="#modal-delete-{{$prod->idproducto}}" data-toggle="modal" ><button class="btn fa fa-trash" aria-hidden="true"></button></a>
 						</td>
