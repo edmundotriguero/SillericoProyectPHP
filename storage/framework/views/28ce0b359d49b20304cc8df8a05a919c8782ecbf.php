@@ -1,4 +1,9 @@
 <?php $__env->startSection('contenido'); ?>
+	<div class="row text-center">
+		<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" id="error">
+		<a href="<?php echo e(action('VentasController@index')); ?>"><div class="btn btn-info" ><i class="fa fa-reply-all" aria-hidden="true"> Volver</i></div></a>
+		</div>
+	</div>
 	<div class="row">
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" id="error">
 			<h3>Nuevos registros de ventas</h3>
@@ -54,13 +59,13 @@
 					</div>
 				</div>
 
-				<div class="col-lg-8 col-sm-8 col-md-8 col-xs-8">
+				<div class="col-lg-8 col-sm-8 col-md-8 col-xs-8"> 
 					<div class="form-group">
 						<label for="sidproducto">Producto</label>
 						<select name="sidproducto" id="sidproducto" class="form-control selectpicker"  data-live-search="true">
 								<option value="">eligir</option>
 							<?php foreach($productos as $prod): ?>
-							<option value="<?php echo e($prod->idproducto); ?>"><?php echo e($prod->codigo." - ".$prod->categoria." - ".$prod->color); ?></option>
+							<option  value="<?php echo e($prod->idproducto); ?>"><?php echo e($prod->codigo." - ".$prod->categoria." - ".$prod->color." - ".$prod->precio); ?></option>
 							<?php endforeach; ?>
 						</select>
 			

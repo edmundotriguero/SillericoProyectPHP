@@ -1,4 +1,10 @@
 <?php $__env->startSection('contenido'); ?>
+	<div class="row text-center">
+		<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" id="error">
+		<a href="<?php echo e(action('VentasController@index')); ?>"><div class="btn btn-info" ><i class="fa fa-reply-all" aria-hidden="true"> Volver a Ventas</i></div></a>
+		</div>
+	</div>
+
 	<div class="row">
 		<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
 			<h3>Listado de Saldos  </h3> 
@@ -24,10 +30,25 @@
 						<td><?php echo e($sa->id); ?></td>
 						<td><?php echo e($sa->idventa); ?></td>
 						<td><?php echo e($sa->ingreso); ?></td>
-						<td><?php echo e($sa->fecha); ?></td>
-						<td><?php echo e($sa->tipoDoc); ?></td>
+						<td><?php echo e(date('d/m/Y', strtotime($sa->fecha))); ?></td>
+						<?php if($sa->tipoDoc == 0): ?>
+						<td>Factura</td>
+						<?php elseif($sa->tipoDoc == 1): ?>
+						<td>Recibo</td>
+						<?php else: ?> 
+						<td>Sin Doc.</td>
+						<?php endif; ?>
+						
+						
 						<td><?php echo e($sa->numDoc); ?></td>
-						<td><?php echo e($sa->estado); ?></td>
+						<?php if($sa->estado == 1): ?>
+						<td>Faltante</td>
+						<?php elseif($sa->estado == 2): ?>
+						<td>Completado</td>
+						<?php else: ?> 
+						<td>$sa->estado</td>
+						<?php endif; ?>
+						
 					
 						<td>
 							<a href="<?php echo e(URL::action('VentasController@crearSaldo',$sa->idventa)); ?>"><button class="btn fa fa-refresh" aria-hidden="true"></button></a>

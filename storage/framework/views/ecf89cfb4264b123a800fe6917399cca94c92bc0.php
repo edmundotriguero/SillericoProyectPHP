@@ -7,10 +7,10 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
                         <span aria-hidden="true">x</span>
                     </button>
-                    <h4 class="modal-title">Eliminar Producto</h4>
+                    <h4 class="modal-title">Eliminar </h4>
                 </div>
                 <div class="modal-body">
-                    <p>Esta Seguro de que desea Eliminar el Producto?</p>
+                    <p>Esta Seguro de que desea eliminar el registro?</p>
                     <p>Esta accion no tiene retroceso</p>
                 </div>
                 <div class="modal-footer">

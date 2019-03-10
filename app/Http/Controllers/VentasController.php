@@ -88,22 +88,13 @@ class VentasController extends Controller
 
             }
            }
-            
-        
-         
-
       }
       dd($desc);*/
-        
-      
-      
-
-       
-        
 
         return view("ventas.ventas.create",["productos"=>$productos]);
 
     }
+    //optimisar codigo y validar desde el lado de la vista para permitir solo una instancia cuando se ingrese nuevos valores de saldo o cuando se cree un saldo 
     public function store(VentasFormRequest $request) {
        // try {
             DB::beginTransaction();
@@ -134,9 +125,7 @@ class VentasController extends Controller
                 $ventas->estado = '1';
                  $ventas->save();
 
-                DB::update('update productos set estado = 2 where idproducto = ?', [$idproducto[$cont]]);
-                
-
+                DB::update('update productos set estado = 2 where idproducto = ?', [$idproducto[$cont]]);          
                 $cont = $cont + 1;
             }
 
@@ -226,6 +215,8 @@ class VentasController extends Controller
         return Redirect::to('ventas/ventas');
 
     }
+
+    
     //parte desde empieza la parte de saldos 
  
     public function indexSaldos(Request $request){

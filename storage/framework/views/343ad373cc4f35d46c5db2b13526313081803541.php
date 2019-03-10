@@ -18,26 +18,12 @@
 		<div class="box-header with-border">
 		<h3 class="box-title">Productos encontrados: <span class="label label-info" ><?php echo e($productos->total()); ?></span></h3>
 		  <div class="box-tools pull-right">
-			<!-- Buttons, labels, and many other things can be placed here! -->
-			<!-- Here is a label for example -->
-
 			<a href="<?php echo e(URL::action('ExcelReportController@excel_producto',$idtal.'-'.$idcat.'-'.$idsuc)); ?>"><button class="btn fa fa-file-excel-o" aria-hidden="true"> Excel</button></a>
-			<?php /* <span class="label label-primary">Label</span> */ ?>
 		  </div>
-		  <!-- /.box-tools -->
+		
 		</div>
-		<!-- /.box-header -->
-		<?php /* <div class="box-body">
-		  The body of the box
-		</div> */ ?>
-		<!-- /.box-body -->
-		<?php /* <div class="box-footer">
-		  The footer of the box
-		</div> */ ?>
-		<!-- box-footer -->
+	
 	  </div>
-	  <!-- /.box -->
-
 	<div class="row">
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 			<?php echo e($productos->appends(['searchText' => $searchText,"idcat"=>$idcat,"idtel"=>$idtel,"idcol"=>$idcol,"idsuc"=>$idsuc,"idtal"=>$idtal,"precio"=>$precio,"nombreTalla"=>$nombreTalla])->links()); ?>
