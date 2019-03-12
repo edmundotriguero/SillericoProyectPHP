@@ -195,17 +195,41 @@ class ProductoController extends Controller
         ->where('idproducto','LIKE',$id)
         ->first();
         
+        
+        $porcentaje=DB::table('descuentos')->select('porcentaje')->where('lote','LIKE',$lote->lote)->first();
 
-        return view("almacen.producto.desc",["lote"=>$lote]);
+        
+
+        return view("almacen.producto.desc",["lote"=>$lote,"porcentaje"=>$porcentaje]);
     }
 
     public function descStore(Request $request){
     try{
+
         $xlote = $request->get('lote');
         $desc = $request->get('desc');
+
+        $existencia = DB::table('descuentos')
+        ->select('lote')
+        ->where('lote', '=', $xlote)
+        ->get();
+
+        // if ($desc == 0) {
+        //     dd('eliminar de la base de datos base de datos');
+        // }
+        if (count($existencia) != 0 ) {
+            DB::insert('update descuentos set porcentaje = ? where lote = ?', [$desc, $xlote]);
+            DB::commit();
+
+        }else {
+            DB::insert('insert into descuentos ( lote, porcentaje)values(?,?)', [$xlote,$desc]);
+            DB::commit();
+            
+        }
+
         
-        DB::insert('insert into descuentos ( lote, porcentaje)values(?,?)', [$xlote,$desc]);
-        DB::commit();
+        
+        
 
         return Redirect::to('almacen/producto');
     }catch (\Illuminate\Database\QueryException $e){

@@ -57,6 +57,44 @@
 	</div>
 </div>
 <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+	<div class="form-group">
+		
+		<select name="idtel" id="idtel" class="form-control selectpicker"  data-live-search="true" >
+				<option value="">Tela</option>
+			<?php foreach($telas as $tel): ?>
+			<?php if($tel->idtela == $idtel): ?>
+				<option value="<?php echo e($tel->idtela); ?>" selected><?php echo e($tel->nombre); ?></option>
+				
+			<?php else: ?>
+				<option value="<?php echo e($tel->idtela); ?>"><?php echo e($tel->nombre); ?></option>
+				
+			<?php endif; ?>
+			
+			<?php endforeach; ?>
+		</select>
+
+	</div>
+</div>
+<div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+	<div class="form-group">
+		
+		<select name="idcol" id="idcol" class="form-control selectpicker"  data-live-search="true" >
+				<option value="">Color</option>
+			<?php foreach($color as $col): ?>
+			<?php if($col->idcolor == $idcol): ?>
+				<option value="<?php echo e($col->idcolor); ?>" selected><?php echo e($col->nombre); ?></option>
+				
+			<?php else: ?>
+				<option value="<?php echo e($col->idcolor); ?>"><?php echo e($col->nombre); ?></option>
+				
+			<?php endif; ?>
+			
+			<?php endforeach; ?>
+		</select>
+
+	</div>
+</div>
+<div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
 		<div class="form-group">
 			<input type="text" class="form-control " name="searchText" placeholder="Buscar codigo" value="<?php echo e($searchText); ?>"></input>
 			
@@ -71,6 +109,9 @@
 	</div>
 </div>
 <input type="hidden" id="nombreTalla" name="nombreTalla" value=""/>
+<input type="hidden" id="nombreTela" name="nombreTela" value=""/>
+<input type="hidden" id="nombreColor" name="nombreColor" value=""/>
+
 <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
 	<div class="form-group text-center">
 		
@@ -85,7 +126,6 @@
 </div>
 <?php echo e(Form::close()); ?>
 
-			<a href="<?php echo e(URL::action('ExcelReportController@excel_producto',$idtal.'-'.$idcat.'-'.$idsuc)); ?>"><button class="btn fa fa-file-excel-o" aria-hidden="true"> Excel</button></a>
 
 
 
@@ -100,11 +140,22 @@ window.onload=function() {
 		if(talla == 'Talla'){
 			talla = '';
 		}
+		//=========
 		console.log(talla);
-		$("#nombreTalla").val(talla);
-
+		tela = $("#idtel option:selected").text();
+		if (talla == 'Tela') {
+			talla = '';
 		}
-
+		color = $("#idcol option:selected").text();
+		if (color == 'Color') {
+			color = '';
+		}
+		$("#nombreTalla").val(talla);
+		$("#nombreTela").val(talla);
+		$("#nombreColor").val(talla);
+		}
+		
+		//==================
 		$("#idtal").change(function(){
 
             talla = $("#idtal option:selected").text();
@@ -113,7 +164,27 @@ window.onload=function() {
 		}
 			console.log(talla);
 			$("#nombreTalla").val(talla);
-	});
+		});
+		//==================
+		$("#idtel").change(function(){
+
+			tela = $("#idtel option:selected").text();
+			if(tela == 'Tela'){
+			tela = '';
+			}
+			console.log(tela);
+		$("#nombreTela").val(tela);
+		});
+		//==================
+		$("#idcol").change(function(){
+
+			color = $("#idcol option:selected").text();
+			if(color == 'Tela'){
+			color = '';
+			}
+			console.log(color);
+			$("#nombreColor").val(color);
+		});
     
 
 </script>

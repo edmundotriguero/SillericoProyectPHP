@@ -13,6 +13,19 @@
 			<?php endif; ?>
 		</div>
 	</div>
+	<div class="page-header">
+		<?php if($porcentaje == null): ?>
+			No tiene ningun descuento asignado
+		<?php else: ?>
+			<h4>Este lote ya tiene un descuento: 
+				<span class="label label-success">
+					<?php echo e($porcentaje->porcentaje." %"); ?>
+
+				</span>	
+			</h4>
+		<?php endif; ?>
+		<small>* Para cambiar de valor solo guarde nuevamente con el nuevo porcentaje de descuento</small>
+	</div>
 	<?php echo Form::open(array('url'=>'almacen/producto/descStore','method'=>'POST','autocomplete'=>'on')); ?>
 
 	<?php echo e(Form::token()); ?>

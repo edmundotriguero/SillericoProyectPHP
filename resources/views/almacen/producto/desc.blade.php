@@ -14,6 +14,19 @@
 			@endif
 		</div>
 	</div>
+	<div class="page-header">
+		@if ($porcentaje == null)
+			No tiene ningun descuento asignado
+		@else
+			<h4>Este lote ya tiene un descuento: 
+				<span class="label label-success">
+					{{$porcentaje->porcentaje." %"}}
+				</span>	
+			</h4>
+		@endif
+		<small>* Para cambiar de valor solo guarde nuevamente con el nuevo porcentaje de descuento</small>
+		<small>*</small>
+	</div>
 	{!!Form::open(array('url'=>'almacen/producto/descStore','method'=>'POST','autocomplete'=>'on'))!!}
 	{{Form::token()}}
 		<div class="row">
