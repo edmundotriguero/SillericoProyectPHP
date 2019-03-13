@@ -45,8 +45,7 @@ class VentasController extends Controller
                 $sucursales=DB::table('sucursales')->get();
                 $categorias=DB::table('categorias')->get();
 
-                
-
+            
                 $ventas=DB::table('ventas as v')
                 ->join('productos as p', 'p.idproducto','=', 'v.idproducto')
                 ->join('categorias as c', 'p.idcategoria','=', 'c.idcategoria')
@@ -65,9 +64,6 @@ class VentasController extends Controller
     
                 return view('ventas.ventas.index',["ventas"=>$ventas]);
             }
-       
-        
-
 
     }
     public function create(){
@@ -75,24 +71,23 @@ class VentasController extends Controller
         $productos = DB::table('productos as p')
         ->join('categorias as c','p.idcategoria','=','c.idcategoria')
         ->join('color as cl','p.idcolor','=','cl.idcolor')
-        ->select('p.idproducto','p.codigo','c.nombre as categoria' ,'cl.nombre as color','p.precio as precio','p.lote as lote')
+        ->select('p.idproducto','p.codigo','c.nombre as categoria' ,'cl.nombre as color','p.precio as precio','p.lote as lote','p.precio as desc')
         ->where('p.estado','=','1')
         ->orderBy('p.idproducto','asc')
         ->get();
         $desc=DB::table('descuentos')->get();
-        //print_r($productos);
-       // die();
-       /* for($i=0;$i <= count($productos);$i++){
+        
+        
+       
+        foreach($productos as $producto){
            foreach ($desc as $d) {
-              if($d == $productos[$i]->lote){
-
+              if($d->lote == $producto->lote){
+                $producto->desc = $producto->desc - ($producto->desc * $d->porcentaje / 100); 
             }
            }
-      }
-      dd($desc);*/
+        }
 
         return view("ventas.ventas.create",["productos"=>$productos]);
-
     }
     //optimisar codigo y validar desde el lado de la vista para permitir solo una instancia cuando se ingrese nuevos valores de saldo o cuando se cree un saldo 
     public function store(VentasFormRequest $request) {

@@ -39,6 +39,25 @@
 <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
 	<div class="form-group">
 		
+		<select name="idcol" id="idcol" class="form-control selectpicker"  data-live-search="true" >
+				<option value="">Color</option>
+			@foreach($color as $col)
+			@if ($col->idcolor == $idcol)
+				<option value="{{$col->idcolor}}" selected>{{$col->nombre}}</option>
+				
+			@else
+				<option value="{{$col->idcolor}}">{{$col->nombre}}</option>
+				
+			@endif
+			
+			@endforeach
+		</select>
+
+	</div>
+</div>
+<div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+	<div class="form-group">
+		
 		<select name="idtal" id="idtal" class="form-control selectpicker"  data-live-search="true" >
 				<option value="">Talla</option>
 			@foreach($tallas as $tal)
@@ -74,25 +93,7 @@
 
 	</div>
 </div>
-<div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-	<div class="form-group">
-		
-		<select name="idcol" id="idcol" class="form-control selectpicker"  data-live-search="true" >
-				<option value="">Color</option>
-			@foreach($color as $col)
-			@if ($col->idcolor == $idcol)
-				<option value="{{$col->idcolor}}" selected>{{$col->nombre}}</option>
-				
-			@else
-				<option value="{{$col->idcolor}}">{{$col->nombre}}</option>
-				
-			@endif
-			
-			@endforeach
-		</select>
 
-	</div>
-</div>
 <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
 		<div class="form-group">
 			<input type="text" class="form-control " name="searchText" placeholder="Buscar codigo" value="{{$searchText}}"></input>
