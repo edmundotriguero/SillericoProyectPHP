@@ -214,11 +214,14 @@ class ProductoController extends Controller
         ->where('lote', '=', $xlote)
         ->get();
 
-        // if ($desc == 0) {
-        //     dd('eliminar de la base de datos base de datos');
-        // }
-        if (count($existencia) != 0 ) {
-            DB::insert('update descuentos set porcentaje = ? where lote = ?', [$desc, $xlote]);
+        if ($desc == 0) {
+           //DELETE FROM `descuentos` WHERE `descuentos`.`id` = 4
+            DB::delete('delete from descuentos where lote = ?', [$xlote]);
+            DB::commit();
+
+        }elseif (count($existencia) != 0) {
+            # code...
+            DB::update('update descuentos set porcentaje = ? where lote = ?', [$desc, $xlote]);
             DB::commit();
 
         }else {
@@ -227,14 +230,10 @@ class ProductoController extends Controller
             
         }
 
-        
-        
-        
-
         return Redirect::to('almacen/producto');
     }catch (\Illuminate\Database\QueryException $e){
         
-        return redirect()->back()->withErrors("Verfique que no exista el registro o alguna restriccion en la Base de datos");
+        return redirect()->back()->withErrors("Verfique que no exista el registro o alguna restriccion en la Base de datos contacte con el administrador y reporte el problema");
     }
     }
 

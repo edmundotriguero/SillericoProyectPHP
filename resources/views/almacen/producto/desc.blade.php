@@ -24,7 +24,8 @@
 				</span>	
 			</h4>
 		@endif
-		<small>* Para cambiar de valor solo guarde nuevamente con el nuevo porcentaje de descuento</small>
+		<h4><small>* Para cambiar de valor solo guarde nuevamente con el nuevo porcentaje de descuento</small></h4>
+		<h4><small>* Para eliminar un descuento deje vacío o guarde con "0". Esa acción no tiene retroceso.</small></h4>
 		<small>*</small>
 	</div>
 	{!!Form::open(array('url'=>'almacen/producto/descStore','method'=>'POST','autocomplete'=>'on'))!!}
