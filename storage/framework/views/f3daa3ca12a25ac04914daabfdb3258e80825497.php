@@ -1,7 +1,7 @@
 <?php $__env->startSection('contenido'); ?>
 	<div class="row">
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-			<h3>Editar Categoría : <?php echo e($categoria->nombre); ?></h3>
+			<h3>Editar lote : <?php echo e($lote->lote); ?></h3>
 			<?php if(count($errors)>0): ?>
 			<div class="alert alert-danger">
 				<ul>
@@ -12,14 +12,19 @@
 			</div>
 			<?php endif; ?>
 
-			<?php echo Form::model($categoria,['method'=>'PATCH','route'=>['almacen.categoria.update',$categoria->idcategoria]]); ?>
+			<?php echo Form::model($lote,['method'=>'PATCH','route'=>['almacen.lote.update',$lote->id]]); ?>
 
             <?php echo e(Form::token()); ?>
 
             <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 			<div class="form-group">
-				<label for="nombre">Nombre</label>
-				<input type="text" name="nombre" class="form-control" value="<?php echo e($categoria->nombre); ?>" placeholder="Nombre"></input>
+				<label for="lote">Lote</label>
+				<input type="text" name="lote" class="form-control" value="<?php echo e($lote->lote); ?>" placeholder="Lote"></input>
+			</div>
+			
+			<div class="form-group">
+				<label for="porcentaje_descuento">Porctaje de descuento</label>
+				<input type="number" name="porcentaje_descuento" class="form-control" value="<?php echo e($lote->porcentaje_descuento); ?>" min="0" max="100"></input>
             </div>
         
 			<div class="form-group">

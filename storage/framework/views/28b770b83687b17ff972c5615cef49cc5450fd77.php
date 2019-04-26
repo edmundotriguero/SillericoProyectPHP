@@ -1,8 +1,13 @@
  
 <?php $__env->startSection('contenido'); ?>
 <div class="row">
+	<div class="row text-center">
+		<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" id="error">
+		<a href="<?php echo e(action('VentasController@indexSaldos')); ?>"><div class="btn btn-info" ><i class="fa fa-reply-all" aria-hidden="true"> Volver</i></div></a>
+		</div>
+	</div>
 	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" id="error">
-		<h3>registro de saldo</h3>
+		<h3>Registro de Pago </h3>
 		<?php if(count($errors)>0): ?>
 		<div class="alert alert-danger">
 			<ul>
@@ -14,41 +19,61 @@
 		<?php endif; ?>
 	</div>
 </div>
-
+<h3>Detalles de Pago </h3>
 <div class="row">
 	<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
 		<div class="panel panel-primary">
 			<div class="panel-body">
-
+			<?php  $sum = 0;  ?>
 				<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
 					<div class="table-responsive">
 						<table id="" class="table table-striped table-bordered table-condensed table-hover ">
-							<thead class="bg-blue-active">
-								
-								<th>id</th>
-								
+							<thead class="bg-blue-active">								
+								<th>id</th>								
 								<th>fecha</th>
 								<th>tipoDoc</th>
 								<th>numDoc</th>
-								<th>estado</th>
+								<?php /*<th>estado</th>*/ ?>
 								<th>ingreso</th>
-
-							</thead>
-							<tfoot>
-								<?php foreach($saldos as $sal): ?>
-
+							</thead>							
+							<?php foreach($saldos as $sal): ?>
+							<tfoot>								
 								<th><?php echo e($sal->id); ?></th>
-								<th><?php echo e($sal->fecha); ?></th>
-								<th><?php echo e($sal->tipoDoc); ?></th>
-								<th><?php echo e($sal->numDoc); ?></th>
-								<th><?php echo e($sal->estado); ?></th>
-								<th><?php echo e($sal->ingreso); ?></th>
+								<th><?php echo e(date('d/m/Y', strtotime($sal->fecha))); ?></th>
+								<?php if($sal->tipoDoc == 0 ): ?>
+									<th>Factura</th>
+								<?php elseif($sal->tipoDoc == 1): ?>
+									<th>Recibo</th>
+								<?php else: ?>
+									<th>Sin Doc </th>
+								<?php endif; ?>
 								
-								<?php endforeach; ?>
+								<th><?php echo e($sal->numDoc); ?></th>
+								<?php /*<th><?php echo e($sal->estado); ?></th>*/ ?>
+								<th><?php echo e($sal->ingreso); ?></th>	
+								<?php  $sum = $sum + $sal->ingreso;  ?>													
 							</tfoot>
+							<?php endforeach; ?>														
 							<tbody>
-
+							
 							</tbody>
+						</table>
+
+						<table id="" class="table table-striped table-bordered table-condensed table-hover ">
+							<thead class="bg-blue-active">								
+								
+								<th>Precio de Venta</th>
+								<th>Pagado</th>
+								<th>Por pagar</th>
+							</thead>
+							
+							<tfoot>								
+								
+								<th><?php echo e($venta->costoVenta); ?></th>
+								<th><?php echo e($sum); ?></th>
+								<?php  $saldoPorPagar = $venta->costoVenta - $sum ;  ?>
+								<th><?php echo e($saldoPorPagar); ?></th>														
+							</tfoot>					
 
 						</table>
 					</div>
@@ -83,27 +108,19 @@
 
 		</div>
 	</div>
-
 	<div class="col-lg-5 col-sm-5 col-md-5 col-xs-6">
 		<div class="form-group">
 			<label for="snumDoc">Numero Doc</label>
 			<input type="number" name="snumDoc" id="snumDoc" class="form-control" autocomplete="true"></input>
 		</div>
 	</div>
-
-	
-
 	<div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
 		<div class="form-group">
 			<label for="sprecio">Precio</label>
 			<input type="number" name="sprecio" id="sprecio" class="form-control" autocomplete="true"></input>
 		</div>
 	</div>
-
-
-
-
-	
+<input type="hidden" name="idventa" id="idventa" class="form-control" value="<?php echo e($idventa); ?>"></input>
 </div>
 <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
 	<div class="form-group text-center ">
@@ -127,15 +144,12 @@
 								<th>Fecha </th>
 								<th>Documento</th>
 								<th>Ingreso</th>
-
 							</thead>
 							<tfoot>
 								<th>TOTAL</th>
 								<th></th>
 								<th></th>
 								<th></th>
-								
-								
 								<th>
 									<h4 id="total">Bs/. 0.00</h4>
 								</th>
@@ -150,7 +164,12 @@
 			</div>
 
 		</div>
+		<input type="hidden" id="porPagar" name="porPagar" value="<?php echo e($saldoPorPagar); ?>">
+		<input type="hidden" id="pagado" name="pagado" value="<?php echo e($sum); ?>">
+		<input type="hidden" id="precioVenta" name="precioVenta" value="<?php echo e($venta->costoVenta); ?>">
+
 		<div class="form-group text-center" id="guardar">
+
 			<input name="_token" value="<?php echo e(csrf_token()); ?>" type="hidden"></input>
 			<button class="btn btn-success" type="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i></button>
 			<button class="btn btn-danger" type="reset"><i class="fa fa-window-close-o" aria-hidden="true"></i></button>
@@ -172,26 +191,15 @@
 
     function agregar(){
 		/*  inicio variables   */ 
-		
-		
-		
-		
-		
-		
-		
+
 		precio = $("#sprecio").val();
 		idtipoDoc = $("#sidtipoDoc").val();
 		doc = $("#sidtipoDoc option:selected").text();
 		numDoc = $("#snumDoc").val();
 		fecha = $("#sfecha").val();
-		
-		
-		
-		
-		
-		
+
 		saldo = 0;
-		//idproducto != "" && precio != "" && idtipoDoc !=""
+		idventa = $("#idventa").val();
 		
 		
 
@@ -200,29 +208,17 @@
             subtotal[cont]=(precio);
             total=total+subtotal[cont];
 
-           
-
-			
-			bandera = "r";
-			
-
 			var fila='<tr class="selected" id="fila'+cont+'"><td>'+cont+'</td>'+
 			'<td><button type="button" class="btn btn-warning" onclick="eliminar('+cont+');">X</button></td>'+
 			'<td><input type="hidden" name="fecha[]" value="'+fecha+'">'+fecha+'</td>'+
 			'<td><input type="hidden" name="idtipoDoc[]" value="'+idtipoDoc+'"><input type="hidden" name="numDoc[]" value="'+numDoc+'">'+doc+' - '+numDoc+'</td>'+
-			'<td><input type="hidden" name="precio[]" value="'+precio+'">'+precio+'</td><input type="hidden" name="bandera" value="'+bandera+'"></tr>';
+			'<td><input type="hidden" name="precio[]" value="'+precio+'">'+precio+'</td><input type="hidden" name="idventa" value="'+idventa+'"></tr>';
             cont++;
             limpiar();
             $("#total").html("Bs/.  "+total);
             evaluar();
             $('#detalles').append(fila);
-
-
-		  
-
-
-			
-            
+   
         }
         else{
             alert("revice los datos por favor... \n La fecha de Compra  \n tipo de Documento num Documento y el precio son campos obligatorios ");
@@ -250,7 +246,7 @@
     }
 
     function evaluar() {
-        if (total > 0) {
+        if (total  !=	 0) {
             $("#guardar").show();
         }
         else {

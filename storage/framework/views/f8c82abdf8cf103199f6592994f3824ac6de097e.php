@@ -7,10 +7,10 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
                         <span aria-hidden="true">x</span>
                     </button>
-                    <h4 class="modal-title">Eliminar Categoria</h4>
+                    <h4 class="modal-title">Eliminar Categoría</h4>
                 </div>
                 <div class="modal-body">
-                    <p>Confirme si desea Eliminar la Categoria</p>
+                    <p>Confirme si desea Eliminar la Categoría </p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

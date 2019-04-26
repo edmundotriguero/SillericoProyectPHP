@@ -78,7 +78,7 @@ class VentasController extends Controller
         $desc=DB::table('descuentos')->get();
         
         
-       
+    //    retorna el array con el descuento incluido 
         foreach($productos as $producto){
            foreach ($desc as $d) {
               if($d->lote == $producto->lote){
@@ -95,7 +95,7 @@ class VentasController extends Controller
             DB::beginTransaction();
 
             $bandera = $request->get('bandera');
-
+            //si bandera es igual a 3 ingresa todos los campos 
             if($bandera == 3){
 
             $idproducto = $request->get('idproducto');
@@ -123,7 +123,7 @@ class VentasController extends Controller
                 DB::update('update productos set estado = 2 where idproducto = ?', [$idproducto[$cont]]);          
                 $cont = $cont + 1;
             }
-
+            // si bandera es igual a 1, guarda ambien en ventas solo permitir una instancia de venta
             }else  if ($bandera == 1){
                 $idproducto = $request->get('idproducto');
             $cliente = $request->get('cliente');

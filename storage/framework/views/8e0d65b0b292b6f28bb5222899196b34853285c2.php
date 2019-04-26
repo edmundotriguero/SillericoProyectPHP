@@ -1,4 +1,4 @@
-<?php echo Form::open(array('url'=>'almacen/categoria','method'=>'GET','autocomplete'=>'off','role'=>'search')); ?>
+<?php echo Form::open(array('url'=>'almacen/lote','method'=>'GET','autocomplete'=>'off','role'=>'search')); ?>
 
 
 

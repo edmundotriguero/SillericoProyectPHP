@@ -1,7 +1,7 @@
 <?php $__env->startSection('contenido'); ?>
 	<div class="row">
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" id="error">
-			<h3>Nuevos movimientos</h3>
+			<h3>Nuevos </h3>
 			<?php if(count($errors)>0): ?>
 			<div class="alert alert-danger">
 				<ul>
@@ -15,18 +15,18 @@
 	</div>
 			
 
-			<?php echo Form::open(array('url'=>'almacen/movimiento','method'=>'POST','autocomplete'=>'on')); ?>
+			<?php echo Form::open(array('action'=>'MovimientoController@storeMovLote','method'=>'POST','autocomplete'=>'on')); ?>
 
 			<?php echo e(Form::token()); ?>
 
 			<div class="row">
 				<div class="col-lg-6 col-sm-6 col-md-6 col-xs-11">
 					<div class="form-group">
-						<label for="sidproducto">Producto</label>
-						<select name="sidproducto" id="sidproducto" class="form-control selectpicker"  data-live-search="true">
+						<label for="idlote">LOTE</label>
+						<select name="idlote" id="idlote" class="form-control selectpicker"  data-live-search="true">
 								<option value="">Elige una opción</option>
-							<?php foreach($productos as $prod): ?>
-							<option value="<?php echo e($prod->idproducto); ?>"><?php echo e($prod->codigo." - ".$prod->categoria." - ".$prod->sucursal."-".$prod->idsuc); ?></option>
+							<?php foreach($lotes as $lote): ?>
+							<option value="<?php echo e($lote->id); ?>"><?php echo e($lote->lote." - ".$lote->porcentaje_descuento." % descuento"); ?></option>
 							<?php endforeach; ?>
 						</select>
 			
@@ -36,7 +36,7 @@
 				<div class="col-lg-3 col-sm-3 col-md-3 col-xs-6">
 					<div class="form-group">
 						<label for="sidsucursal">Sucursal Destino</label>
-						<select name="sidsucursal" id="sidsucursal" class="form-control selectpicker"  data-live-search="true">
+						<select name="idsucursal" id="idsucursal" class="form-control selectpicker"  data-live-search="true">
 								<option value="">Elige una opción</option>
 							<?php foreach($sucursales as $suc): ?>
 							<option value="<?php echo e($suc->idsucursales); ?>"><?php echo e($suc->nombre); ?></option>
@@ -48,8 +48,8 @@
 
 				<div class="col-lg-3 col-sm-3 col-md-3 col-xs-6">
 					<div class="form-group">
-						<label for="sfecha">Fecha</label>
-						<input type="date" name="sfecha" id="sfecha" class="form-control" ></input>
+						<label for="fecha">Fecha</label>
+						<input type="date" name="fecha" id="fecha" class="form-control" ></input>
 					</div>
 				</div>
 
@@ -75,16 +75,14 @@
                 <table id="detalles" class="table table-striped table-bordered table-condensed table-hover ">
                     <thead class="bg-blue-active">
 					<th>Nro</th>
-                    <th>Opciones</th>
                     <th>Producto</th>
 					<th>Sucursal Origen</th>
-					<th>Sucursal Destino</th>
-                    <th>Fecha</th>
 					
+                    
                     </thead>
                     <tfoot>
                     </tfoot>
-                    <tbody>
+                    <tbody id="datos">
 
                     </tbody>
 
@@ -95,7 +93,7 @@
 		
 	</div>
 	<div class="form-group text-center" id="guardar">
-			<input name="_token" value="<?php echo e(csrf_token()); ?>" type="hidden"></input>
+			<input name="_token" value="<?php echo e(csrf_token()); ?>" type="hidden" id="token"></input>
 			<button class="btn btn-success" type="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i></button>
 			<button class="btn btn-danger" type="reset"><i class="fa fa-window-close-o" aria-hidden="true"></i></button>
 	</div>
@@ -107,58 +105,48 @@
 	<?php $__env->startPush('scripts'); ?>
 <script>
     $(document).ready(function () {
+		
         $('#bt_add').click(function () {
-            agregar();
+			// agregar();
+			// inicio prueba ajax 
+			
+			
+			var datos = $("#datos");
+			var route = "movLista";
+			var idlote = $("#idlote").val();
+			var token = $("#token").val();
+
+			$.ajax({
+				url: route,
+				headers: {'X-CSRF-TOKEN': token},
+				type: 'POST',
+				dataType: 'json',
+				data: {idlote: idlote},
+
+				success: function(res){
+					
+					$(res).each(function(key,value){
+					datos.append("<tr class='fila'><td>"+(key+1)+"</td><td>"+value.lote+" - "+value.producto+" - "+value.categoria+"</td><td>"+value.sucursal+"</td></tr>")
+				});
+				}
+			});
+			 
+
+			// $.get(route, function(res){
+			// 	$(res).each(function(key,value){
+			// 		datos.append("<tr><td>"+value.categoria+"</td></tr>")
+			// 	});
+			// });
+
+
+			// fin prueba ajax
+
         });
     });
-    var cont = 1;
-    
-
-    $("#guardar").hide();
-
-    function agregar(){
-        idproducto = $("#sidproducto").val();
-		producto = $("#sidproducto option:selected").text();
-		idSucDestino = $("#sidsucursal").val();
-		sucursal = $("#sidsucursal option:selected").text();
-		fecha =  $("#sfecha").val();
-		aux = producto.split("-");
-
-		idSucOrigen = aux[3];
-		
-
-        if (idproducto != ""  ) {
-			           
-			
-            var fila='<tr class="selected" id="fila'+cont+'"><td>'+cont+'</td><td><button type="button" class="btn btn-warning" onclick="eliminar('+cont+');">X</button></td><td><input type="hidden" name="idproducto[]" value="'+idproducto+'">'+aux[0]+' - '+aux[1]+'</td><td><input type="hidden" name="idSucOrigen[]" value="'+idSucOrigen+'">'+aux[2]+'</td><td><input type="hidden" name="idSucDestino[]" value="'+idSucDestino+'">'+sucursal+'</td><td><input type="hidden" name="fecha[]" value="'+fecha+'">'+fecha+'</td></tr>';
-            cont++;
-            limpiar();
-            
-            $("#guardar").show();
-            $('#detalles').append(fila);
-        }
-        else{
-            alert("Revice los datos por favor... \n El producto  y el destino son selecciones  obligatorias ");
-        }
-
-    }
-
-    function limpiar() {
-
-		//set a id producto a cero o nulo 
-        //$("#s").val(codigoNuevo);
-        $("#sidproducto").val("");
-        
-    }
-
-    
-    
-    function eliminar(index){
-       
-        
-        $("#fila"+index).remove();
-        evaluar();
-    }
+	
+	$("#idlote").change(function(){
+		$(".fila").remove();
+	});
 
 </script>
 

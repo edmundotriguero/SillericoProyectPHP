@@ -23,6 +23,18 @@ Route::resource('almacen/talla','TallaController');
 Route::resource('almacen/categoria','CategoriaController');
 Route::resource('almacen/sucursal','SucursalController');
 Route::resource('almacen/movimiento','MovimientoController');
+// para registrar los moviminetos de todo un lote
+
+Route::get('almacen/createLote','MovimientoController@createLote');
+// routa ajax
+Route::post('almacen/movLista','MovimientoController@movLista');
+// ruta para realizar un update a la tabla de los productos para mover los productos en cantidad
+Route::post('almacen/storeMovLote','MovimientoController@storeMovLote');
+
+
+// routes de lote 
+Route::resource('almacen/lote','LoteController');
+
 
 Route::resource('reportes/ventas','ReportesController');
 
@@ -39,9 +51,9 @@ Route::post('ventas/storeSaldos','VentasController@storeSaldos');
 Route::get('reportes/estadisticas','ReportesController@indexE');
 
 //para asignar descuentos
+// ver si elminiar estas rutas
 
-Route::get('almacen/producto/desc/{idproducto}','ProductoController@desc');
-Route::post('almacen/producto/descStore','ProductoController@descStore');
+
 
 //para generar excel
 

@@ -56,9 +56,48 @@ class MovimientoController extends Controller
 
 
     }
+    // funcion para respuesta ajax
+    public function movLista(Request $request){
+       
+       if($request->ajax()){
+        $idlote = $request->get('idlote');
+        
+            $productos=DB::table('productos as p')
+        ->join('categorias as c', 'p.idcategoria','=','c.idcategoria')
+        ->join('sucursales as s', 'p.idsucursal','=','s.idsucursales')
+        ->join('lote as l','p.lote','=','l.id')
+        ->where('p.estado','LIKE','1')
+        ->where('p.lote','LIKE',$idlote)
+        ->select('c.nombre as categoria','p.codigo as producto','l.lote as lote', 's.nombre as sucursal')->get();
+            return response()->json(
+               $productos
+            );
+
+       } 
+       
+        
+        
+
+    }
+    // fin ajax
+
+    // redirige a la vista que creara toda la migracion de un lote entero
+    public function createLote(){
+        $sucursales=DB::table('sucursales as s')->where('s.condicion','LIKE','1')->get();
+        $lotes=DB::table('lote as l')->where('l.estado','LIKE','1')->get();
+       $productos=DB::table('productos as p')
+       ->join('categorias as c', 'p.idcategoria','=','c.idcategoria')
+       ->join('sucursales as s', 'p.idsucursal','=','s.idsucursales')
+       ->where('p.estado','LIKE','1')
+       ->select('p.idproducto','c.nombre as categoria','p.codigo', 's.nombre as sucursal','s.idsucursales as idsuc')->get();
+        return view("almacen.movimiento.createLote",["sucursales"=>$sucursales,"productos"=>$productos,"lotes"=>$lotes]);
+
+    }
+
     public function create(){
        
         $sucursales=DB::table('sucursales as s')->where('s.condicion','LIKE','1')->get();
+
        $productos=DB::table('productos as p')
        ->join('categorias as c', 'p.idcategoria','=','c.idcategoria')
        ->join('sucursales as s', 'p.idsucursal','=','s.idsucursales')
@@ -67,6 +106,56 @@ class MovimientoController extends Controller
         return view("almacen.movimiento.create",["sucursales"=>$sucursales,"productos"=>$productos]);
 
     }
+    // ******** store movimineto lote
+    public function storeMovLote(Request $request) {
+        //  try {
+              DB::beginTransaction();
+               
+              
+              $idlote = $request->get('idlote');
+            //   $idsucursalOrigen=DB::table('productos as p')      
+            //     ->where('p.lote','LIKE',$idlote)
+            //     ->select('p.idsucursal')->first();
+        
+            
+            // $idsucursalOrigen = $request->get('idSucOrigen');
+              $idsucursalDestino = $request->get('idsucursal');
+              $fecha = $request->get('fecha');
+             
+             //para habilitar fecha de combio de lugar
+              //$fecha = $request->get('fecha');
+              $productos=DB::table('productos as p')
+                ->join('sucursales as s', 'p.idsucursal','=','s.idsucursales')
+                ->where('p.lote','LIKE',$idlote)
+                ->select('p.idproducto as id', 's.idsucursales as idsuc')->get();
+            
+            //  dd($productos);
+              $cont = 0;
+  
+              while ($cont < count($productos)) {
+                  $movimiento = new Movimiento();
+                  $movimiento->idproducto = $productos[$cont]->id;
+                  $movimiento->idSucOrigen = $productos[$cont]->idsuc;
+                  $movimiento->idSucDestino = $idsucursalDestino;
+                  $movimiento->fecha = $fecha;
+                  $movimiento->save();
+  
+                  DB::update('update productos set idsucursal = ? where idproducto = ?', [$idsucursalDestino,$productos[$cont]->id]);
+  
+                  $cont = $cont + 1;               
+              }
+              DB::commit();
+         // } catch (\Exception $e) {
+             // DB::rollback();
+       // }
+          return Redirect::to('almacen/movimiento');
+      }
+    
+
+    // ******** end store movimineto lote 
+
+
+
     public function store(MovimientoFormRequest $request) {
       //  try {
             DB::beginTransaction();

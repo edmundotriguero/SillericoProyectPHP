@@ -81,7 +81,13 @@
 				<div class="col-lg-3 col-sm-6 col-md-6 col-xs-6">
 					<div class="form-group">
 						<label for="slote">Lote</label>
-						<input type="text" name="slote" id="slote" class="form-control" onkeypress="return onKeyPressHandler(event);"></input>
+						<select name="slote" id="slote" class="form-control selectpicker"  data-live-search="true">
+							@foreach($lotes as $lote)
+							<option value="{{$lote->id}}">{{$lote->lote}}</option>
+							@endforeach
+						</select>
+
+						{{-- <input type="text" name="slote" id="slote" class="form-control" onkeypress="return onKeyPressHandler(event);"></input> --}}
 					</div>
 				</div>
 			</div>

@@ -74,7 +74,7 @@
 
 				<div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
 					<div class="form-group">
-						<label for="sprecio">Precio</label>
+						<label for="sprecio" id="identificadorPrecioLavel">Precio</label>
 						<input type="number" name="sprecio" id="sprecio"  class="form-control" autocomplete="true" ></input>
 					</div>
 				</div>
@@ -169,7 +169,9 @@
     total = 0;
     subtotal = [];
 
-    $("#guardar").hide();
+	$("#guardar").hide();
+	
+
 
     function agregar(){
 		/*  inicio variables   */ 
@@ -305,14 +307,17 @@
 				document.getElementById("sSaldo").disabled=true;
 			}
 		}
+
 		function evaluarAdelanto(value)
 		{
 			if(value==true)
 			{
 				// habilitamos
+				document.getElementById("identificadorPrecioLavel").innerHTML = "Anticipo";
 				document.getElementById("sVenta").disabled=false;
 			}else if(value==false){
 				// deshabilitamos
+				document.getElementById("identificadorPrecioLavel").innerHTML = "Precio";
 				document.getElementById("sVenta").disabled=true;
 			}
 		}

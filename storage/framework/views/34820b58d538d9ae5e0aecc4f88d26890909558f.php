@@ -82,7 +82,13 @@
 				<div class="col-lg-3 col-sm-6 col-md-6 col-xs-6">
 					<div class="form-group">
 						<label for="slote">Lote</label>
-						<input type="text" name="slote" id="slote" class="form-control" onkeypress="return onKeyPressHandler(event);"></input>
+						<select name="slote" id="slote" class="form-control selectpicker"  data-live-search="true">
+							<?php foreach($lotes as $lote): ?>
+							<option value="<?php echo e($lote->id); ?>"><?php echo e($lote->lote); ?></option>
+							<?php endforeach; ?>
+						</select>
+
+						<?php /* <input type="text" name="slote" id="slote" class="form-control" onkeypress="return onKeyPressHandler(event);"></input> */ ?>
 					</div>
 				</div>
 			</div>

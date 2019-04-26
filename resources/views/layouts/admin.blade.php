@@ -116,11 +116,12 @@ para iniciar el menu contraido // sidebar-collapse
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{url('almacen/categoria')}}"><i class="fa fa-circle-o"></i> Categorias</a></li>
             <li><a href="{{url('almacen/sucursal')}}"><i class="fa fa-circle-o"></i> Sucursales</a></li>
+            <li><a href="{{url('almacen/categoria')}}"><i class="fa fa-circle-o"></i> Categorias</a></li>
+            <li><a href="{{url('almacen/lote')}}"><i class="fa fa-circle-o"></i> Lotes</a></li>
+            <li><a href="{{url('almacen/color')}}"><i class="fa fa-circle-o"></i> Colores</a></li>
             <li><a href="{{url('almacen/tela')}}"><i class="fa fa-circle-o"></i> Telas</a></li>
             <li><a href="{{url('almacen/talla')}}"><i class="fa fa-circle-o"></i> Tallas</a></li>
-            <li><a href="{{url('almacen/color')}}"><i class="fa fa-circle-o"></i> Colores</a></li>
             <li><a href="{{url('almacen/movimiento')}}"><i class="fa fa-circle-o text-yellow"></i>Movimientos</a></li>
             <li><a href="{{url('almacen/producto')}}"><i class="fa fa-circle-o text-yellow"></i>Productos</a></li>
 

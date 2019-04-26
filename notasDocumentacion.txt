@@ -17,7 +17,100 @@ DELIMITER ;
 para adicionar el campo lote,
 
 ALTER TABLE productos ADD lote VARCHAR(15) NOT NULL AFTER estado;
-
-
-
 CREATE TABLE `sillpkae_sillericos`.`descuentos` ( `id` INT NOT NULL AUTO_INCREMENT , `nombre` VARCHAR(50) NOT NULL , `porcentaje` INT NOT NULL , `lote` VARCHAR(15) NOT NULL , PRIMARY KEY (`id`), UNIQUE (`lote`)) ENGINE = InnoDB;
+23/04/2019
+
+// se creo la table lote que se unira a un foreing key con lote de productos 
+// cambiar el campo lote de la tabla productos por int y apuntar en foreing key
+cambiar 
+**********************************
+id *** int *** PK
+lote *** varchar(50)
+porcentaje_descuento *** int 
+// se mantiene la tabla descuentos 
+
+**** volcar los datos segun sus id para reflejar el decuento
+
+43 1332019_111934 50
+120 1332019_195445
+
+55 1642019_185115 0
+7 1742019_192121 0
+
+35 1832019_155117 62
+243 1832019_165232 0 
+
+40 1832019_173023 0
+13 1832019_185727 0
+15 1832019_192437 0
+207 2022019_211250 40
+
+266 2022019_21146 0
+32 2222019_192731 0
+
+23 2222019_194228 0
+111 2622019_122653 60
+39 2722019_163557 21
+60 2722019_17040 33
+127 2722019_174239 37
+43 2732019_183739 60
+51 2822019_165554 25
+243 2822019_173549 0
+42 832019_154919 19
+10 832019_164544 0
+7 832019_164743 0
+16 832019_17145 0
+151 832019_17353 0
+
+
+INSERT INTO `lote` (`id`, `lote`, `porcentaje_descuento`, `estado`) VALUES 
+(NULL, '1642019_185115', '0', '1'),
+(NULL, '1742019_192121', '0', '1'),
+(NULL, '1832019_155117', '62', '1'),
+(NULL, '1832019_165232', '0', '1'),
+(NULL, '1832019_173023', '0', '1'),
+(NULL, '1832019_185727', '0', '1'),
+(NULL, '1832019_192437', '0', '1'),
+(NULL, '2022019_211250', '40', '1'),
+(NULL, '2022019_21146', '0', '1'),
+(NULL, '2222019_192731', '0', '1'),
+(NULL, '2222019_194228', '0', '1'),
+(NULL, '2622019_122653', '60', '1'),
+(NULL, '2722019_163557', '21', '1'),
+(NULL, '2722019_17040', '33', '1'),
+(NULL, '2722019_174239', '37', '1'),
+(NULL, '2732019_183739', '60', '1'),
+(NULL, '2822019_165554', '25', '1'),
+(NULL, '2822019_173549', '0', '1'),
+(NULL, '832019_154919', '19', '1'),
+(NULL, '832019_164544', '0', '1'),
+(NULL, '832019_164743', '0', '1'),
+(NULL, '832019_17145', '0', '1'),
+(NULL, '832019_17353', '0', '1');
+
+
+INSERT INTO `lote` (`id`, `lote`, `porcentaje_descuento`, `estado`) VALUES (NULL, '1332019_111934', '50', '1'), (NULL, '1332019_195445', '0', '1');
+
+
+
+
+
+UPDATE productos SET lote = 8 WHERE lote = '2722019_17040'
+UPDATE productos SET lote = 9 WHERE lote = '2722019_174239'
+UPDATE productos SET lote = 10 WHERE lote = '2822019_165554'
+UPDATE productos SET lote = 11 WHERE lote = '2822019_173549'
+
+// permite cambiar el valor del auto incremental para que empiese en ese numero
+ALTER TABLE nombre_tabla AUTO_INCREMENT=15000;
+
+// modifica el valor de una columna de la tambla
+ALTER TABLE nombre_tabla MODIFY nombre_columna DATE NOT NULL;
+
+//add foreing key
+ALTER TABLE productos ADD FOREIGN KEY (lote) REFERENCES lote(id)
+
+
+****** sql *****
+para contar la cantidad de productos que existen de un determinado lote 
+
+SELECT COUNT(p.lote) as cantidad, l.lote, l.id from productos as p INNER JOIN lote as l on p.lote = l.id GROUP by l.lote

@@ -46,7 +46,7 @@ class ProductoController extends Controller
                 $telas = DB::table('telas')->get();
                 $color = DB::table('color')->get();
                 
-                $desc=DB::table('descuentos')->get();
+                // $desc=DB::table('descuentos')->get();
 
                 $productos=DB::table('productos as p')
                 ->join('categorias as c', 'p.idcategoria', '=', 'c.idcategoria')
@@ -54,6 +54,7 @@ class ProductoController extends Controller
                 ->join('sucursales as s','p.idsucursal','=','s.idsucursales')
                 ->join('color as co', 'p.idcolor','=','co.idcolor')
                 ->join('tallas as ta','p.idtalla','=','ta.idtalla')
+                ->join('lote as l','p.lote','=','l.id')
                 ->where('p.estado','=','1')
                 ->where('p.codigo','LIKE','%'.$query.'%')
                 ->where('p.idcategoria','LIKE','%'.$idcat.'%')
@@ -64,14 +65,14 @@ class ProductoController extends Controller
                 ->where('t.nombre','LIKE','%'.$nombreTela.'%')
                 ->where('co.nombre','LIKE','%'.$nombreColor.'%')
 
-                ->select('p.idproducto','p.fechaCod','p.codigo','co.nombre as color','ta.nombre as talla','t.nombre as idtela','p.precio','c.nombre as idcategoria','s.nombre as idsucursal','p.lote')
+                ->select('p.idproducto','p.fechaCod','p.codigo','co.nombre as color','ta.nombre as talla','t.nombre as idtela','p.precio','c.nombre as idcategoria','s.nombre as idsucursal','l.lote as lote','l.porcentaje_descuento as desc')
                 ->orderBy('p.idproducto','asc')
                 ->paginate(50);
 
                 //dd(count($productos));
             
     
-                return view('almacen.producto.index',["color"=>$color,"idcol"=>$idcol,"idtel"=>$idtel,"telas"=>$telas,"desc"=>$desc,"productos"=>$productos,"precio"=>$precio,"tallas"=>$tallas,"searchText"=>$query,"sucursal"=>$sucursal,"categorias"=>$categorias,"idcat"=>$idcat,"idsuc"=>$idsuc,"idtal"=>$idtal,"precio"=>$precio,"nombreTalla"=>$nombreTalla]);
+                return view('almacen.producto.index',["color"=>$color,"idcol"=>$idcol,"idtel"=>$idtel,"telas"=>$telas,"productos"=>$productos,"precio"=>$precio,"tallas"=>$tallas,"searchText"=>$query,"sucursal"=>$sucursal,"categorias"=>$categorias,"idcat"=>$idcat,"idsuc"=>$idsuc,"idtal"=>$idtal,"precio"=>$precio,"nombreTalla"=>$nombreTalla]);
             }
        
         
@@ -84,9 +85,10 @@ class ProductoController extends Controller
         $color=DB::table('color')->where('estado','LIKE','1')->get();
         $talla=DB::table('tallas')->where('estado','LIKE','1')->get();
         $telas=DB::table('telas')->where('condicion','LIKE','1')->get();
+        $lotes=DB::table('lote')->where('estado','LIKE','1')->orderBy('id','desc')->get();
         
 
-        return view("almacen.producto.create",["categorias"=>$categorias,"sucursales"=>$sucursales,"telas"=>$telas,"talla"=>$talla,"color"=>$color]);
+        return view("almacen.producto.create",["categorias"=>$categorias,"sucursales"=>$sucursales,"telas"=>$telas,"talla"=>$talla,"color"=>$color,"lotes"=>$lotes]);
 
     }
     public function store(ProductoFormRequest $request) {
@@ -130,7 +132,7 @@ class ProductoController extends Controller
     }
     public function show($id) {
         
-        $desc=DB::table('descuentos')->get();
+       
 
         $producto=DB::table('productos as p')
         ->join('categorias as c', 'p.idcategoria', '=', 'c.idcategoria')
@@ -138,14 +140,15 @@ class ProductoController extends Controller
         ->join('sucursales as s','p.idsucursal','=','s.idsucursales')
         ->join('color as co', 'p.idcolor','=','co.idcolor')
         ->join('tallas as ta','p.idtalla','=','ta.idtalla')
+        ->join('lote as l','p.lote','=','l.id')
         ->where('p.estado','=','1')
         ->where('p.idproducto','=',$id)
 
-        ->select('p.idproducto','p.fechaCod','p.codigo','co.nombre as color','ta.nombre as talla','t.nombre as tela','p.precio','c.nombre as categoria','s.nombre as sucursal','p.lote')
+        ->select('p.idproducto','p.fechaCod','p.codigo','co.nombre as color','ta.nombre as talla','t.nombre as tela','p.precio','c.nombre as categoria','s.nombre as sucursal','l.lote as lote','l.porcentaje_descuento as desc','p.lote as lote_id')
         ->first();
        //dd($desc);
        
-       return view("almacen.producto.show",['producto'=>$producto,'desc'=>$desc]);
+       return view("almacen.producto.show",['producto'=>$producto]);
 
     }
 
@@ -188,20 +191,20 @@ class ProductoController extends Controller
 
     }
     
-    public function desc($id){
+    // public function desc($id){
 
-        $lote=DB::table('productos')
-        ->select('lote')
-        ->where('idproducto','LIKE',$id)
-        ->first();
+    //     $lote=DB::table('productos')
+    //     ->select('lote')
+    //     ->where('idproducto','LIKE',$id)
+    //     ->first();
         
         
-        $porcentaje=DB::table('descuentos')->select('porcentaje')->where('lote','LIKE',$lote->lote)->first();
+    //     $porcentaje=DB::table('descuentos')->select('porcentaje')->where('lote','LIKE',$lote->lote)->first();
 
         
 
-        return view("almacen.producto.desc",["lote"=>$lote,"porcentaje"=>$porcentaje]);
-    }
+    //     return view("almacen.producto.desc",["lote"=>$lote,"porcentaje"=>$porcentaje]);
+    // }
 
     public function descStore(Request $request){
     try{
