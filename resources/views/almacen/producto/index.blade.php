@@ -74,10 +74,12 @@
 							<td>no</td>
 						@endif --}}
 						<td>
+								
 							{{-- <a href="{{URL::action('ProductoController@desc',$prod->idproducto)}}"><button class="btn fa fa-scissors" aria-hidden="true"></button></a> --}}
 							<a href="{{URL::action('ProductoController@show',$prod->idproducto)}}"><button class="btn fa fa-eye" aria-hidden="true"></button></a>
 							<a href="{{URL::action('ProductoController@edit',$prod->idproducto)}}"><button class="btn fa fa-refresh" aria-hidden="true"></button></a>
 							<a href="" data-target="#modal-delete-{{$prod->idproducto}}" data-toggle="modal" ><button class="btn fa fa-trash" aria-hidden="true"></button></a>
+							
 						</td>
 					</tr>
 				@include('almacen.producto.modal')  

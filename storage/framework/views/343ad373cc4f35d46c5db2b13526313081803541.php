@@ -74,10 +74,12 @@
 							<td>no</td>
 						<?php endif; ?> */ ?>
 						<td>
+								
 							<?php /* <a href="<?php echo e(URL::action('ProductoController@desc',$prod->idproducto)); ?>"><button class="btn fa fa-scissors" aria-hidden="true"></button></a> */ ?>
 							<a href="<?php echo e(URL::action('ProductoController@show',$prod->idproducto)); ?>"><button class="btn fa fa-eye" aria-hidden="true"></button></a>
 							<a href="<?php echo e(URL::action('ProductoController@edit',$prod->idproducto)); ?>"><button class="btn fa fa-refresh" aria-hidden="true"></button></a>
 							<a href="" data-target="#modal-delete-<?php echo e($prod->idproducto); ?>" data-toggle="modal" ><button class="btn fa fa-trash" aria-hidden="true"></button></a>
+							
 						</td>
 					</tr>
 				<?php echo $__env->make('almacen.producto.modal', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>  
