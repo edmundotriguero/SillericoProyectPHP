@@ -56,12 +56,17 @@ class LoteController extends Controller
      */
     public function store(Request $request)
     {
-        $lote =new Lote;
-        $lote->lote=$request->get('lote');
-        $lote->porcentaje_descuento=$request->get('porcentaje_descuento');
-        $lote->estado='1';
-        $lote->save();
-        return Redirect::to('almacen/lote');
+        try {
+            $lote =new Lote;
+            $lote->lote=$request->get('lote');
+            $lote->porcentaje_descuento=$request->get('porcentaje_descuento');
+            $lote->estado='1';
+            $lote->save();
+            return Redirect::to('almacen/lote');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->back()->withErrors('Verfique que no exista el registro o alguna restriccion en la Base de datos: comuniquese con el Administrador');
+        }
+        
     }
 
     /**
@@ -72,8 +77,21 @@ class LoteController extends Controller
      */
     public function show($id)
     {
-        // cuando se mande a llamar a la funcion show mostrar todos los productos que pertenecen a este lote 
-        //return view("almacen.categoria.show",["categoria"=>Categoria::findOrFail($id)]);
+
+        $productos=DB::table('productos as p')
+        ->join('categorias as c', 'p.idcategoria', '=', 'c.idcategoria')
+        ->join('telas as t','p.idtela','=','t.idtela')
+        ->join('sucursales as s','p.idsucursal','=','s.idsucursales')
+        ->join('color as co', 'p.idcolor','=','co.idcolor')
+        ->join('tallas as ta','p.idtalla','=','ta.idtalla')
+        ->join('lote as l','p.lote','=','l.id')
+        ->where('p.estado','=','1')
+        ->where('l.id','=',$id)
+        ->select('p.idproducto','p.fechaCod','p.codigo','co.nombre as color','ta.nombre as talla','t.nombre as tela','p.precio','c.nombre as categoria','s.nombre as sucursal')
+        ->orderBy('p.idproducto','asc')
+        ->get();
+
+        return view("almacen.lote.show",["productos"=>$productos,"lote"=>Lote::findOrFail($id)]);
     }
 
     /**
@@ -96,12 +114,17 @@ class LoteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $lote = Lote::findOrFail($id);
-        $lote->lote=$request->get('lote');
-        $lote->porcentaje_descuento=$request->get('porcentaje_descuento');
-        $lote->update(); 
+        try {
+            $lote = Lote::findOrFail($id);
+            $lote->lote=$request->get('lote');
+            $lote->porcentaje_descuento=$request->get('porcentaje_descuento');
+            $lote->update(); 
 
-        return Redirect::to('almacen/lote');
+            return Redirect::to('almacen/lote');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->back()->withErrors('Verfique que no exista el registro o alguna restriccion en la Base de datos: comuniquese con el Administrador');
+        }
+        
     }
 
     /**x

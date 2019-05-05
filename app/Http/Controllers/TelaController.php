@@ -47,7 +47,7 @@ class TelaController extends Controller
             $tela->condicion='1';
             $tela->save();
             return Redirect::to('almacen/tela');
-
+ 
         }catch (\Illuminate\Database\QueryException $e){
         
             return redirect()->back()->withErrors('Verfique que no exista el registro o alguna restriccion en la Base de datos');

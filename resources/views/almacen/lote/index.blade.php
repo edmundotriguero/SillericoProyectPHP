@@ -6,7 +6,19 @@
 			@include('almacen.lote.search')
 		</div>
 	</div>
+	@if(count($errors)>0)
+			<div class="alert alert-danger">
+				<ul>
+					@foreach ($errors->all() as $error)
+						<li>{{$error}}</li>
+					@endforeach
+				</ul>
+			</div>
+	@endif
+
+
 	<div class="row">
+
 		<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
 			<div class="table-responsive">
 				<table class="table table-striped table-bordered table-condensed table-hover">
@@ -26,6 +38,7 @@
 						<td>
 							<a href="{{URL::action('LoteController@edit',$lote->id)}}"><button class="btn fa fa-refresh" aria-hidden="true"></button></a>
 							<a href="" data-target="#modal-delete-{{$lote->id}}" data-toggle="modal" ><button class="btn fa fa-trash" aria-hidden="true"></button></a>
+							<a href="{{URL::action('LoteController@show',$lote->id)}}"><button class="btn fa fa-eye" aria-hidden="true"></button></a>
 						</td>
 					</tr>
 				@include('almacen.lote.modal')  

@@ -5,7 +5,19 @@
 			<?php echo $__env->make('almacen.lote.search', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 		</div>
 	</div>
+	<?php if(count($errors)>0): ?>
+			<div class="alert alert-danger">
+				<ul>
+					<?php foreach($errors->all() as $error): ?>
+						<li><?php echo e($error); ?></li>
+					<?php endforeach; ?>
+				</ul>
+			</div>
+	<?php endif; ?>
+
+
 	<div class="row">
+
 		<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
 			<div class="table-responsive">
 				<table class="table table-striped table-bordered table-condensed table-hover">
@@ -25,6 +37,7 @@
 						<td>
 							<a href="<?php echo e(URL::action('LoteController@edit',$lote->id)); ?>"><button class="btn fa fa-refresh" aria-hidden="true"></button></a>
 							<a href="" data-target="#modal-delete-<?php echo e($lote->id); ?>" data-toggle="modal" ><button class="btn fa fa-trash" aria-hidden="true"></button></a>
+							<a href="<?php echo e(URL::action('LoteController@show',$lote->id)); ?>"><button class="btn fa fa-eye" aria-hidden="true"></button></a>
 						</td>
 					</tr>
 				<?php echo $__env->make('almacen.lote.modal', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>  
