@@ -75,14 +75,14 @@ class VentasController extends Controller
         ->where('p.estado','=','1')
         ->orderBy('p.idproducto','asc')
         ->get();
-        $desc=DB::table('descuentos')->get();
+        $lote=DB::table('lote')->get();
         
         
     //    retorna el array con el descuento incluido 
         foreach($productos as $producto){
-           foreach ($desc as $d) {
-              if($d->lote == $producto->lote){
-                $producto->desc = $producto->desc - ($producto->desc * $d->porcentaje / 100); 
+           foreach ($lote as $d) {
+              if($d->id == $producto->lote){
+                $producto->desc = $producto->desc - ($producto->desc * $d->porcentaje_descuento / 100); 
             }
            }
         }
@@ -169,33 +169,71 @@ class VentasController extends Controller
     }
 
     public function show($id) {
+        $venta=DB::table('ventas')
+        ->where('id','=',$id)
+        ->first();
         
+
+        $producto=DB::table('productos as p')
+        ->join('categorias as c', 'p.idcategoria', '=', 'c.idcategoria')
+        ->join('telas as t','p.idtela','=','t.idtela')
+        ->join('sucursales as s','p.idsucursal','=','s.idsucursales')
+        ->join('color as co', 'p.idcolor','=','co.idcolor')
+        ->join('tallas as ta','p.idtalla','=','ta.idtalla')
+        ->join('lote as l','p.lote','=','l.id')
+        ->where('p.idproducto','=',$venta->idproducto)
+
+        ->select('p.idproducto','p.codigo','co.nombre as color','ta.nombre as talla','t.nombre as tela','p.precio','c.nombre as categoria','s.nombre as sucursal')
+        ->first();
+
+        $saldos=DB::table('ventasaldo as s')
+        ->join('ventas as v', 's.idventa','=', 'v.id')
+        ->where('v.id','=',$id)
+        ->select('s.id', 's.idventa', 's.ingreso', 's.fecha', 's.tipoDoc', 's.numDoc', 's.estado')
+        ->orderBy('s.fecha','asc')
+        ->get();
+
+
+        
+        return view("ventas.ventas.show",["producto"=>$producto,"venta"=>$venta, "saldos"=>$saldos]);
     }
 
     public function edit($id){
 
-        $categoria=DB::table('categorias')->get();
-        $sucursal=DB::table('sucursales')->get();
-        $color=DB::table('color')->get();
-        $talla=DB::table('tallas')->get();
-        $tela=DB::table('telas')->get();
+        $venta=DB::table('ventas')
+        ->where('id','=',$id)
+        ->first();
+        
 
-        return view("ventas.ventas.edit",["producto"=>Producto::findOrFail($id),"categoria"=>$categoria,"sucursal"=>$sucursal,"color"=>$color,"talla"=>$talla,"tela"=>$tela]);
+        $producto=DB::table('productos as p')
+        ->join('categorias as c', 'p.idcategoria', '=', 'c.idcategoria')
+        ->join('telas as t','p.idtela','=','t.idtela')
+        ->join('sucursales as s','p.idsucursal','=','s.idsucursales')
+        ->join('color as co', 'p.idcolor','=','co.idcolor')
+        ->join('tallas as ta','p.idtalla','=','ta.idtalla')
+        ->join('lote as l','p.lote','=','l.id')
+        ->where('p.idproducto','=',$venta->idproducto)
+
+        ->select('p.idproducto','p.codigo','co.nombre as color','ta.nombre as talla','t.nombre as tela','p.precio','c.nombre as categoria','s.nombre as sucursal')
+        ->first();
+
+
+
+        
+        return view("ventas.ventas.edit",["producto"=>$producto,"venta"=>$venta]);
     }
 
-    public function update(ProductoFormRequest $request, $id){
+    public function update(VentasFormRequest $request, $id){
 
-        $producto = Producto::findOrFail($id);
-        $producto->idcategoria=$request->get('idcategoria');
-        $producto->idsucursal = $request->get('idsucursal');
-        $producto->fechaCod = $request->get('fechaCod');
-        $producto->codigo = $request->get('codigo');
-        $producto->idtalla = $request->get('idtalla');
-        $producto->idtela = $request->get('idtela');
-        $producto->precio = $request->get('precio');
-        $producto->idcolor = $request->get('idcolor');
+        $venta = Ventas::findOrFail($id);
+        $venta->fechaVenta=$request->get('fechaVenta');
+        $venta->tipoDoc = $request->get('tipoDoc');
+        $venta->numDoc = $request->get('numDoc');
+        $venta->cliente = $request->get('cliente');
+        $venta->costoVenta = $request->get('costoVenta');
         
-        $producto->update();
+        
+        $venta->update();
                     
        
         return Redirect::to('ventas/ventas');
@@ -248,7 +286,7 @@ class VentasController extends Controller
        // ->join('color as co', 'p.idcolor','=','co.idcolor')
        // ->join('tallas as ta','p.idtalla','=','ta.idtalla')
         
-        ->where('v.id','LIKE','%'.$idventa.'%')
+        ->where('v.id','LIKE',$idventa)
       
         ->select('v.id','v.fechaVenta','v.tipoDoc','v.numDoc','v.cliente','c.nombre as categoria','v.costoVenta','v.saldo','v.ingreso')
         ->orderBy('v.fechaVenta','asc')
@@ -256,8 +294,7 @@ class VentasController extends Controller
 
         $saldos=DB::table('ventasaldo as s')
         ->join('ventas as v', 's.idventa','=', 'v.id')
-        ->where('v.id','LIKE','%'.$idventa.'%')
-
+        ->where('v.id','=',$idventa)
         ->select('s.id', 's.idventa', 's.ingreso', 's.fecha', 's.tipoDoc', 's.numDoc', 's.estado')
         ->orderBy('s.fecha','asc')
         ->get();

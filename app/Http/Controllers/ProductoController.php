@@ -154,13 +154,16 @@ class ProductoController extends Controller
 
     public function edit($id){
 
-        $categoria=DB::table('categorias')->get();
-        $sucursal=DB::table('sucursales')->get();
-        $color=DB::table('color')->get();
-        $talla=DB::table('tallas')->get();
-        $tela=DB::table('telas')->get();
+        $categoria=DB::table('categorias')->where('condicion','=','1')->get();
+        $sucursal=DB::table('sucursales')->where('condicion','=','1')->get();
+        $color=DB::table('color')->where('estado','=','1')->get();
+        $talla=DB::table('tallas')->where('estado','=','1')->get();
+        $tela=DB::table('telas')->where('condicion','=','1')->get();
+        
+        
+        $lotes=DB::table('lote')->where('estado','=','1')->get();
 
-        return view("almacen.producto.edit",["producto"=>Producto::findOrFail($id),"categoria"=>$categoria,"sucursal"=>$sucursal,"color"=>$color,"talla"=>$talla,"tela"=>$tela]);
+        return view("almacen.producto.edit",["producto"=>Producto::findOrFail($id),"categoria"=>$categoria,"sucursal"=>$sucursal,"color"=>$color,"talla"=>$talla,"tela"=>$tela,"lotes"=>$lotes]);
     }
 
     public function update(ProductoFormRequest $request, $id){
@@ -174,6 +177,7 @@ class ProductoController extends Controller
         $producto->idtela = $request->get('idtela');
         $producto->precio = $request->get('precio');
         $producto->idcolor = $request->get('idcolor');
+        $producto->lote=$request->get('idlote');
         
         $producto->update();
                     

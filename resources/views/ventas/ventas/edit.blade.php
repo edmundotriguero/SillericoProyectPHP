@@ -1,7 +1,8 @@
-@extends ('layouts.admin') 
+@extends ('layouts.admin')
 @section ('contenido')
 <div class="row">
 	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+			<a href="{{action('VentasController@index')}}"><div class="btn btn-info" ><i class="fa fa-reply-all" aria-hidden="true"></i></div></a>
 		<h3>Editar Venta: {{--$categoria->nombre--}}</h3>
 		@if(count($errors)>0)
 		<div class="alert alert-danger">
@@ -14,104 +15,94 @@
 		@endif
 	</div>
 </div>
-{{-- !!Form::model($venta,['method'=>'PATCH','route'=>['ventas.ventas.update',$venta->id]])!!} {{Form::token()}}
+{!!Form::model($venta,['method'=>'PATCH','route'=>['ventas.ventas.update',$venta->id]])!!}
+{{Form::token()}}
+
 <div class="row">
 	<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 		<div class="form-group">
-			<label for="idproducto">ID: </label>
-			<label for="idproducto">{{$producto->idproducto}}</label>
+			<label for="producto">codigo: </label>
+			<label for="producto">{{$producto->codigo}}</label>
+			<table class="table table-striped table-bordered table-condensed table-hover">
+				<thead>
+					<th>Codigo</th>
+					<th>Sucursal</th>
+					<th>Categoria</th>
+					<th>Color</th>
+					<th>Talla</th>
+					<th>Tela</th>
+				</thead>
+
+				<tr>
+					<td>{{ $producto->codigo}}</td>
+					<td>{{ $producto->sucursal }}</td>
+					<td>{{ $producto->categoria }}</td>
+					<td>{{ $producto->color }}</td>
+					<td>{{ $producto->talla }}</td>
+					<td>{{ $producto->tela }}</td>
+				</tr>
+
+			</table>
 		</div>
 	</div>
 </div>
 <div class="row">
-	<div class="col-lg-4 col-sm-4 col-md-4 col-xs-10">
+	<div class="col-lg-8 col-sm-8 col-md-8 col-xs-10">
 		<div class="form-group">
-			<label>Categoria</label>
-			<select name="idcategoria" class="form-control">
-						@foreach ($categoria as $cat)
-						@if ($cat->idcategoria==$producto->idproducto)
-						<option value="{{$cat->idcategoria}}" selected>{{$cat->nombre}}</option>
-						@else
-						<option value="{{$cat->idcategoria}}" >{{$cat->nombre}}</option>
-						@endif
-						@endforeach
-					</select>
-		</div>
-	</div>
-	<div class="col-lg-4 col-sm-4 col-md-4 col-xs-10">
-		<div class="form-group">
-			<label>Sucursal</label>
-			<select name="idsucursal" class="form-control">
-						@foreach ($sucursal as $suc)
-						@if ($suc->idsucursales==$producto->idsucursal)
-						<option value="{{$suc->idsucursales}}" selected>{{$suc->nombre}}</option>
-						@else
-						<option value="{{$suc->idsucursales}}" >{{$suc->nombre}}</option>
-						@endif
-						@endforeach
-					</select>
-		</div>
-	</div>
-	<div class="col-lg-4 col-sm-4 col-md-4 col-xs-10">
-		<div class="form-group">
-			<label>Sucursal</label>
-			<input type="date" name="fechaCod" class="form-control" value="{{$producto->fechaCod}}"></input>
+			<label>Cliente</label>
+			<input type="text" name="cliente" class="form-control" value="{{$venta->cliente}}"></input>
 
 		</div>
 	</div>
 	<div class="col-lg-4 col-sm-4 col-md-4 col-xs-10">
 		<div class="form-group">
-			<label>Codigo</label>
-			<input type="text" name="codigo" class="form-control" value="{{$producto->codigo}}" readonly="readonly"></input>
+			<label>Fecha Venta</label>
+			<input type="date" name="fechaVenta" class="form-control" value="{{$venta->fechaVenta}}"></input>
+
+		</div>
+	</div>
+	<div class="col-lg-5 col-sm-5 col-md-5 col-xs-6">
+		<div class="form-group">
+			<label for="tipoDoc">Tipo Doc</label>
+			<select name="tipoDoc"  class="form-control selectpicker">
+				@if ($venta->tipoDoc == 0)
+				<option value="0" selected>Factura</option>
+				@else
+				<option value="1" selected>Recibo</option>
+				@endif
+				<option value="-">--</option>
+				<option value="0">Factura</option>
+				<option value="1">Recibo</option>
+			</select>
+
+		</div>
+	</div>
+
+	<div class="col-lg-5 col-sm-5 col-md-5 col-xs-10">
+		<div class="form-group">
+			<label>Nun Doc.</label>
+			<input type="text" name="numDoc" class="form-control" value="{{$venta->numDoc}}"></input>
 
 		</div>
 	</div>
 	<div class="col-lg-4 col-sm-4 col-md-4 col-xs-10">
 		<div class="form-group">
-			<label>Talla</label>
-			<select name="idtalla" class="form-control">
-						@foreach ($talla as $tal)
-						@if ($tal->idtalla==$producto->idtalla)
-						<option value="{{$tal->idtalla}}" selected>{{$tal->nombre}}</option>
-						@else
-						<option value="{{$tal->idtalla}}" >{{$tal->nombre}}</option>
-						@endif
-						@endforeach
-					</select>
+			<label>Precio Venta</label>
+			<input type="number" name="costoventa" class="form-control" value="{{$venta->costoVenta}}"></input>
+
 		</div>
 	</div>
 	<div class="col-lg-4 col-sm-4 col-md-4 col-xs-10">
 		<div class="form-group">
-			<label>Tela</label>
-			<select name="idtela" class="form-control">
-						@foreach ($tela as $tel)
-						@if ($tel->idtela==$producto->idtela)
-						<option value="{{$tel->idtela}}" selected>{{$tel->nombre}}</option>
-						@else
-						<option value="{{$tel->idtela}}" >{{$tel->nombre}}</option>
-						@endif
-						@endforeach
-					</select>
+			<label>Saldo</label>
+			<input type="number" name="saldo" class="form-control" value="{{$venta->saldo}}" readonly></input>
+
 		</div>
 	</div>
 	<div class="col-lg-4 col-sm-4 col-md-4 col-xs-10">
 		<div class="form-group">
-			<label>Color</label>
-			<select name="idcolor" class="form-control">
-						@foreach ($color as $col)
-						@if ($col->idcolor==$producto->idcolor)
-						<option value="{{$col->idcolor}}" selected>{{$col->nombre}}</option>
-						@else
-						<option value="{{$col->idcolor}}" >{{$col->nombre}}</option>
-						@endif
-						@endforeach
-					</select>
-		</div>
-	</div>
-	<div class="col-lg-4 col-sm-4 col-md-4 col-xs-10">
-		<div class="form-group">
-			<label>Precio</label>
-			<input type="number" name="precio" class="form-control" value="{{$producto->precio}}"></input>
+			<label>Ingreso</label>
+			<input type="number" name="ingreso" class="form-control" value="{{$venta->ingreso}}" readonly></input>
 
 		</div>
 	</div>
@@ -123,9 +114,10 @@
 	<div class="form-group">
 		<button class="btn btn-primary" type="submit">Guardar</button>
 		<button class="btn btn-danger" type="submit">Cancelar</button>
+		
 	</div>
 </div>
 
 
-{!!Form::close()!!} --}}
+{!!Form::close()!!}
 @endsection

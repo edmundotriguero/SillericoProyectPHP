@@ -60,6 +60,10 @@
 						<th>Color</th>
 						<th>Precio Real</th>
 						<th>Precio c/ descuento</th>
+						<?php /* etiqueta momentanea */ ?>
+						<th>Opciones</th>
+						<?php /* fin */ ?>
+
 						<tbody>
 							<?php foreach($productos as $prod): ?>
 							<tr>
@@ -78,6 +82,9 @@
 								<td><?php echo e($prod->color); ?> </td>
 								<td><?php echo e($prod->precio); ?> </td>
 								<td><?php echo e($desc); ?> </td>
+								<?php /* etiqueta momentanea */ ?>
+								<td><a href="<?php echo e(URL::action('ProductoController@edit',$prod->idproducto)); ?>"><button class="btn fa fa-refresh" aria-hidden="true"></button></a></td>
+								<?php /* fin */ ?>
 								
 							</tr>
 							<?php endforeach; ?>

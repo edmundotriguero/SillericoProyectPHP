@@ -22,7 +22,7 @@
 						<th>Saldo</th>
 						<th>Ingreso</th>
 											
-						<th>Opciones</th>
+						
 					</thead>
 					<?php  
 						$sumaSaldo = 0;
@@ -53,10 +53,7 @@
 							$sumaVenta = $sumaVenta + $ven->costoVenta ;
 							$sumaIngreso = $sumaIngreso + $ven->ingreso ;
 						 ?>
-						<td>
-							<a href="<?php echo e(URL::action('VentasController@edit',$ven->id)); ?>"><button class="btn fa fa-refresh" aria-hidden="true"></button></a>
-							
-						</td>
+					
 					</tr>
 					
 					<?php endforeach; ?>

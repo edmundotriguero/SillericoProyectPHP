@@ -61,6 +61,10 @@
 						<th>Color</th>
 						<th>Precio Real</th>
 						<th>Precio c/ descuento</th>
+						{{-- etiqueta momentanea --}}
+						<th>Opciones</th>
+						{{-- fin --}}
+
 						<tbody>
 							@foreach ($productos as $prod)
 							<tr>
@@ -79,6 +83,9 @@
 								<td>{{$prod->color}} </td>
 								<td>{{$prod->precio}} </td>
 								<td>{{$desc}} </td>
+								{{-- etiqueta momentanea --}}
+								<td><a href="{{URL::action('ProductoController@edit',$prod->idproducto)}}"><button class="btn fa fa-refresh" aria-hidden="true"></button></a></td>
+								{{-- fin --}}
 								
 							</tr>
 							@endforeach
