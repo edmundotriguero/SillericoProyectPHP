@@ -52,7 +52,7 @@ class ReportesController extends Controller
         }
 
 
-            public function indexE(Request $request){
+        public function indexE(Request $request){
         
                 if($request){
     
@@ -73,6 +73,25 @@ class ReportesController extends Controller
         
                     return view('reportes.estadisticas.index',['categoria'=>$categoria]);
                 }
+    }
+
+    public function indexGraphicSucursal(){
+
+        $sucursales = DB::table('sucursales')->where('condicion','=','1')->get();
+
+        return view('reportes.estadisticas.productos.index',['sucursales'=>$sucursales]);
+    }
+
+
+
+    public function getCountSucursal(Request $request){
+        if ($request->ajax()) {
+            $id_sucursal = $request->get('idSucursal');
+
+          return  response()->json(
+                $id_sucursal
+            );
+        }
     }
    
 }

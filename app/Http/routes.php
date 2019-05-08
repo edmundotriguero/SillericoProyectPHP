@@ -48,7 +48,12 @@ Route::get('ventas/indexSaldo','VentasController@indexSaldos');
 Route::get('ventas/crearSaldo/{idventa}','VentasController@crearSaldo');
 Route::post('ventas/storeSaldos','VentasController@storeSaldos');
 
+// vistas para reportes y estadisticas
+
 Route::get('reportes/estadisticas','ReportesController@indexE');
+
+Route::get('reportes/estadisticas/productos','ReportesController@indexGraphicSucursal');
+Route::post('reportes/estadisticas/getCountSucursal','ReportesController@getCountSucursal');
 
 //para asignar descuentos
 // ver si elminiar estas rutas

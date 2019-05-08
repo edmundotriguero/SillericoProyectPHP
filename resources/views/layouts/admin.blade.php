@@ -131,7 +131,21 @@ para iniciar el menu contraido // sidebar-collapse
         <li><a href="{{url('almacen/producto')}}"><i class="fa fa-list text-yellow"></i> <span>Productos</span></a></li>
         <li><a href="{{url('ventas/ventas')}}"><i class="fa fa-shopping-cart text-green"></i> <span>Ventas</span></a></li>
         <li><a href="{{url('reportes/ventas')}}"><i class="fa fa fa-bar-chart text-blue"></i> <span>Reportes</span></a></li>
-        <li><a href="{{url('reportes/estadisticas')}}"><i class="fa fa fa-bar-chart text-blue"></i> <span>Estadisticas</span></a></li>
+        <li class="treeview">  
+          <a href="#">
+              <i class="fa fa-university"></i>
+              <span>Estadisticas</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="{{url('reportes/estadisticas')}}"><i class="fa fa-circle-o"></i> Estadistica General</a></li>
+              <li><a href="{{url('reportes/estadisticas/productos')}}"><i class="fa fa-circle-o"></i>Estadistica sucursal</a></li>
+  
+            </ul>
+        
+        </li>
         
         @else
 
