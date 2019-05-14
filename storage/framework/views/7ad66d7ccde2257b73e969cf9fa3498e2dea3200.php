@@ -1,8 +1,7 @@
-@extends ('layouts.admin')
-@section ('contenido')
+<?php $__env->startSection('contenido'); ?>
 <div class="row text-center">
 	<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" id="error">
-		<a href="{{action('VentasController@index')}}">
+		<a href="<?php echo e(action('VentasController@index')); ?>">
 			<div class="btn btn-info"><i class="fa fa-reply-all" aria-hidden="true"> Volver</i></div>
 		</a>
 	</div>
@@ -10,21 +9,27 @@
 <div class="row">
 	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" id="error">
 		<h3>Nuevos registros de ventas</h3>
-		@if(count($errors)>0)
+		<?php if(count($errors)>0): ?>
 		<div class="alert alert-danger">
 			<ul>
-				@foreach ($errors->all() as $error)
-				<li>{{$error}}</li>
-				@endforeach
+				<?php foreach($errors->all() as $error): ?>
+				<li><?php echo e($error); ?></li>
+				<?php endforeach; ?>
 			</ul>
 		</div>
-		@endif
+		<?php endif; ?>
 	</div>
 </div>
 
 
-{!!Form::open(array('url'=>'ventas/ventas','method'=>'POST','autocomplete'=>'on'))!!}
-{{Form::token()}}
+<?php echo Form::open(array('url'=>'ventas/ventas','method'=>'POST','autocomplete'=>'on')); ?>
+
+<?php echo e(Form::token()); ?>
+
+
+
+
+
 <div class="row">
 
 	<div class="col-lg-8 col-sm-8 col-md-8 col-xs-8">
@@ -41,7 +46,7 @@
 		</div>
 	</div>
 
-	<div class="col-lg-5 col-sm-5 col-md-5 col-xs-6">
+	<div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
 		<div class="form-group">
 			<label for="sidtipoDoc">Tipo Doc</label>
 			<select name="sidtipoDoc" id="sidtipoDoc" class="form-control selectpicker">
@@ -53,25 +58,10 @@
 		</div>
 	</div>
 
-	<div class="col-lg-5 col-sm-5 col-md-5 col-xs-6">
+	<div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
 		<div class="form-group">
 			<label for="snumDoc">Numero Doc</label>
 			<input type="number" name="snumDoc" id="snumDoc" class="form-control" autocomplete="true"></input>
-		</div>
-	</div>
-
-	<div class="col-lg-8 col-sm-8 col-md-8 col-xs-8">
-		<div class="form-group">
-			<label for="sidproducto">Producto</label>
-			<select name="sidproducto" id="sidproducto" class="form-control selectpicker" data-live-search="true">
-				<option value="">eligir</option>
-				@foreach($productos as $prod)
-				<option value="{{$prod->idproducto}}">
-					{{$prod->codigo." - ".$prod->categoria." - ".$prod->color." - ".$prod->precio. " -/- ". $prod->desc }}
-				</option>
-				@endforeach
-			</select>
-
 		</div>
 	</div>
 
@@ -100,74 +90,161 @@
 
 	</div>
 </div>
-<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
-	<div class="form-group text-center ">
-		<label for="bt_add"></label>
-		<button type="button" id="bt_add" class="btn btn-primary "><i class="fa fa-plus-square" aria-hidden="true">
-				Agregar</i></button>
+
+<h4>Detalles del producto</h4>
+
+<div class="col-lg-10 col-sm-10 col-md-10 col-xs-10">
+	<div class="col-lg-3 col-sm-6 col-md-6 col-xs-6">
+		<div class="form-group">
+			<label for="slote">Lote</label>
+			<select name="slote" id="slote" class="form-control selectpicker" data-live-search="true">
+				<?php foreach($lotes as $lote): ?>
+				<option value="<?php echo e($lote->id); ?>"><?php echo e($lote->lote); ?></option>
+				<?php endforeach; ?>
+			</select>
+
+
+		</div>
 	</div>
 </div>
 
 
 <div class="row">
-	<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
-		<div class="panel panel-primary">
-			<div class="panel-body">
+	<div class="col-lg-3 col-sm-3 col-md-3 col-xs-6">
+		<div class="form-group">
+			<label for="sidcategoria">Categoria</label>
+			<select name="sidcategoria" id="sidcategoria" class="form-control selectpicker" data-live-search="true">
+				<option value="">Seleccione...</option>
+				<?php foreach($categorias as $cat): ?>
+				<option value="<?php echo e($cat->idcategoria); ?>"><?php echo e($cat->nombre); ?></option>
+				<?php endforeach; ?>
+			</select>
 
-				<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
-					<div class="table-responsive">
-						<table id="detalles" class="table table-striped table-bordered table-condensed table-hover ">
-							<thead class="bg-blue-active">
-								<th>Nro</th>
-								<th>Opciones</th>
-								<th>Codigo</th>
-								<th>Cliente</th>
-								<th>Categoria</th>
-								<th>Color</th>
-								<th>Fecha Venta</th>
-								<th>Documento</th>
-
-								<th>Venta</th>
-								<th>Saldo</th>
-								<th>Ingreso</th>
-
-							</thead>
-							<tfoot>
-								<th>TOTAL</th>
-								<th></th>
-								<th></th>
-								<th></th>
-								<th></th>
-								<th></th>
-								<th></th>
-								<th></th>
-								<th></th>
-								<th>
-									<h4 id="total">Bs/. 0.00</h4>
-								</th>
-							</tfoot>
-							<tbody>
-
-							</tbody>
-
-						</table>
-					</div>
-				</div>
-			</div>
-
-		</div>
-		<div class="form-group text-center" id="guardar">
-			<input name="_token" value="{{ csrf_token() }}" type="hidden"></input>
-			<button class="btn btn-success" type="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i></button>
-			<button class="btn btn-danger" type="reset"><i class="fa fa-window-close-o" aria-hidden="true"></i></button>
 		</div>
 	</div>
-</div>
-{!!Form::close()!!}
 
-@push ('scripts')
-<script>
-	$(document).ready(function () {
+	<div class="col-lg-3 col-sm-3 col-md-3 col-xs-6">
+		<div class="form-group">
+			<label for="sidsucursal">Sucursal</label>
+			<select name="sidsucursal" id="sidsucursal" class="form-control selectpicker" data-live-search="true">
+				<option value="">Seleccione...</option>
+				<?php foreach($sucursales as $suc): ?>
+				<option value="<?php echo e($suc->idsucursales); ?>"><?php echo e($suc->nombre); ?></option>
+				<?php endforeach; ?>
+			</select>
+
+		</div>
+	</div>
+
+	
+
+	<div class="col-lg-3 col-sm-3 col-md-3 col-xs-6">
+		<div class="form-group">
+			<label for="sidtela">Tela</label>
+			<select name="sidtela" id="sidtela" class="form-control selectpicker" data-live-search="true">
+				<option value="21">Seleccione...</option>
+				<?php foreach($telas as $t): ?>
+				<option value="<?php echo e($t->idtela); ?>"><?php echo e($t->nombre); ?></option>
+				<?php endforeach; ?>
+			</select>
+
+		</div>
+	</div>
+	<div class="col-lg-3 col-sm-3 col-md-3 col-xs-6">
+		<div class="form-group">
+			<label for="sidcolor">Color</label>
+			<select name="sidcolor" id="sidcolor" class="form-control selectpicker" data-live-search="true">
+				<option value="29">Seleccione...</option>
+				<?php foreach($color as $col): ?>
+				<option value="<?php echo e($col->idcolor); ?>"><?php echo e($col->nombre); ?></option>
+				<?php endforeach; ?>
+			</select>
+
+		</div>
+	</div>
+
+	
+
+	<div class="col-lg-3 col-sm-3 col-md-3 col-xs-6">
+		<div class="form-group">
+			<label for="sidtalla">Talla</label>
+			<select name="sidtalla" id="sidtalla" class="form-control selectpicker" data-live-search="true">
+				<option value="21">Seleccione...</option>
+				<?php foreach($talla as $tal): ?>
+				<option value="<?php echo e($tal->idtalla); ?>"><?php echo e($tal->nombre); ?></option>
+				<?php endforeach; ?>
+			</select>
+
+		</div>
+	</div>
+	<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+		<div class="form-group text-center ">
+			<label for="bt_add"></label>
+			<button type="button" id="bt_add" class="btn btn-primary "><i class="fa fa-plus-square" aria-hidden="true">
+					Agregar</i></button>
+		</div>
+	</div>
+
+
+	<div class="row">
+		<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+			<div class="panel panel-primary">
+				<div class="panel-body">
+
+					<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+						<div class="table-responsive">
+							<table id="detalles"
+								class="table table-striped table-bordered table-condensed table-hover ">
+								<thead class="bg-blue-active">
+									<th>Nro</th>
+									<th>Opciones</th>
+									<th>Cliente</th>
+									<th>Detalle</th>
+									<th>Fecha Venta</th>
+									<th>Documento</th>
+									<th>Venta</th>
+									<th>Saldo</th>
+									<th>Ingreso</th>
+
+								</thead>
+								<tfoot>
+									<th>TOTAL</th>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th>
+										<h4 id="total">Bs/. 0.00</h4>
+									</th>
+								</tfoot>
+								<tbody>
+
+								</tbody>
+
+							</table>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="form-group text-center" id="guardar">
+				<input name="_token" value="<?php echo e(csrf_token()); ?>" type="hidden"></input>
+				<button class="btn btn-success" type="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+				<button class="btn btn-danger" type="reset"><i class="fa fa-window-close-o"
+						aria-hidden="true"></i></button>
+			</div>
+		</div>
+	</div>
+	<?php echo Form::close(); ?>
+
+
+	<?php $__env->startPush('scripts'); ?>
+	<script>
+		$(document).ready(function () {
         $('#bt_add').click(function () {
             agregar();
         });
@@ -184,11 +261,11 @@
 		/*  inicio variables   */ 
 		cliente =$("#scliente").val();
 		idproducto = $("#sidproducto").val();
-		aux1 = $("#sidproducto option:selected").text();
-		aux2 = aux1.split("-");
-		codigo = aux2[0];
-		categoria = aux2[1];
-		color = aux2[2];
+		// aux1 = $("#sidproducto option:selected").text();
+		// aux2 = aux1.split("-");
+		// codigo = aux2[0];
+		// categoria = aux2[1];
+		// color = aux2[2];
 		precio = $("#sprecio").val();
 		idtipoDoc = $("#sidtipoDoc").val();
 		doc = $("#sidtipoDoc option:selected").text();
@@ -197,10 +274,26 @@
 		sVenta = $("#sVenta").val();
 		checkAdelanto = $("#checkAdelanto").is(":checked");
 		checkSaldo = $("#checkSaldo").is(":checked");
+
 		console.log(checkAdelanto);
 		
+		idcategoria = $("#sidcategoria").val();
+        categoria = $("#sidcategoria option:selected").text();
+        idsucursal = $("#sidsucursal").val();
+		sucursal = $("#sidsucursal option:selected").text();
+		idtalla = $("#sidtalla").val();
+		talla = $("#sidtalla option:selected").text();
+		idcolor = $("#sidcolor").val();
+		color = $("#sidcolor option:selected").text();
 		idtela = $("#sidtela").val();
 		tela = $("#sidtela option:selected").text();
+		
+		fechaCod = $("#sfechaCod").val();
+		codigo = $("#scodigo").val();
+		
+
+
+
 		saldo = 0;
 		//idproducto != "" && precio != "" && idtipoDoc !=""
 		
@@ -219,10 +312,10 @@
 
 			var fila='<tr class="selected" id="fila'+cont+'"><td>'+cont+'</td>'+
 			'<td><button type="button" class="btn btn-warning" onclick="eliminar('+cont+');">X</button></td>'+
-			'<td><input type="hidden" name="idproducto[]" value="'+idproducto+'">'+codigo+'</td>'+
+			
 			'<td><input type="hidden" name="cliente[]" value="'+cliente+'">'+cliente+'</td>'+
-			'<td>'+categoria+'</td>'+
-			'<td>'+color+'</td>'+
+			'<td>'+sucursal+'-'+categoria+'-'+talla+'-'+color+'-'+tela+'</td>'+
+			
 			'<td><input type="hidden" name="fechaVenta[]" value="'+fechaVenta+'">'+fechaVenta+'</td>'+
 			'<td><input type="hidden" name="idtipoDoc[]" value="'+idtipoDoc+'"><input type="hidden" name="numDoc[]" value="'+numDoc+'">'+doc+' - '+numDoc+'</td>'+
 			
@@ -272,19 +365,7 @@
 
 		numCodigo = 0;
 		separador = "-";
-	//	if(codigo.indexOf(separador)!= -1){
-			//aux = codigo.split(separador);
-			//numCodigo = parseInt(aux[1]);
-			//numCodigo = numCodigo + 1;
-			//codigoNuevo = aux[0]+'-'+numCodigo;
-	//	}else{
-	//		codigo = parseInt(codigo);
-	//		codigoNuevo=codigo+1;
-	//	}
-		
-     //   $("#scodigo").val(codigoNuevo);
-        //$("#pprecio_compra").val("");
-        //$("#pprecio_venta").val("");
+	
     }
 
     function evaluar() {
@@ -330,7 +411,8 @@
 		}
 		
 
-</script>
+	</script>
 
-@endpush
-@endsection
+	<?php $__env->stopPush(); ?>
+	<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.admin', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

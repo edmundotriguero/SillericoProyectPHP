@@ -125,7 +125,7 @@ class ProductoController extends Controller
             DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
-            return redirect()->back()->withErrors('error al insertar datos');
+            return redirect()->back()->withErrors('error al insertar datos'.$e);
 
         }
         return Redirect::to('almacen/producto');

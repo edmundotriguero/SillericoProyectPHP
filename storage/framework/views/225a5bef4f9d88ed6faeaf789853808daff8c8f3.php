@@ -11,7 +11,7 @@
   <!-- Bootstrap select piker -->
   <link rel="stylesheet" href="<?php echo e(asset('dist/css/bootstrap-select.min.css')); ?>">
 
-  <!-- Font Awesome -->
+  <!-- Font Awesome  v  4.7-->
   <link rel="stylesheet" href="<?php echo e(asset('bower_components/font-awesome/css/font-awesome.min.css')); ?>"> 
   <!-- Ionicons -->
   <link rel="stylesheet" href="<?php echo e(asset('bower_components/Ionicons/css/ionicons.min.css')); ?>">

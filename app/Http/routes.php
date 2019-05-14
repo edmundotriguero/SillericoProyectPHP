@@ -45,6 +45,8 @@ Route::resource('ventas/ventas','VentasController');
 
 Route::get('ventas/indexSaldo','VentasController@indexSaldos');
 
+Route::resource('ventas/ventaSinRegistro','VentaSRController');
+
 Route::get('ventas/crearSaldo/{idventa}','VentasController@crearSaldo');
 Route::post('ventas/storeSaldos','VentasController@storeSaldos');
 

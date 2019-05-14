@@ -99,6 +99,7 @@
 					<div class="form-group">
 						<label for="sidcategoria">Categoria</label>
 						<select name="sidcategoria" id="sidcategoria" class="form-control selectpicker"  data-live-search="true">
+							<option value="">Seleccione...</option>
 							<?php foreach($categorias as $cat): ?>
 							<option value="<?php echo e($cat->idcategoria); ?>"><?php echo e($cat->nombre); ?></option>
 							<?php endforeach; ?>
@@ -111,6 +112,7 @@
 					<div class="form-group">
 						<label for="sidsucursal">Sucursal</label>
 						<select name="sidsucursal" id="sidsucursal" class="form-control selectpicker"  data-live-search="true">
+							<option value="">Seleccione...</option>
 							<?php foreach($sucursales as $suc): ?>
 							<option value="<?php echo e($suc->idsucursales); ?>"><?php echo e($suc->nombre); ?></option>
 							<?php endforeach; ?>
@@ -130,6 +132,7 @@
 					<div class="form-group">
 						<label for="sidtela">Tela</label>
 						<select name="sidtela" id="sidtela" class="form-control selectpicker"  data-live-search="true">
+							<option value="21">Seleccione...</option>
 							<?php foreach($telas as $t): ?>
 							<option value="<?php echo e($t->idtela); ?>"><?php echo e($t->nombre); ?></option>
 							<?php endforeach; ?>
@@ -141,6 +144,7 @@
 					<div class="form-group">
 						<label for="sidcolor">Color</label>
 						<select name="sidcolor" id="sidcolor" class="form-control selectpicker"  data-live-search="true">
+							<option value="29">Seleccione...</option>
 							<?php foreach($color as $col): ?>
 							<option value="<?php echo e($col->idcolor); ?>"><?php echo e($col->nombre); ?></option>
 							<?php endforeach; ?>
@@ -160,6 +164,7 @@
 					<div class="form-group">
 						<label for="sidtalla">Talla</label>
 						<select name="sidtalla" id="sidtalla" class="form-control selectpicker"  data-live-search="true">
+							<option value="21">Seleccione...</option>
 							<?php foreach($talla as $tal): ?>
 							<option value="<?php echo e($tal->idtalla); ?>"><?php echo e($tal->nombre); ?></option>
 							<?php endforeach; ?>

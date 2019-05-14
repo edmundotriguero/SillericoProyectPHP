@@ -27,7 +27,7 @@ class ProductoFormRequest extends Request
             //'idproducto'=>'required',
             'fechaCod'=>'required',
             'idtalla'=>'',
-            'idtela'=>'required',
+            'idtela'=>'',
             'precio'=>'',
             'idcolor'=>'',
             'idcategoria'=>'required',
