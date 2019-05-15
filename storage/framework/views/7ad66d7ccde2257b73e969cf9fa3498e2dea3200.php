@@ -22,7 +22,7 @@
 </div>
 
 
-<?php echo Form::open(array('url'=>'ventas/ventas','method'=>'POST','autocomplete'=>'on')); ?>
+<?php echo Form::open(array('url'=>'ventas/ventaSinRegistro','method'=>'POST','autocomplete'=>'on')); ?>
 
 <?php echo e(Form::token()); ?>
 
@@ -312,6 +312,12 @@
 
 			var fila='<tr class="selected" id="fila'+cont+'"><td>'+cont+'</td>'+
 			'<td><button type="button" class="btn btn-warning" onclick="eliminar('+cont+');">X</button></td>'+
+
+			'<input type="hidden" name="idsucursal[]" value="'+idsucursal+'">'+
+			'<input type="hidden" name="idcategoria[]" value="'+idcategoria+'">'+
+			'<input type="hidden" name="idtalla[]" value="'+idtalla+'">'+
+			'<input type="hidden" name="idcolor[]" value="'+idcolor+'">'+
+			'<input type="hidden" name="idtela[]" value="'+idtela+'">'+
 			
 			'<td><input type="hidden" name="cliente[]" value="'+cliente+'">'+cliente+'</td>'+
 			'<td>'+sucursal+'-'+categoria+'-'+talla+'-'+color+'-'+tela+'</td>'+
@@ -335,10 +341,15 @@
 
 			   var fila='<tr class="selected" id="fila'+cont+'"><td>'+cont+'</td>'+
 			'<td><button type="button" class="btn btn-warning" onclick="eliminar('+cont+');">X</button></td>'+
-			'<td><input type="hidden" name="idproducto[]" value="'+idproducto+'">'+codigo+'</td>'+
+			'<input type="hidden" name="idsucursal[]" value="'+idsucursal+'">'+
+			'<input type="hidden" name="idcategoria[]" value="'+idcategoria+'">'+
+			'<input type="hidden" name="idtalla[]" value="'+idtalla+'">'+
+			'<input type="hidden" name="idcolor[]" value="'+idcolor+'">'+
+			'<input type="hidden" name="idtela[]" value="'+idtela+'">'+
+			
 			'<td><input type="hidden" name="cliente[]" value="'+cliente+'">'+cliente+'</td>'+
-			'<td>'+categoria+'</td>'+
-			'<td>'+color+'</td>'+
+			'<td>'+sucursal+'-'+categoria+'-'+talla+'-'+color+'-'+tela+'</td>'+
+
 			'<td><input type="hidden" name="fechaVenta[]" value="'+fechaVenta+'">'+fechaVenta+'</td>'+
 			'<td><input type="hidden" name="idtipoDoc[]" value="'+idtipoDoc+'"><input type="hidden" name="numDoc[]" value="'+numDoc+'">'+doc+' - '+numDoc+'</td>'+
 			'<td>**</td><td>***</td>'+
