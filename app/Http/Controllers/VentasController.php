@@ -13,9 +13,9 @@ use Illuminate\Support\Collection;
 
 
 use sillericos\Http\Requests\ProductoFormRequest;
-use sillericos\Producto;
 use sillericos\Http\Requests\VentasFormRequest;
 use sillericos\Http\Requests\SaldosFormRequest;
+use sillericos\Producto;
 use sillericos\Ventas;
 use sillericos\Saldo;
 
