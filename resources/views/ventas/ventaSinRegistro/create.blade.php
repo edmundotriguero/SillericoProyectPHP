@@ -8,7 +8,7 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" id="error">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="error">
 		<h3>Nuevos registros de ventas</h3>
 		@if(count($errors)>0)
 		<div class="alert alert-danger">
@@ -91,7 +91,7 @@
 
 <h4>Detalles del producto</h4>
 
-<div class="col-lg-10 col-sm-10 col-md-10 col-xs-10">
+{{-- <div class="col-lg-10 col-sm-10 col-md-10 col-xs-10">
 	<div class="col-lg-3 col-sm-6 col-md-6 col-xs-6">
 		<div class="form-group">
 			<label for="slote">Lote</label>
@@ -104,7 +104,7 @@
 
 		</div>
 	</div>
-</div>
+</div> --}}
 
 
 <div class="row">

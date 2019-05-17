@@ -57,22 +57,13 @@
 
 						<td>{{ $prod->precio}}</td>
 						<td>{{ $prod->color}}</td>
-						<td><span class="label label-success">{{$prod->desc."%"}}</span> {{ $prod->precio-($prod->precio*($prod->desc/100))}}</td>
-						{{-- @php
-							$aux = 0;
-						@endphp
-						@foreach ($desc as $d)
-							@if ($d->lote == $prod->lote )
-								<td><span class="label label-success">{{$d->porcentaje."%"}}</span> {{$prod->precio-($prod->precio*($d->porcentaje/100))}}</td>
-								@php
-								$aux = 1;
-								@endphp
-							@else	
-							@endif
-						@endforeach
-						@if ($aux == 0)
-							<td>no</td>
-						@endif --}}
+						@if ($prod->desc == 0)
+							<td><span class="label label-info">s/d </span></td>
+						@else
+							
+							<td><span class="label label-success">{{$prod->desc."% "}}</span> {{ $prod->precio-($prod->precio*($prod->desc/100))}}</td>
+						@endif
+						
 						<td>
 								
 							{{-- <a href="{{URL::action('ProductoController@desc',$prod->idproducto)}}"><button class="btn fa fa-scissors" aria-hidden="true"></button></a> --}}

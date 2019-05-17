@@ -8,6 +8,9 @@ use sillericos\Http\Requests;
 
 use DB;
 
+use Illuminate\Support\Facades\Redirect;
+
+
 use sillericos\Producto;
 use sillericos\Ventas;
 use sillericos\Saldo;
@@ -51,7 +54,7 @@ class VentaSRController extends Controller
      */
     public function store(Request $request)
     {
-          // try {
+          try {
             DB::beginTransaction();
             // variablre para definir el numero de lote cambiar de acuerdo a la base de datos
             $lote = 36;
@@ -80,6 +83,7 @@ class VentaSRController extends Controller
             $cont = 0;
 
             while ($cont < count($numDoc)) {
+
                 $producto = new Producto();
                 $producto->idcategoria = $idcategoria[$cont];
                 $producto->idsucursal = $idsucursal[$cont];
@@ -112,7 +116,8 @@ class VentaSRController extends Controller
             }
             // si bandera es igual a 1, guarda tambien en ventas saldo solo permitir una instancia de venta
             }else  if ($bandera == 1){
-                $idproducto = $request->get('idproducto');
+
+            
             $cliente = $request->get('cliente');
             $fechaVenta = $request->get('fechaVenta');
             $idtipoDoc = $request->get('idtipoDoc');
@@ -121,12 +126,34 @@ class VentaSRController extends Controller
 
             $venta = $request->get('venta');
             $saldo  = $request->get('saldo');
+
+             // datos de producto
+
+             $idcategoria = $request->get('idcategoria');
+             $idsucursal = $request->get('idsucursal');
+             $idtalla = $request->get('idtalla');
+             $idtela = $request->get('idtela');
+             $idcolor = $request->get('idcolor');
            
             $cont = 0;
 
-            while ($cont < count($idproducto)) {
+            while ($cont < count($numDoc)) {
+
+                $producto = new Producto();
+                $producto->idcategoria = $idcategoria[$cont];
+                $producto->idsucursal = $idsucursal[$cont];
+                $producto->fechaCod = $fechaVenta[$cont];
+                //  $producto->codigo = 'sincod';
+                $producto->idtalla = $idtalla[$cont];
+                $producto->idtela = $idtela[$cont];
+                $producto->idcolor = $idcolor[$cont];
+                $producto->precio = $precio[$cont];
+                $producto->estado = '2';
+                $producto->lote = $lote;
+                $producto->save();
+
                 $ventas = new Ventas();
-                $ventas->idproducto = $idproducto[$cont];
+                $ventas->idproducto = $producto->idproducto;
                 $ventas->cliente = $cliente[$cont];
                 $ventas->fechaVenta = $fechaVenta[$cont];
                 $ventas->tipoDoc = $idtipoDoc[$cont];
@@ -138,8 +165,6 @@ class VentaSRController extends Controller
                 $ventas->estado = '1';
                 $ventas->save();
 
-                DB::update('update productos set estado = 2 where idproducto = ?', [$idproducto[$cont]]);
-
                 DB::update('insert into ventasaldo (idventa, ingreso, fecha, tipoDoc, numDoc, estado)values(?,?,?,?,?,?)', [$ventas->id, $precio[$cont], $fechaVenta[$cont], $idtipoDoc[$cont],$numDoc[$cont],'1']);
 
 
@@ -149,9 +174,14 @@ class VentaSRController extends Controller
             }
          
             DB::commit();
-     //   } catch (\Exception $e) {
-     //       DB::rollback();
-      //  }
+            return Redirect::to('ventas/ventas');
+
+
+       } catch (\Illuminate\Database\QueryException $e) {
+          DB::rollback();
+            return redirect()->back()->withErrors('Verfique que no exista el registro o alguna restriccion en la Base de datos: comuniquese con el Administrador  '.$e); 
+       }
+
     }
 
     /**

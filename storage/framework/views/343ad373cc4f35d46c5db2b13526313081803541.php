@@ -57,22 +57,13 @@
 
 						<td><?php echo e($prod->precio); ?></td>
 						<td><?php echo e($prod->color); ?></td>
-						<td><span class="label label-success"><?php echo e($prod->desc."%"); ?></span> <?php echo e($prod->precio-($prod->precio*($prod->desc/100))); ?></td>
-						<?php /* <?php 
-							$aux = 0;
-						 ?>
-						<?php foreach($desc as $d): ?>
-							<?php if($d->lote == $prod->lote ): ?>
-								<td><span class="label label-success"><?php echo e($d->porcentaje."%"); ?></span> <?php echo e($prod->precio-($prod->precio*($d->porcentaje/100))); ?></td>
-								<?php 
-								$aux = 1;
-								 ?>
-							<?php else: ?>	
-							<?php endif; ?>
-						<?php endforeach; ?>
-						<?php if($aux == 0): ?>
-							<td>no</td>
-						<?php endif; ?> */ ?>
+						<?php if($prod->desc == 0): ?>
+							<td><span class="label label-info">s/d </span></td>
+						<?php else: ?>
+							
+							<td><span class="label label-success"><?php echo e($prod->desc."% "); ?></span> <?php echo e($prod->precio-($prod->precio*($prod->desc/100))); ?></td>
+						<?php endif; ?>
+						
 						<td>
 								
 							<?php /* <a href="<?php echo e(URL::action('ProductoController@desc',$prod->idproducto)); ?>"><button class="btn fa fa-scissors" aria-hidden="true"></button></a> */ ?>

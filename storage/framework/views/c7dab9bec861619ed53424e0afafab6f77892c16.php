@@ -28,7 +28,7 @@
 					<th>Talla</th>
 					<th>Tela</th>
 				</thead>
-
+				<?php foreach($productos as $producto): ?>
 				<tr>
 					<td><?php echo e($producto->codigo); ?></td>
 					<td><?php echo e($producto->sucursal); ?></td>
@@ -37,6 +37,8 @@
 					<td><?php echo e($producto->talla); ?></td>
 					<td><?php echo e($producto->tela); ?></td>
 				</tr>
+				<?php endforeach; ?>
+				
 
 			</table>
 		</div>

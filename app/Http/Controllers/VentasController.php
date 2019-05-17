@@ -174,17 +174,19 @@ class VentasController extends Controller
         ->first();
         
 
-        $producto=DB::table('productos as p')
+        $productos=DB::table('productos as p')
         ->join('categorias as c', 'p.idcategoria', '=', 'c.idcategoria')
         ->join('telas as t','p.idtela','=','t.idtela')
         ->join('sucursales as s','p.idsucursal','=','s.idsucursales')
         ->join('color as co', 'p.idcolor','=','co.idcolor')
         ->join('tallas as ta','p.idtalla','=','ta.idtalla')
         ->join('lote as l','p.lote','=','l.id')
-        ->where('p.idproducto','=',$venta->idproducto)
+        ->join('ventas as v','p.idproducto','=','v.idproducto')
+        // ->where('p.idproducto','=',$venta->idproducto)
+        ->where('v.numDoc','=',$venta->numDoc)
 
         ->select('p.idproducto','p.codigo','co.nombre as color','ta.nombre as talla','t.nombre as tela','p.precio','c.nombre as categoria','s.nombre as sucursal')
-        ->first();
+        ->get();
 
         $saldos=DB::table('ventasaldo as s')
         ->join('ventas as v', 's.idventa','=', 'v.id')
@@ -195,7 +197,7 @@ class VentasController extends Controller
 
 
         
-        return view("ventas.ventas.show",["producto"=>$producto,"venta"=>$venta, "saldos"=>$saldos]);
+        return view("ventas.ventas.show",["productos"=>$productos,"venta"=>$venta, "saldos"=>$saldos]);
     }
 
     public function edit($id){
@@ -244,6 +246,8 @@ class VentasController extends Controller
         $ventas = Ventas::findOrFail($id);
         $ventas->estado='0';
         $ventas->update();
+
+        //  colocar el estado de los productos nuevamente en 1 
 
         return Redirect::to('ventas/ventas');
 
@@ -304,7 +308,7 @@ class VentasController extends Controller
    
     
     public function storeSaldos(SaldosFormRequest $request) {
-         //try {
+         try {
              DB::beginTransaction();
  
              
@@ -345,10 +349,11 @@ class VentasController extends Controller
                  $cont = $cont + 1;
              }
              DB::commit();
-         /*} catch (\Exception $e) {
-            DB::rollback();
-         }*/
-         return Redirect::to('ventas/indexSaldo');
+             return Redirect::to('ventas/indexSaldo');
+            } catch (\Illuminate\Database\QueryException $e) {
+                DB::rollback();
+                  return redirect()->back()->withErrors('Verfique que no exista el registro o alguna restriccion en la Base de datos: comuniquese con el Administrador  '.$e); 
+             }
      }
 
 }

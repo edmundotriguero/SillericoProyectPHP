@@ -29,7 +29,7 @@
 					<th>Talla</th>
 					<th>Tela</th>
 				</thead>
-
+				@foreach ($productos as $producto)
 				<tr>
 					<td>{{ $producto->codigo}}</td>
 					<td>{{ $producto->sucursal }}</td>
@@ -38,6 +38,8 @@
 					<td>{{ $producto->talla }}</td>
 					<td>{{ $producto->tela }}</td>
 				</tr>
+				@endforeach
+				
 
 			</table>
 		</div>
