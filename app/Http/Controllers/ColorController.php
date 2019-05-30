@@ -28,7 +28,7 @@ class ColorController extends Controller
             $query = trim($request->get('searchText'));
             $colores=DB::table('color')->where('nombre','LIKE','%'.$query.'%')
            ->where('estado','=','1')
-           ->orderBy('idcolor','asc')
+           ->orderBy('nombre','asc')
            ->paginate(50);
 
             return view('almacen.color.index',["colores"=>$colores,"searchText"=>$query]);

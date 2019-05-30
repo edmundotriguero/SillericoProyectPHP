@@ -26,7 +26,7 @@ class SucursalController extends Controller
             $query = trim($request->get('searchText'));
             $sucursales=DB::table('sucursales')->where('nombre','LIKE','%'.$query.'%')
            ->where('condicion','=','1')
-           ->orderBy('idsucursales','asc')
+           ->orderBy('nombre','asc')
            ->paginate(50);
 
             return view('almacen.sucursal.index',["sucursales"=>$sucursales,"searchText"=>$query]);

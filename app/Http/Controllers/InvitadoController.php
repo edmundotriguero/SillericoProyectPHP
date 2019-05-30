@@ -42,11 +42,11 @@ class InvitadoController extends Controller
                 $nombreTela = trim($request->get('nombreTela'));
                 $nombreColor = trim($request->get('nombreColor'));
 
-                $sucursal=DB::table('sucursales')->get();
-                $categorias=DB::table('categorias')->get();
-                $tallas = DB::table('tallas')->get();
-                $telas = DB::table('telas')->get();
-                $color = DB::table('color')->get();
+                $sucursal=DB::table('sucursales')->orderBy('nombre','asc')->get();
+                $categorias=DB::table('categorias')->orderBy('nombre','asc')->get();
+                $tallas = DB::table('tallas')->orderBy('nombre','asc')->get();
+                $telas = DB::table('telas')->orderBy('nombre','asc')->get();
+                $color = DB::table('color')->orderBy('nombre','asc')->get();
                 
                 // $desc=DB::table('descuentos')->get();
 

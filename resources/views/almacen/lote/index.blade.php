@@ -26,13 +26,14 @@
 						<th >ID</th>
 						<th class="col-lg-6 col-md-6 col-sm-6 col-xs-6" >Nombre</th>
 						
+						<th>Descuento</th>
 						<th>Opciones</th>
 					</thead>
 					@foreach ($lotes as $lote)
 					<tr>
 						<td>{{ $lote->id}}</td>
 						<td>{{ $lote->lote}}</td>
-						<td>{{ $lote->porcentaje_descuento}}</td>
+						<td>{{ $lote->porcentaje_descuento}} %</td>
 						
 						
 						<td>

@@ -40,11 +40,11 @@ class ProductoController extends Controller
                 $nombreTela = trim($request->get('nombreTela'));
                 $nombreColor = trim($request->get('nombreColor'));
 
-                $sucursal=DB::table('sucursales')->get();
-                $categorias=DB::table('categorias')->get();
-                $tallas = DB::table('tallas')->get();
-                $telas = DB::table('telas')->get();
-                $color = DB::table('color')->get();
+                $sucursal=DB::table('sucursales')->orderBy('nombre','asc')->get();
+                $categorias=DB::table('categorias')->orderBy('nombre','asc')->get();
+                $tallas = DB::table('tallas')->orderBy('nombre','asc')->get();
+                $telas = DB::table('telas')->orderBy('nombre','asc')->get();
+                $color = DB::table('color')->orderBy('nombre','asc')->get();
                 
                 // $desc=DB::table('descuentos')->get();
 
@@ -80,11 +80,11 @@ class ProductoController extends Controller
 
     }
     public function create(){
-        $categorias=DB::table('categorias')->where('condicion','LIKE','1')->get();
-        $sucursales=DB::table('sucursales')->where('condicion','LIKE','1')->get();
-        $color=DB::table('color')->where('estado','LIKE','1')->get();
-        $talla=DB::table('tallas')->where('estado','LIKE','1')->get();
-        $telas=DB::table('telas')->where('condicion','LIKE','1')->get();
+        $categorias=DB::table('categorias')->where('condicion','LIKE','1')->orderBy('nombre','asc')->get();
+        $sucursales=DB::table('sucursales')->where('condicion','LIKE','1')->orderBy('nombre','asc')->get();
+        $color=DB::table('color')->where('estado','LIKE','1')->orderBy('nombre','asc')->get();
+        $talla=DB::table('tallas')->where('estado','LIKE','1')->orderBy('nombre','asc')->get();
+        $telas=DB::table('telas')->where('condicion','LIKE','1')->orderBy('nombre','asc')->get();
         $lotes=DB::table('lote')->where('estado','LIKE','1')->orderBy('id','desc')->get();
         
 
@@ -154,11 +154,11 @@ class ProductoController extends Controller
 
     public function edit($id){
 
-        $categoria=DB::table('categorias')->where('condicion','=','1')->get();
-        $sucursal=DB::table('sucursales')->where('condicion','=','1')->get();
-        $color=DB::table('color')->where('estado','=','1')->get();
-        $talla=DB::table('tallas')->where('estado','=','1')->get();
-        $tela=DB::table('telas')->where('condicion','=','1')->get();
+        $categoria=DB::table('categorias')->where('condicion','=','1')->orderBy('nombre','asc')->get();
+        $sucursal=DB::table('sucursales')->where('condicion','=','1')->orderBy('nombre','asc')->get();
+        $color=DB::table('color')->where('estado','=','1')->orderBy('nombre','asc')->get();
+        $talla=DB::table('tallas')->where('estado','=','1')->orderBy('nombre','asc')->get();
+        $tela=DB::table('telas')->where('condicion','=','1')->orderBy('nombre','asc')->get();
         
         
         $lotes=DB::table('lote')->where('estado','=','1')->get();
@@ -195,54 +195,54 @@ class ProductoController extends Controller
 
     }
     
-    // public function desc($id){
+    // // public function desc($id){
 
-    //     $lote=DB::table('productos')
+    // //     $lote=DB::table('productos')
+    // //     ->select('lote')
+    // //     ->where('idproducto','LIKE',$id)
+    // //     ->first();
+        
+        
+    // //     $porcentaje=DB::table('descuentos')->select('porcentaje')->where('lote','LIKE',$lote->lote)->first();
+
+        
+
+    // //     return view("almacen.producto.desc",["lote"=>$lote,"porcentaje"=>$porcentaje]);
+    // // }
+
+    // public function descStore(Request $request){
+    // try{
+
+    //     $xlote = $request->get('lote');
+    //     $desc = $request->get('desc');
+
+    //     $existencia = DB::table('descuentos')
     //     ->select('lote')
-    //     ->where('idproducto','LIKE',$id)
-    //     ->first();
-        
-        
-    //     $porcentaje=DB::table('descuentos')->select('porcentaje')->where('lote','LIKE',$lote->lote)->first();
+    //     ->where('lote', '=', $xlote)
+    //     ->get();
 
-        
+    //     if ($desc == 0) {
+    //        //DELETE FROM `descuentos` WHERE `descuentos`.`id` = 4
+    //         DB::delete('delete from descuentos where lote = ?', [$xlote]);
+    //         DB::commit();
 
-    //     return view("almacen.producto.desc",["lote"=>$lote,"porcentaje"=>$porcentaje]);
-    // }
+    //     }elseif (count($existencia) != 0) {
+    //         # code...
+    //         DB::update('update descuentos set porcentaje = ? where lote = ?', [$desc, $xlote]);
+    //         DB::commit();
 
-    public function descStore(Request $request){
-    try{
-
-        $xlote = $request->get('lote');
-        $desc = $request->get('desc');
-
-        $existencia = DB::table('descuentos')
-        ->select('lote')
-        ->where('lote', '=', $xlote)
-        ->get();
-
-        if ($desc == 0) {
-           //DELETE FROM `descuentos` WHERE `descuentos`.`id` = 4
-            DB::delete('delete from descuentos where lote = ?', [$xlote]);
-            DB::commit();
-
-        }elseif (count($existencia) != 0) {
-            # code...
-            DB::update('update descuentos set porcentaje = ? where lote = ?', [$desc, $xlote]);
-            DB::commit();
-
-        }else {
-            DB::insert('insert into descuentos ( lote, porcentaje)values(?,?)', [$xlote,$desc]);
-            DB::commit();
+    //     }else {
+    //         DB::insert('insert into descuentos ( lote, porcentaje)values(?,?)', [$xlote,$desc]);
+    //         DB::commit();
             
-        }
+    //     }
 
-        return Redirect::to('almacen/producto');
-    }catch (\Illuminate\Database\QueryException $e){
+    //     return Redirect::to('almacen/producto');
+    // }catch (\Illuminate\Database\QueryException $e){
         
-        return redirect()->back()->withErrors("Verfique que no exista el registro o alguna restriccion en la Base de datos contacte con el administrador y reporte el problema");
-    }
-    }
+    //     return redirect()->back()->withErrors("Verfique que no exista el registro o alguna restriccion en la Base de datos contacte con el administrador y reporte el problema");
+    // }
+    // }
 
     
     

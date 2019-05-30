@@ -104,6 +104,12 @@
        aux =  $("#idsuc").val();
       console.log(aux);
      });
+
+    //  function getCountSucursal(id){
+        
+
+
+    //  }
 	
    
 

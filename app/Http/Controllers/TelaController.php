@@ -24,7 +24,7 @@ class TelaController extends Controller
             $query = trim($request->get('searchText'));
             $telas=DB::table('telas')->where('nombre','LIKE','%'.$query.'%')
            ->where('condicion','=','1')
-           ->orderBy('idtela','asc')
+           ->orderBy('nombre','asc')
            ->paginate(50);
 
             return view('almacen.tela.index',["telas"=>$telas,"searchText"=>$query]);

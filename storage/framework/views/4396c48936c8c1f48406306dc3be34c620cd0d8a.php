@@ -25,13 +25,14 @@
 						<th >ID</th>
 						<th class="col-lg-6 col-md-6 col-sm-6 col-xs-6" >Nombre</th>
 						
+						<th>Descuento</th>
 						<th>Opciones</th>
 					</thead>
 					<?php foreach($lotes as $lote): ?>
 					<tr>
 						<td><?php echo e($lote->id); ?></td>
 						<td><?php echo e($lote->lote); ?></td>
-						<td><?php echo e($lote->porcentaje_descuento); ?></td>
+						<td><?php echo e($lote->porcentaje_descuento); ?> %</td>
 						
 						
 						<td>

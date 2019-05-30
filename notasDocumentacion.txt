@@ -114,3 +114,7 @@ ALTER TABLE productos ADD FOREIGN KEY (lote) REFERENCES lote(id)
 para contar la cantidad de productos que existen de un determinado lote 
 
 SELECT COUNT(p.lote) as cantidad, l.lote, l.id from productos as p INNER JOIN lote as l on p.lote = l.id GROUP by l.lote
+
+// cuenta los productos por categoria en una sucursal espesifica 
+
+SELECT COUNT(p.idcategoria) as cantidad, p.idcategoria,c.nombre from productos as p INNER JOIN categorias as c on p.idcategoria = c.idcategoria WHERE p.idsucursal = 1 GROUP by p.idcategoria

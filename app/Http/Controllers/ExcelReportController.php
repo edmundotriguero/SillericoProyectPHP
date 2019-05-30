@@ -35,7 +35,7 @@ class ExcelReportController extends Controller
                // $nombreTalla = trim($request->get('nombreTalla'));
                DB::setFetchMode(PDO::FETCH_ASSOC);
                 
-                $desc=DB::table('descuentos')->get();
+                
         
                 $data=DB::table('productos as p')
                 ->join('categorias as c', 'p.idcategoria', '=', 'c.idcategoria')

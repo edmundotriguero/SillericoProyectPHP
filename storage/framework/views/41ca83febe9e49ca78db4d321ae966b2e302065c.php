@@ -1,8 +1,8 @@
 <?php $__env->startSection('contenido'); ?>
 	<div class="row">
 		<div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
-			<h3>Estadisticas  </h3> 
-			<?php echo $__env->make('reportes.estadisticas.search', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+			<h3>Estadisticas generales </h3> 
+			<?php /* <?php echo $__env->make('reportes.estadisticas.search', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?> */ ?>
 		</div>
 	</div>
 

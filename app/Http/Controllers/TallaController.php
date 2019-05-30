@@ -30,7 +30,7 @@ class TallaController extends Controller
             $query = trim($request->get('searchText'));
             $tallas=DB::table('tallas')->where('nombre','LIKE','%'.$query.'%')
            ->where('estado','=','1')
-           ->orderBy('idtalla','asc')
+           ->orderBy('nombre','asc')
            ->paginate(50);
 
             return view('almacen.talla.index',["tallas"=>$tallas,"searchText"=>$query]);

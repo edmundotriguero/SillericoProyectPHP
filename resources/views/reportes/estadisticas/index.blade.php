@@ -2,8 +2,8 @@
 @section ('contenido')
 	<div class="row">
 		<div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
-			<h3>Estadisticas  </h3> 
-			@include('reportes.estadisticas.search')
+			<h3>Estadisticas generales </h3> 
+			{{-- @include('reportes.estadisticas.search') --}}
 		</div>
 	</div>
 
