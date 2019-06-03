@@ -141,7 +141,7 @@ para iniciar el menu contraido // sidebar-collapse
             </a>
             <ul class="treeview-menu">
               <li><a href="<?php echo e(url('reportes/estadisticas')); ?>"><i class="fa fa-circle-o"></i> Estadistica General</a></li>
-              <li><a href="<?php echo e(url('reportes/estadisticas/productos')); ?>"><i class="fa fa-circle-o"></i>Estadistica sucursal</a></li>
+              <li><a href="<?php echo e(url('reportes/estadisticas/general')); ?>"><i class="fa fa-circle-o"></i>Estadistica sucursal</a></li>
   
             </ul>
         

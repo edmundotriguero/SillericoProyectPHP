@@ -54,7 +54,8 @@ Route::post('ventas/storeSaldos','VentasController@storeSaldos');
 
 Route::get('reportes/estadisticas','ReportesController@indexE');
 
-Route::get('reportes/estadisticas/productos','ReportesController@indexGraphicSucursal');
+// routas para ajax
+Route::get('reportes/estadisticas/porCategoria','ReportesController@indexGraphicSucursal');
 Route::post('reportes/estadisticas/getCountSucursal','ReportesController@getCountSucursal');
 
 //para asignar descuentos

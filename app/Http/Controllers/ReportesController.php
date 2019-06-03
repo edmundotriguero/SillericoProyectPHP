@@ -64,14 +64,18 @@ class ReportesController extends Controller
                     ->groupBy('c.nombre')
                     ->get();
 
-                    //$ventas=DB::table('ventas_detalle as vd')
-                                       
-                    //->select(DB::raw('count(sucursal) as total'),'sucursal')
-                    //->groupBy('sucursal')
-                   // ->get();
-                   // $ventas=DB::select('select count(sucursal) as total, sucursal from ventas_detalle as vd group by sucursal');
+                    // select count(s.idsucursales) as idsuc, s.nombre as sucursal from ventas as v INNER JOIN productos as p on v.idproducto = p.idproducto INNER JOIN sucursales as s on s.idsucursales = p.idsucursal where v.estado = 1 group by s.idsucursales
+                    $sucursal=DB::table('ventas as v')
+                    ->join('productos as p','v.idproducto','=','p.idproducto')
+                    ->join('sucursales as s', "s.idsucursales","=","p.idsucursal")
+                    ->where('v.estado','=','1')
+                    ->select(DB::raw('count(s.idsucursales) as total'),'s.nombre')
+                    ->groupBy('s.idsucursales')
+                    ->get();
+
+                    // dd($sucursal);
         
-                    return view('reportes.estadisticas.index',['categoria'=>$categoria]);
+                    return view('reportes.estadisticas.general.index',['categoria'=>$categoria,'sucursal'=>$sucursal]);
                 }
     }
 
