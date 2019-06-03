@@ -73,9 +73,18 @@ class ReportesController extends Controller
                     ->groupBy('s.idsucursales')
                     ->get();
 
-                    // dd($sucursal);
+                    $categoria_mas_vendida=DB::table('ventas as v')
+                    ->join('productos as p','v.idproducto','=','p.idproducto')
+                    ->join('categorias as c', "c.idcategoria","=","p.idcategoria")
+                    ->where('v.estado','=','1')
+                    ->select(DB::raw('count(c.idcategoria) as total'),'c.nombre')
+                    ->groupBy('c.idcategoria')
+                    ->get();
+
+
+                    // dd($categoria_mas_vendida);
         
-                    return view('reportes.estadisticas.general.index',['categoria'=>$categoria,'sucursal'=>$sucursal]);
+                    return view('reportes.estadisticas.general.index',['categoria'=>$categoria,'sucursal'=>$sucursal,'categoria_mas_vendida'=>$categoria_mas_vendida]);
                 }
     }
 
@@ -83,17 +92,44 @@ class ReportesController extends Controller
 
         $sucursales = DB::table('sucursales')->where('condicion','=','1')->get();
 
-        return view('reportes.estadisticas.productos.index',['sucursales'=>$sucursales]);
+        return view('reportes.estadisticas.porSucursal.index',['sucursales'=>$sucursales]);
     }
 
 
 
     public function getCountSucursal(Request $request){
         if ($request->ajax()) {
-            $id_sucursal = $request->get('idSucursal');
+            $id = $request->get('id');
 
-          return  response()->json(
-                $id_sucursal
+            $categoria=DB::table('productos as p')
+            ->join('categorias as c','c.idcategoria','=','p.idcategoria')
+            ->where('p.estado','=','1')
+            ->where('p.idsucursal','=',$id)
+            ->select(DB::raw('count(c.nombre) as total'),'c.nombre')
+            ->groupBy('c.nombre')
+            ->get();
+
+            
+
+            $categoria_mas_vendida=DB::table('ventas as v')
+            ->join('productos as p','v.idproducto','=','p.idproducto')
+            ->join('categorias as c', "c.idcategoria","=","p.idcategoria")
+            ->where('v.estado','=','1')
+            ->where('p.idsucursal','=',$id)
+            ->select(DB::raw('count(c.idcategoria) as total'),'c.nombre')
+            ->groupBy('c.idcategoria')
+            ->get();
+
+
+
+
+
+          return  response()->json([
+              'categoria'=>$categoria,
+              'categoria_mas_vendida'=>$categoria_mas_vendida
+          ]
+                
+                 
             );
         }
     }

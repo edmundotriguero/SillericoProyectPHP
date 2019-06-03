@@ -323,7 +323,7 @@
 			if(value==true)
 			{
 				// habilitamos
-				document.getElementById("identificadorPrecioLavel").innerHTML = "Anticipo";
+				document.getElementById("identificadorPrecioLavel").innerHTML = "Adelanto";
 				document.getElementById("sVenta").disabled=false;
 			}else if(value==false){
 				// deshabilitamos
