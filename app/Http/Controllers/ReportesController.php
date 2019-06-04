@@ -47,7 +47,7 @@ class ReportesController extends Controller
                 ->orderBy('v.fechaVenta','asc')
                 ->paginate(50);
     
-                return view('reportes.ventas.index',["ventas"=>$ventas, "sucursales"=>$sucursales, "categorias"=>$categorias]);
+                return view('reportes.ventas.index',["ventas"=>$ventas, "sucursales"=>$sucursales, "categorias"=>$categorias,"fechaInicio"=>$fechaInicio,"fechaFinal"=>$fechaFinal]);
             }
         }
 
@@ -88,6 +88,8 @@ class ReportesController extends Controller
                 }
     }
 
+    // redirecciona a la parte de estadistica grafica
+
     public function indexGraphicSucursal(){
 
         $sucursales = DB::table('sucursales')->where('condicion','=','1')->get();
@@ -96,7 +98,7 @@ class ReportesController extends Controller
     }
 
 
-
+//  funcio para respuesta ajax
     public function getCountSucursal(Request $request){
         if ($request->ajax()) {
             $id = $request->get('id');
