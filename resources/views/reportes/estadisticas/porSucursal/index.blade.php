@@ -19,29 +19,25 @@
 
   </div>
 </div>
-<br/>
-{{-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> --}}
-  <div class="table-responsive">
-    <table class="columns">
-      <tr>
-        <td>
-          <div id="sucursal_con_mas_ventas" style="border: 1px solid #ccc"></div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <div id="productos_con_mas_aparicion" style="border: 1px solid #ccc"></div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <div id="categoria_mas_vendida" style="border: 1px solid #ccc"></div>
-        </td>
-      </tr>
-    </table>
-  </div>
+<br />
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+<div class="table-responsive">
+  <table class="columns">
+    
+    <tr>
+      <td>
+        <div id="productos_con_mas_aparicion" style="border: 1px solid #ccc"></div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div id="categoria_mas_vendida" style="border: 1px solid #ccc"></div>
+      </td>
+    </tr>
+  </table>
+</div>
 
-{{-- </div> --}}
+</div>
 
 
 
@@ -54,6 +50,14 @@
   var categoria;
   var categoria_mas_vendida;
   var i;
+
+  // ***** llamadas a google chart *****
+  google.charts.load('current', {'packages':['corechart']});
+
+
+
+  // ***** fin llamadas a google chart *****
+
     $(document).ready(function () {
         
 		
@@ -85,18 +89,27 @@
             success: function(res){
               console.log(res);
               categoria = res["categoria"];
+              categoria_mas_vendida = res["categoria_mas_vendida"]
 
               var dataChart = []
+              var dataChart2 = []
+              // se llena el rray para garficar 
               $.each(categoria,function(i, v) {
-              console.log("'"+v.nombre+"'" +  v.total  + ' \n' );
-              dataChart.push([v.nombre, v.total ]);
+                // console.log("'"+v.nombre+"'" +  v.total  + ' \n' );
+                dataChart.push([v.nombre, v.total ]);
               });
-              console.log(dataChart);
+
+              $.each(categoria_mas_vendida,function(i, c) {
+                dataChart2.push([c.nombre, c.total ]);
+              });
+              // console.log(dataChart);
               
-              google.charts.load('current', {'packages':['corechart']});
+              
              // Draw the pie chart for Sarah's pizza when Charts is loaded.
+              google.charts.setOnLoadCallback(drawCategoriaConMasAparicionChart);
               google.charts.setOnLoadCallback(drawCategoriaMasVendidaChart);
-              function drawCategoriaMasVendidaChart() {
+
+              function drawCategoriaConMasAparicionChart() {
 
               // Create the data table for Sarah's pizza.
                   var data = new google.visualization.DataTable();
@@ -104,10 +117,26 @@
                   data.addColumn('number', 'Slices');
                   data.addRows( dataChart );
                  
-
-
                   // Set options for Sarah's pie chart.
-                  var options = {title:'categoria con mas ventas',
+                  var options = {title:'cantidad de productos',
+                                width:500,
+                                height:350};
+
+                  // Instantiate and draw the chart for Sarah's pizza.
+                  var chart = new google.visualization.PieChart(document.getElementById('productos_con_mas_aparicion'));
+                  chart.draw(data, options);
+              }
+
+              function drawCategoriaMasVendidaChart() {
+
+              // Create the data table for Sarah's pizza.
+                  var data = new google.visualization.DataTable();
+                  data.addColumn('string', 'Topping');
+                  data.addColumn('number', 'Slices');
+                  data.addRows( dataChart2 );
+                
+                  // Set options for Sarah's pie chart.
+                  var options = {title:'producto con mas ventas',
                                 width:500,
                                 height:300};
 
@@ -119,7 +148,6 @@
 
 
 
-              categoria_mas_vendida = res["categoria_mas_vendida"]
             //   $(res).each(function(key,value){
             //   datos.append("<tr class='fila'><td>"+(key+1)+"</td><td>"+value.lote+" - "+value.producto+" - "+value.categoria+"</td><td>"+value.sucursal+"</td></tr>")
             //  });
