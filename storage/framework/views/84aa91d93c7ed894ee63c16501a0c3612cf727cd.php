@@ -50,6 +50,9 @@
   var categoria_mas_vendida;
   var i;
 
+  var dataChart = [];
+  var dataChart2 = [];
+
   // ***** llamadas a google chart *****
   google.charts.load('current', {'packages':['corechart']});
 
@@ -88,10 +91,9 @@
             success: function(res){
               console.log(res);
               categoria = res["categoria"];
-              categoria_mas_vendida = res["categoria_mas_vendida"]
+              categoria_mas_vendida = res["categoria_mas_vendida"];
 
-              var dataChart = []
-              var dataChart2 = []
+              
               // se llena el rray para garficar 
               $.each(categoria,function(i, v) {
                 // console.log("'"+v.nombre+"'" +  v.total  + ' \n' );
@@ -147,13 +149,13 @@
 
 
 
-            //   $(res).each(function(key,value){
-            //   datos.append("<tr class='fila'><td>"+(key+1)+"</td><td>"+value.lote+" - "+value.producto+" - "+value.categoria+"</td><td>"+value.sucursal+"</td></tr>")
-            //  });
+              
             }
+
           });
 
-
+          dataChart = [];
+          dataChart2 = [];
      }
 
 

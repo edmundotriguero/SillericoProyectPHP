@@ -92,7 +92,7 @@
 
 <h4>Detalles del producto</h4>
 
-<div class="col-lg-10 col-sm-10 col-md-10 col-xs-10">
+<?php /* <div class="col-lg-10 col-sm-10 col-md-10 col-xs-10">
 	<div class="col-lg-3 col-sm-6 col-md-6 col-xs-6">
 		<div class="form-group">
 			<label for="slote">Lote</label>
@@ -105,7 +105,7 @@
 
 		</div>
 	</div>
-</div>
+</div> */ ?>
 
 
 <div class="row">
