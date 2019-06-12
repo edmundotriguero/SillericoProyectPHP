@@ -97,11 +97,11 @@
               // se llena el rray para garficar 
               $.each(categoria,function(i, v) {
                 // console.log("'"+v.nombre+"'" +  v.total  + ' \n' );
-                dataChart.push([v.nombre, v.total ]);
+                dataChart.push([v.nombre, parseInt(v.total) ]);
               });
 
               $.each(categoria_mas_vendida,function(i, c) {
-                dataChart2.push([c.nombre, c.total ]);
+                dataChart2.push([c.nombre, parseInt(c.total) ]);
               });
               // console.log(dataChart);
               
