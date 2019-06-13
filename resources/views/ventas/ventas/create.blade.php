@@ -197,12 +197,20 @@
 		sVenta = $("#sVenta").val();
 		checkAdelanto = $("#checkAdelanto").is(":checked");
 		checkSaldo = $("#checkSaldo").is(":checked");
-		console.log(checkAdelanto);
+		// console.log(checkAdelanto);
 		
 		idtela = $("#sidtela").val();
 		tela = $("#sidtela option:selected").text();
 		saldo = 0;
-		//idproducto != "" && precio != "" && idtipoDoc !=""
+
+		console.log(checkAdelanto);
+
+		if (checkAdelanto) {
+			if (sVenta <= precio) {
+				alert('El adelanto no puede ser mayor que el precio de venta');
+				
+			}
+		}
 		
 		bandera = 0;
 

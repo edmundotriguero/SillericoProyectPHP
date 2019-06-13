@@ -296,6 +296,13 @@
 		
 		bandera = 0;
 
+		if (checkAdelanto) {
+			if (sVenta <= precio) {
+				alert('El adelanto no puede ser mayor que el precio de venta');
+				// no permitir que el usuario ingrese un valor positivo 
+			}
+		}
+
         if ( idproducto != "" && fechaVenta != "" && doc != "" && numDoc != "" && precio != ""   ) {
 			precio = parseFloat(precio);
             subtotal[cont]=(precio);
