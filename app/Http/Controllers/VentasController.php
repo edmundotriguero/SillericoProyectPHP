@@ -183,7 +183,7 @@ class VentasController extends Controller
         ->join('lote as l','p.lote','=','l.id')
         ->join('ventas as v','p.idproducto','=','v.idproducto')
         // ->where('p.idproducto','=',$venta->idproducto)
-        ->where('v.numDoc','=',$venta->numDoc)
+        ->where('v.id','=',$id)
 
         ->select('p.idproducto','p.codigo','co.nombre as color','ta.nombre as talla','t.nombre as tela','p.precio','c.nombre as categoria','s.nombre as sucursal')
         ->get();
@@ -198,6 +198,33 @@ class VentasController extends Controller
 
         
         return view("ventas.ventas.show",["productos"=>$productos,"venta"=>$venta, "saldos"=>$saldos]);
+    }
+
+    public function showBill($id) {
+        $venta=DB::table('ventas')
+        ->where('id','=',$id)
+        ->first();
+        
+
+        $productos=DB::table('productos as p')
+        ->join('categorias as c', 'p.idcategoria', '=', 'c.idcategoria')
+        ->join('telas as t','p.idtela','=','t.idtela')
+        ->join('sucursales as s','p.idsucursal','=','s.idsucursales')
+        ->join('color as co', 'p.idcolor','=','co.idcolor')
+        ->join('tallas as ta','p.idtalla','=','ta.idtalla')
+        ->join('lote as l','p.lote','=','l.id')
+        ->join('ventas as v','p.idproducto','=','v.idproducto')
+        // ->where('p.idproducto','=',$venta->idproducto)
+        ->where('v.numDoc','=',$venta->numDoc)
+
+        ->select('p.idproducto','p.codigo','co.nombre as color','ta.nombre as talla','t.nombre as tela','c.nombre as categoria','s.nombre as sucursal','v.costoVenta as venta','v.saldo','v.ingreso','v.id as idventa')
+        ->get();
+
+       
+
+
+        
+        return view("ventas.ventas.showBill",["productos"=>$productos,"venta"=>$venta]);
     }
 
     public function edit($id){

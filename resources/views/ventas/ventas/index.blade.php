@@ -47,6 +47,8 @@
 					<td>{{ $ven->saldo}}</td>
 					<td>{{ $ven->ingreso}}</td>
 					<td>
+						<a href="{{URL::action('VentasController@showBill',$ven->id)}}"><button class="btn fa fa-file-text-o" aria-hidden="true"></button></a>
+
 						<a href="{{URL::action('VentasController@show',$ven->id)}}"><button class="btn fa fa-eye" aria-hidden="true"></button></a>
 						<a href="{{URL::action('VentasController@edit',$ven->id)}}"><button class="btn fa fa-refresh" aria-hidden="true"></button></a>
 						<a href="" data-target="#modal-delete-{{$ven->id}}" data-toggle="modal"><button class="btn fa fa-trash" aria-hidden="true"></button></a>

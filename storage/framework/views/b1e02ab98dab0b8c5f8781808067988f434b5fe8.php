@@ -11,7 +11,7 @@
   <!-- Bootstrap select piker -->
   <link rel="stylesheet" href="<?php echo e(asset('dist/css/bootstrap-select.min.css')); ?>">
 
-  <!-- Font Awesome -->
+  <!-- Font Awesome  v  4.7-->
   <link rel="stylesheet" href="<?php echo e(asset('bower_components/font-awesome/css/font-awesome.min.css')); ?>"> 
   <!-- Ionicons -->
   <link rel="stylesheet" href="<?php echo e(asset('bower_components/Ionicons/css/ionicons.min.css')); ?>">
@@ -116,11 +116,12 @@ para iniciar el menu contraido // sidebar-collapse
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="<?php echo e(url('almacen/categoria')); ?>"><i class="fa fa-circle-o"></i> Categorias</a></li>
             <li><a href="<?php echo e(url('almacen/sucursal')); ?>"><i class="fa fa-circle-o"></i> Sucursales</a></li>
+            <li><a href="<?php echo e(url('almacen/categoria')); ?>"><i class="fa fa-circle-o"></i> Categorias</a></li>
+            <li><a href="<?php echo e(url('almacen/lote')); ?>"><i class="fa fa-circle-o"></i> Lotes</a></li>
+            <li><a href="<?php echo e(url('almacen/color')); ?>"><i class="fa fa-circle-o"></i> Colores</a></li>
             <li><a href="<?php echo e(url('almacen/tela')); ?>"><i class="fa fa-circle-o"></i> Telas</a></li>
             <li><a href="<?php echo e(url('almacen/talla')); ?>"><i class="fa fa-circle-o"></i> Tallas</a></li>
-            <li><a href="<?php echo e(url('almacen/color')); ?>"><i class="fa fa-circle-o"></i> Colores</a></li>
             <li><a href="<?php echo e(url('almacen/movimiento')); ?>"><i class="fa fa-circle-o text-yellow"></i>Movimientos</a></li>
             <li><a href="<?php echo e(url('almacen/producto')); ?>"><i class="fa fa-circle-o text-yellow"></i>Productos</a></li>
 
@@ -130,8 +131,22 @@ para iniciar el menu contraido // sidebar-collapse
         <li><a href="<?php echo e(url('almacen/producto')); ?>"><i class="fa fa-list text-yellow"></i> <span>Productos</span></a></li>
         <li><a href="<?php echo e(url('ventas/ventas')); ?>"><i class="fa fa-shopping-cart text-green"></i> <span>Ventas</span></a></li>
         <li><a href="<?php echo e(url('reportes/ventas')); ?>"><i class="fa fa fa-bar-chart text-blue"></i> <span>Reportes</span></a></li>
-        <li><a href="<?php echo e(url('reportes/estadisticas')); ?>"><i class="fa fa fa-bar-chart text-blue"></i> <span>Estadisticas</span></a></li>
-        <li><a href="<?php echo e(url('invitado')); ?>"><i class="fa fa-list text-yellow"></i> <span>Busqueda de Productos </span></a></li>
+        <li class="treeview">  
+          <a href="#">
+              <i class="fa fa-university"></i>
+              <span>Estadisticas</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="<?php echo e(url('reportes/estadisticas')); ?>"><i class="fa fa-circle-o"></i> Estadistica General</a></li>
+              <li><a href="<?php echo e(url('reportes/estadisticas/porSucursal')); ?>"><i class="fa fa-circle-o"></i>Estadistica sucursal</a></li>
+  
+            </ul>
+        
+        </li>
+        
         <?php else: ?>
 
         <li><a href="<?php echo e(url('invitado')); ?>"><i class="fa fa-list text-yellow"></i> <span>Productos</span></a></li>

@@ -40,6 +40,25 @@
 <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
 	<div class="form-group">
 		
+		<select name="idcol" id="idcol" class="form-control selectpicker"  data-live-search="true" >
+				<option value="">Color</option>
+			<?php foreach($color as $col): ?>
+			<?php if($col->idcolor == $idcol): ?>
+				<option value="<?php echo e($col->idcolor); ?>" selected><?php echo e($col->nombre); ?></option>
+				
+			<?php else: ?>
+				<option value="<?php echo e($col->idcolor); ?>"><?php echo e($col->nombre); ?></option>
+				
+			<?php endif; ?>
+			
+			<?php endforeach; ?>
+		</select>
+
+	</div>
+</div>
+<div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+	<div class="form-group">
+		
 		<select name="idtal" id="idtal" class="form-control selectpicker"  data-live-search="true" >
 				<option value="">Talla</option>
 			<?php foreach($tallas as $tal): ?>
@@ -75,25 +94,7 @@
 
 	</div>
 </div>
-<div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-	<div class="form-group">
-		
-		<select name="idcol" id="idcol" class="form-control selectpicker"  data-live-search="true" >
-				<option value="">Color</option>
-			<?php foreach($color as $col): ?>
-			<?php if($col->idcolor == $idcol): ?>
-				<option value="<?php echo e($col->idcolor); ?>" selected><?php echo e($col->nombre); ?></option>
-				
-			<?php else: ?>
-				<option value="<?php echo e($col->idcolor); ?>"><?php echo e($col->nombre); ?></option>
-				
-			<?php endif; ?>
-			
-			<?php endforeach; ?>
-		</select>
 
-	</div>
-</div>
 <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
 		<div class="form-group">
 			<input type="text" class="form-control " name="searchText" placeholder="Buscar codigo" value="<?php echo e($searchText); ?>"></input>

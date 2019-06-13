@@ -57,7 +57,7 @@ class VentaSRController extends Controller
           try {
             DB::beginTransaction();
             // variablre para definir el numero de lote cambiar de acuerdo a la base de datos
-            $lote = 36;
+            $lote = 40;
             // fin
 
             $bandera = $request->get('bandera');

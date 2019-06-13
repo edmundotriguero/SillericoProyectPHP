@@ -50,6 +50,8 @@ Route::resource('ventas/ventaSinRegistro','VentaSRController');
 Route::get('ventas/crearSaldo/{idventa}','VentasController@crearSaldo');
 Route::post('ventas/storeSaldos','VentasController@storeSaldos');
 
+Route::get('ventas/verRecibo/{idventa}','VentasController@showBill');
+
 // vistas para reportes y estadisticas
 
 Route::get('reportes/estadisticas','ReportesController@indexE');
