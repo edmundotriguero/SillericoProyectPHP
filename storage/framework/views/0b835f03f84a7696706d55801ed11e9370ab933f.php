@@ -39,7 +39,7 @@
 						<th>Codigo</th>
 						<th>Talla</th>
 						<th>Tela</th>
-						<th>Precio</th>
+						<th>Precio</th> 
 						<th>Color</th>
 						
 						<th>Desc</th>
@@ -57,26 +57,20 @@
 
 						<td><?php echo e($prod->precio); ?></td>
 						<td><?php echo e($prod->color); ?></td>
-						<?php 
-							$aux = 0;
-						 ?>
-						<?php foreach($desc as $d): ?>
-							<?php if($d->lote == $prod->lote ): ?>
-								<td><span class="label label-success"><?php echo e($d->porcentaje."%"); ?></span> <?php echo e($prod->precio-($prod->precio*($d->porcentaje/100))); ?></td>
-								<?php 
-								$aux = 1;
-								 ?>
-							<?php else: ?>	
-							<?php endif; ?>
-						<?php endforeach; ?>
-						<?php if($aux == 0): ?>
-							<td>no</td>
+						<?php if($prod->desc == 0): ?>
+							<td><span class="label label-info">s/d </span></td>
+						<?php else: ?>
+							
+							<td><span class="label label-success"><?php echo e($prod->desc."% "); ?></span> <?php echo e($prod->precio-($prod->precio*($prod->desc/100))); ?></td>
 						<?php endif; ?>
+						
 						<td>
-							<a href="<?php echo e(URL::action('ProductoController@desc',$prod->idproducto)); ?>"><button class="btn fa fa-scissors" aria-hidden="true"></button></a>
+								
+							<?php /* <a href="<?php echo e(URL::action('ProductoController@desc',$prod->idproducto)); ?>"><button class="btn fa fa-scissors" aria-hidden="true"></button></a> */ ?>
 							<a href="<?php echo e(URL::action('ProductoController@show',$prod->idproducto)); ?>"><button class="btn fa fa-eye" aria-hidden="true"></button></a>
 							<a href="<?php echo e(URL::action('ProductoController@edit',$prod->idproducto)); ?>"><button class="btn fa fa-refresh" aria-hidden="true"></button></a>
 							<a href="" data-target="#modal-delete-<?php echo e($prod->idproducto); ?>" data-toggle="modal" ><button class="btn fa fa-trash" aria-hidden="true"></button></a>
+							
 						</td>
 					</tr>
 				<?php echo $__env->make('almacen.producto.modal', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>  

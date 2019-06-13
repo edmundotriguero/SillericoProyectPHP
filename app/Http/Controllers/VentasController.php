@@ -270,9 +270,19 @@ class VentasController extends Controller
 
     public function destroy($id){
        // $var = base64_decode($id);
+       $product_id = 0;
+
         $ventas = Ventas::findOrFail($id);
         $ventas->estado='0';
+
+        $product_id = $ventas->idproducto;
+
         $ventas->update();
+
+        $producto = Producto::findOrFail($product_id);
+        $producto->estado='1';
+        
+        $producto->update();
 
         //  colocar el estado de los productos nuevamente en 1 
 

@@ -17,22 +17,16 @@
 		$aux = 'sin descuento';
 		$aux2 = $producto->precio;
 	 ?>
-	<?php foreach($desc as $d): ?>
-		<?php if($d->lote == $producto->lote ): ?>
+	
+		<?php if($producto->desc >= 0): ?>
 			<?php /* <td><span class="label label-success"><?php echo e($d->porcentaje."%"); ?></span> <?php echo e($producto->precio-($producto->precio*($d->porcentaje/100))); ?></td> */ ?>
 			<?php 
-				$aux2 = $producto->precio-($producto->precio*($d->porcentaje/100));
-				$aux = $d->porcentaje."%";
+				$aux2 = $producto->precio-($producto->precio*($producto->desc/100));
+				$aux = $producto->desc."%";
 			 ?>
 			
 		<?php endif; ?>
-	<?php endforeach; ?>
-	<?php /* <?php foreach($desc as $d): ?>
-			<?php if($d->lote == $producto->lote ): ?>
-				<?php echo e($d->porcentaje."%".$prod->precio-($prod->precio*($d->porcentaje/100))); ?><
-					
-			<?php endif; ?>
-	<?php endforeach; ?> */ ?>
+	
 	<div class="alert alert-info" role="alert"><h4>DESCUENTO:  <span class="label label-warning" ><?php echo e($aux); ?></span> Precio con descuento: <span class="label label-success"> <?php echo e($aux2); ?></span></h4></div>
 	<div class="row">
 			<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
@@ -47,9 +41,13 @@
 				 <div class="form-group">
 					 <label for="idproducto">LOTE: </label>
 					 <input type="text"    class="form-control" value="<?php echo e($producto->lote); ?>" readonly >
-				 </div>
-			 </div>	
-		 </div>
+				</div>
+			</div>
+			<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">	
+					
+					<a  href="<?php echo e(URL::action('LoteController@edit',$producto->lote_id)); ?>"><button class="btn fa fa-scissors" aria-hidden="true"></button> Editar Descuento</a>
+		   </div>
+	</div>
 			
 		<div class="row">
 			<div class="col-lg-4 col-sm-4 col-md-4 col-xs-10">
