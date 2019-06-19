@@ -45,7 +45,7 @@ class ReportesController extends Controller
                 ->where('p.idsucursal','LIKE','%'.$idsuc.'%')
                 ->select('v.id','v.fechaVenta','v.tipoDoc','v.numDoc','v.cliente','c.nombre as categoria','v.costoVenta','v.saldo','v.ingreso','s.nombre as sucursal','p.codigo')
                 ->orderBy('v.fechaVenta','asc')
-                ->paginate(50);
+                ->paginate(200);
     
                 return view('reportes.ventas.index',["ventas"=>$ventas, "sucursales"=>$sucursales, "categorias"=>$categorias,"fechaInicio"=>$fechaInicio,"fechaFinal"=>$fechaFinal]);
             }

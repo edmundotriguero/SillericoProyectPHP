@@ -10,7 +10,7 @@
 						<li>{{$error}}</li>
 					@endforeach
 				</ul>
-			</div>
+			</div> 
 			@endif
 		</div>
 		@include('almacen.producto.search')

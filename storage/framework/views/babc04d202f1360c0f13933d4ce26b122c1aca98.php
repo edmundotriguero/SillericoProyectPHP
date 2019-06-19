@@ -46,6 +46,8 @@
 					<td><?php echo e($ven->saldo); ?></td>
 					<td><?php echo e($ven->ingreso); ?></td>
 					<td>
+						<a href="<?php echo e(URL::action('VentasController@showBill',$ven->id)); ?>"><button class="btn fa fa-file-text-o" aria-hidden="true"></button></a>
+
 						<a href="<?php echo e(URL::action('VentasController@show',$ven->id)); ?>"><button class="btn fa fa-eye" aria-hidden="true"></button></a>
 						<a href="<?php echo e(URL::action('VentasController@edit',$ven->id)); ?>"><button class="btn fa fa-refresh" aria-hidden="true"></button></a>
 						<a href="" data-target="#modal-delete-<?php echo e($ven->id); ?>" data-toggle="modal"><button class="btn fa fa-trash" aria-hidden="true"></button></a>

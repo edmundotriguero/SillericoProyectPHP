@@ -175,7 +175,9 @@
 		</div>
 	</div>
 </div>
-{!!Form::close()!!} @push ('scripts')
+{!!Form::close()!!}
+
+@push ('scripts')
 <script>
 	$(document).ready(function () {
         $('#bt_add').click(function () {
